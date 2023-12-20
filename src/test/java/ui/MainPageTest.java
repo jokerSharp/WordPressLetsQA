@@ -10,4 +10,14 @@ public class MainPageTest extends BaseTest {
     public void testLogin() {
         Assert.assertTrue(new DashboardPage(getDriver()).getTitle().contains("LetsQA"));
     }
+
+    @Test
+    public void testLogOut() {
+        String actualLoginMessageText = new DashboardPage(getDriver())
+                .hoverOnUserProfileButton()
+                .clickLogOutButton()
+                .getLoginMessageText();
+
+        Assert.assertEquals(actualLoginMessageText, "You are now logged out.");
+    }
 }
