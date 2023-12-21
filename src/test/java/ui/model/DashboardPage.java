@@ -14,6 +14,12 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[text()='Log Out']")
     private WebElement logOutButton;
 
+    @FindBy(id = "contextual-help-link")
+    private WebElement helpButton;
+
+    @FindBy(id = "tab-link-overview")
+    private WebElement tabOverview;
+
     public String getTitle() {
         return getDriver().getTitle();
     }
@@ -32,6 +38,16 @@ public class DashboardPage extends BasePage {
     public LoginPage clickLogOutButton() {
         logOutButton.click();
         return new LoginPage(getDriver());
+    }
+
+    public DashboardPage helpButtonClick(){
+        helpButton.click();
+        return new DashboardPage(getDriver());
+
+    }
+
+    public boolean tabOverviewIsDisplayed(){
+        return tabOverview.isDisplayed();
     }
 
 }
