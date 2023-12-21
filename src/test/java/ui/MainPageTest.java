@@ -20,4 +20,15 @@ public class MainPageTest extends BaseTest {
 
         Assert.assertEquals(actualLoginMessageText, "You are now logged out.");
     }
+
+    @Test
+    public void testHelpPanelIsOpened(){
+       boolean actualResult = new DashboardPage(getDriver())
+                .helpButtonClick()
+               .tabOverviewIsDisplayed();
+
+        Assert.assertTrue(actualResult);
+
+    }
+
 }
