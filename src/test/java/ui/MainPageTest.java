@@ -8,6 +8,7 @@ import ui.runner.BaseTest;
 public class MainPageTest extends BaseTest {
     @Test
     public void testLogin() {
+        System.out.println(new DashboardPage(getDriver()).getTitle());
         Assert.assertTrue(new DashboardPage(getDriver()).getTitle().contains("LetsQA"));
     }
 
