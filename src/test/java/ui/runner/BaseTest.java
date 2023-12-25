@@ -18,8 +18,6 @@ public abstract class BaseTest {
         return driver;
     }
 
-
-
     @BeforeMethod
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
