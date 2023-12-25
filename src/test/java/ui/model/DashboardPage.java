@@ -8,12 +8,6 @@ import ui.model.base.BasePage;
 
 public class DashboardPage extends BasePage {
 
-    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/profile.php']")
-    private WebElement userProfileButton;
-
-    @FindBy(xpath = "//a[text()='Log Out']")
-    private WebElement logOutButton;
-
     @FindBy(id = "contextual-help-link")
     private WebElement helpButton;
 
@@ -27,23 +21,9 @@ public class DashboardPage extends BasePage {
         super(driver);
     }
 
-    public DashboardPage hoverOnUserProfileButton() {
-        new Actions(getDriver())
-                .moveToElement(userProfileButton)
-                .perform();
-
-        return new DashboardPage(getDriver());
-    }
-
-    public LoginPage clickLogOutButton() {
-        logOutButton.click();
-        return new LoginPage(getDriver());
-    }
-
     public DashboardPage helpButtonClick(){
         helpButton.click();
         return new DashboardPage(getDriver());
-
     }
 
     public boolean tabOverviewIsDisplayed(){
