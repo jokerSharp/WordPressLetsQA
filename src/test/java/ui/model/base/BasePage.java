@@ -66,11 +66,6 @@ public abstract class BasePage {
             menuItemsList.add(item.getText());
         }
 
-//        for (WebElement item : items) {
-//            menuItemsList.add(item.getText());
-//        }
-        System.out.println(menuItemsList);
         return menuItemsList;
     }
-
 }

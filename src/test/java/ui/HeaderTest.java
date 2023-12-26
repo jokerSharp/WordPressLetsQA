@@ -22,7 +22,7 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
-    public void testWpLogoMenuItems() {
+    public void testWpLogoMenuItems2() {
         final List<String> expectedLogoMenuItems = List.of(
                 "About WordPress",
                 "Get Involved",
@@ -35,11 +35,6 @@ public class HeaderTest extends BaseTest {
         List<String> actualLogoMenuItems = new DashboardPage(getDriver())
                 .hoverOnWpLogo()
                 .getWpLogoMenuItemsList2();
-
-        for (String item : actualLogoMenuItems) {
-            System.out.println("********************");
-            System.out.println(item);
-        }
 
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
     }
