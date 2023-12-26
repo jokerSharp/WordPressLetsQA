@@ -4,11 +4,10 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
-import ui.runner.BaseTest;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import ui.runner.BaseTest;
 
 public class HeaderTest extends BaseTest {
 
@@ -35,7 +34,7 @@ public class HeaderTest extends BaseTest {
 
         List<String> actualLogoMenuItems = new DashboardPage(getDriver())
                 .hoverOnWpLogo()
-                .getWpLogoMenuItemsList();
+                .getWpLogoMenuItemsList2();
 
         for (String item : actualLogoMenuItems) {
             System.out.println("********************");
