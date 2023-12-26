@@ -12,14 +12,14 @@ import java.net.URL;
 
 public abstract class BaseTest {
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
-    public static WebDriver getDriver() {
+    protected WebDriver getDriver() {
         return driver;
     }
 
     @BeforeMethod
-    public static void setUp() {
+    protected void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("http://localhost:8000/wp-admin/");
@@ -27,7 +27,7 @@ public abstract class BaseTest {
     }
 
     @AfterMethod
-    public static void teatDown() {
+    protected void teatDown() {
         driver.quit();
     }
 }

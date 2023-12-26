@@ -57,4 +57,13 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
     }
+
+    @Test
+    public void testWpLogoColorWhenHover() {
+        String actualColor = new DashboardPage(getDriver())
+                .hoverOnWpLogo()
+                .getWpLogoIconColor();
+
+        Assert.assertEquals(actualColor, "rgba(114, 174, 230, 1)");
+    }
 }

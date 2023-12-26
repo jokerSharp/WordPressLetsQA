@@ -19,11 +19,14 @@ public abstract class BasePage {
     @FindBy(xpath = "//a[text()='Log Out']")
     private WebElement logOutButton;
 
+    @FindBy(xpath = "//div[@id = 'wpadminbar']")
+    private WebElement header;
+
     @FindBy(id = "wp-admin-bar-wp-logo")
     private WebElement wpLogo;
 
-    @FindBy(id = "wp-admin-bar-wp-logo-default")
-    private List<WebElement> items;
+    @FindBy(xpath = "//li[@id= 'wp-admin-bar-wp-logo']/a/span")
+    private WebElement wpLogoIcon;
 
     @FindBy(xpath = "//li[@id='wp-admin-bar-wp-logo']/div")
     private WebElement wpLogoMenuItemsList;
@@ -32,6 +35,7 @@ public abstract class BasePage {
     private List<WebElement> wpLogoMenuItemsList2;
 
     private final WebDriver driver;
+
     protected WebDriver getDriver() {
         return driver;
     }
@@ -76,5 +80,9 @@ public abstract class BasePage {
             menuItemsList.add(item.getText());
         }
         return menuItemsList;
+    }
+
+    public String getWpLogoIconColor() {
+        return wpLogoIcon.getCssValue("color");
     }
 }
