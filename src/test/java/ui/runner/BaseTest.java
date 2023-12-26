@@ -15,9 +15,7 @@ public abstract class BaseTest {
     private WebDriverWait wait2;
     private WebDriverWait wait5;
     private WebDriverWait wait10;
-    private WebDriver driver;
 
-    protected WebDriver getDriver() {
     public WebDriver getDriver() {
         return driver;
     }
