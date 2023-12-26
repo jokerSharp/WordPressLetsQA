@@ -22,4 +22,13 @@ public class MainPageTest extends BaseTest {
 
     }
 
+    @Test
+    public void testScreenOptionsPanelIsOpened(){
+       String actualTitle =  new DashboardPage(getDriver())
+                .screenOptionsButtonClick()
+                .getScreenOptionsTitle();
+
+        Assert.assertEquals(actualTitle, "Screen elements");
+    }
+
 }

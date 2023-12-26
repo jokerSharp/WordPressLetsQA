@@ -34,6 +34,9 @@ public abstract class BasePage {
     @FindBy(xpath = "//li[@id='wp-admin-bar-wp-logo']/div/ul/li")
     private List<WebElement> wpLogoMenuItemsList2;
 
+    @FindBy(xpath = "//a[@href='https://wordpress.org/support/forum/requests-and-feedback']")
+    private WebElement feedbackLogoMenuItem;
+
     private final WebDriver driver;
 
     protected WebDriver getDriver() {
@@ -66,6 +69,14 @@ public abstract class BasePage {
         return new DashboardPage(getDriver());
     }
 
+    public DashboardPage hoverOnFeedbackLogoMenuItem() {
+        new Actions(getDriver())
+                .moveToElement(feedbackLogoMenuItem)
+                .perform();
+
+        return new DashboardPage(getDriver());
+    }
+
     public List<String> getWpLogoMenuItemsList() {
         String res = wpLogoMenuItemsList.getText();
         List<String> resl = List.of(res.split("\\n"));
@@ -80,6 +91,10 @@ public abstract class BasePage {
             menuItemsList.add(item.getText());
         }
         return menuItemsList;
+    }
+
+    public String getColorOfFeedbackLogoMenuItem() {
+        return feedbackLogoMenuItem.getCssValue("color");
     }
 
     public String getWpLogoIconColor() {

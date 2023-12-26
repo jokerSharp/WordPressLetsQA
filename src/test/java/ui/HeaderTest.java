@@ -59,6 +59,18 @@ public class HeaderTest extends BaseTest {
     }
 
     @Test
+    public void testWpLogoMenuItemsChangingColorsAfterHovering() {
+        String expectedColor = "rgba(114, 174, 230, 1)";
+
+        String actualString = new DashboardPage(getDriver())
+                .hoverOnWpLogo()
+                .hoverOnFeedbackLogoMenuItem()
+                .getColorOfFeedbackLogoMenuItem();
+
+        Assert.assertEquals(actualString, expectedColor);
+    }
+
+    @Test
     public void testWpLogoColorWhenHover() {
         String actualColor = new DashboardPage(getDriver())
                 .hoverOnWpLogo()
