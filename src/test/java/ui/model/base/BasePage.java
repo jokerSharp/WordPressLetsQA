@@ -28,6 +28,9 @@ public abstract class BasePage {
     @FindBy(xpath = "//li[@id='wp-admin-bar-wp-logo']/div")
     private WebElement wpLogoMenuItemsList;
 
+    @FindBy(xpath = "//li[@id='wp-admin-bar-wp-logo']/div/ul/li")
+    private List<WebElement> wpLogoMenuItemsList2;
+
     private final WebDriver driver;
     protected WebDriver getDriver() {
         return driver;
@@ -64,5 +67,14 @@ public abstract class BasePage {
         List<String> resl = List.of(res.split("\\n"));
 
         return resl;
+    }
+
+    public List<String> getWpLogoMenuItemsList2() {
+        List<String> menuItemsList = new ArrayList<>();
+
+        for (WebElement item : wpLogoMenuItemsList2) {
+            menuItemsList.add(item.getText());
+        }
+        return menuItemsList;
     }
 }

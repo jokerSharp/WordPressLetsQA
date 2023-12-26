@@ -39,4 +39,22 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
     }
+
+    @Test
+    public void testWpLogoMenuItems2() {
+        final List<String> expectedLogoMenuItems = List.of(
+                "About WordPress",
+                "Get Involved",
+                "WordPress.org",
+                "Documentation",
+                "Learn WordPress",
+                "Support",
+                "Feedback");
+
+        List<String> actualLogoMenuItems = new DashboardPage(getDriver())
+                .hoverOnWpLogo()
+                .getWpLogoMenuItemsList2();
+
+        Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
+    }
 }
