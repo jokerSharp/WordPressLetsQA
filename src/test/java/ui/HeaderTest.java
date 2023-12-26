@@ -37,11 +37,6 @@ public class HeaderTest extends BaseTest {
                 .hoverOnWpLogo()
                 .getWpLogoMenuItemsList();
 
-        for (String item : actualLogoMenuItems) {
-            System.out.println("********************");
-            System.out.println(item);
-        }
-
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
     }
 }
