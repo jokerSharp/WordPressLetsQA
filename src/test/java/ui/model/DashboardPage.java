@@ -2,7 +2,6 @@ package ui.model;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ui.model.base.BasePage;
 
@@ -20,9 +19,16 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".metabox-prefs legend")
     private WebElement screenOptionsTitle;
 
+    @FindBy(xpath = "//div[contains(text(), 'Dashboard')]")
+    private WebElement dashboardSideMenuButtonText;
+
+    @FindBy(xpath = "//div[contains(text(), 'Dashboard')]//parent::a")
+    private WebElement getDashboardSideMenuButtonFull;
+
     public String getTitle() {
         return getDriver().getTitle();
     }
+
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +49,15 @@ public class DashboardPage extends BasePage {
 
     public String getScreenOptionsTitle(){
        return screenOptionsTitle.getText();
+    }
+
+    public DashboardPage clickDashboardSideMenuButton() {
+        dashboardSideMenuButtonText.click();
+        return new DashboardPage(getDriver());
+    }
+
+    public String getDashboardSideMenyButtonColor() {
+        return getDashboardSideMenuButtonFull.getCssValue("background");
     }
 
 }
