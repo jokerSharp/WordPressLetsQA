@@ -14,6 +14,12 @@ public class DashboardPage extends BasePage {
     @FindBy(id = "tab-link-overview")
     private WebElement tabOverview;
 
+    @FindBy(id = "show-settings-link")
+    private WebElement screenOptionsButton;
+
+    @FindBy(css = ".metabox-prefs legend")
+    private WebElement screenOptionsTitle;
+
     public String getTitle() {
         return getDriver().getTitle();
     }
@@ -28,6 +34,15 @@ public class DashboardPage extends BasePage {
 
     public boolean tabOverviewIsDisplayed(){
         return tabOverview.isDisplayed();
+    }
+
+    public DashboardPage screenOptionsButtonClick(){
+        screenOptionsButton.click();
+        return  new DashboardPage(getDriver());
+    }
+
+    public String getScreenOptionsTitle(){
+       return screenOptionsTitle.getText();
     }
 
 }
