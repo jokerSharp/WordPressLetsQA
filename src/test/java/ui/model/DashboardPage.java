@@ -25,12 +25,12 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(), 'Dashboard')]//parent::a")
     private WebElement getDashboardSideMenuButtonFull;
 
-    public String getTitle() {
-        return getDriver().getTitle();
-    }
-
     public DashboardPage(WebDriver driver) {
         super(driver);
+    }
+
+    public String getTitle() {
+        return getDriver().getTitle();
     }
 
     public DashboardPage helpButtonClick(){
