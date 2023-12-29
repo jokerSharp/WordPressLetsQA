@@ -25,6 +25,16 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(), 'Dashboard')]//parent::a")
     private WebElement getDashboardSideMenuButtonFull;
 
+    @FindBy(xpath = "//label[@for='wp_welcome_panel-hide']")
+    private WebElement checkboxWelcomePanelHide;
+
+    @FindBy(css = "div[class='welcome-panel-header'] h2")
+    private WebElement welcomePanelTitle;
+
+    public String getTitle() {
+        return getDriver().getTitle();
+    }
+
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
@@ -58,6 +68,16 @@ public class DashboardPage extends BasePage {
 
     public String getDashboardSideMenyButtonColor() {
         return getDashboardSideMenuButtonFull.getCssValue("background");
+    }
+
+    public DashboardPage clickCheckboxWelcomePanelHide(){
+        checkboxWelcomePanelHide.click();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public boolean verifyWelcomePanelIsOpened(){
+       return welcomePanelTitle.isDisplayed();
     }
 
 }
