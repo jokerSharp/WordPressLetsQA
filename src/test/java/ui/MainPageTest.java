@@ -31,4 +31,15 @@ public class MainPageTest extends BaseTest {
         Assert.assertEquals(actualTitle, "Screen elements");
     }
 
+    @Test
+    public void testWelcomePanelHidingViaScreenOptions(){
+        DashboardPage dashboard = new DashboardPage(getDriver());
+        if (!dashboard.verifyWelcomePanelIsOpened()){
+            dashboard.screenOptionsButtonClick().clickCheckboxWelcomePanelHide();
+        }
+        dashboard.screenOptionsButtonClick()
+                .clickCheckboxWelcomePanelHide();
+        Assert.assertFalse(dashboard.verifyWelcomePanelIsOpened());
+    }
+
 }

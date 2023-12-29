@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public abstract class BaseTest {
 
@@ -25,6 +26,8 @@ public abstract class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("http://localhost:8000/wp-admin/");
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WordPressUtils.login(driver);
     }
 
