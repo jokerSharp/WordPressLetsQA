@@ -31,10 +31,6 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "div[class='welcome-panel-header'] h2")
     private WebElement welcomePanelTitle;
 
-    public String getTitle() {
-        return getDriver().getTitle();
-    }
-
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
