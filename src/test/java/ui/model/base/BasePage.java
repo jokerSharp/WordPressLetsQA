@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ui.model.DashboardPage;
 import ui.model.LoginPage;
+import ui.model.NewPostPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,12 @@ public abstract class BasePage {
 
     @FindBy(xpath = "//a[@href='https://wordpress.org/support/forum/requests-and-feedback']")
     private WebElement feedbackLogoMenuItem;
+
+    @FindBy(id = "wp-admin-bar-new-content")
+    private WebElement newContentButton;
+
+    @FindBy(id = "wp-admin-bar-new-post")
+    private WebElement newPostButton;
 
     private final WebDriver driver;
 
@@ -99,5 +106,17 @@ public abstract class BasePage {
 
     public String getWpLogoIconColor() {
         return wpLogoIcon.getCssValue("color");
+    }
+
+    public DashboardPage hoverOnNewContentButton() {
+        new Actions(getDriver())
+                .moveToElement(newContentButton)
+                .perform();
+
+        return new DashboardPage(getDriver());
+    }
+    public NewPostPage clickNewPostButton() {
+        newPostButton.click();
+        return new NewPostPage(getDriver());
     }
 }
