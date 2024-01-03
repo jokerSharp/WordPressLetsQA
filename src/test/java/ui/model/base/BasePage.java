@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import ui.model.DashboardPage;
 import ui.model.LoginPage;
 import ui.model.NewPostPage;
+import ui.model.NewUserPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,12 @@ public abstract class BasePage {
 
     @FindBy(id = "wp-admin-bar-new-post")
     private WebElement newPostButton;
+
+    @FindBy(xpath = "//span[@class='ab-label']")
+    private WebElement newButton;
+
+    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/user-new.php']")
+    private WebElement newUserButton;
 
     private final WebDriver driver;
 
@@ -118,5 +125,19 @@ public abstract class BasePage {
     public NewPostPage clickNewPostButton() {
         newPostButton.click();
         return new NewPostPage(getDriver());
+    }
+
+    public DashboardPage hoverOnNewButton() {
+        new Actions(getDriver())
+                .moveToElement(newButton)
+                .perform();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public NewUserPage clickNewUserButton() {
+        newUserButton.click();
+
+        return new NewUserPage(getDriver());
     }
 }
