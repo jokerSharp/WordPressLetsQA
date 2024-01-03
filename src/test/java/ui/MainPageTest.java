@@ -6,6 +6,7 @@ import ui.model.DashboardPage;
 import ui.runner.BaseTest;
 
 public class MainPageTest extends BaseTest {
+
     @Test
     public void testLogin() {
         System.out.println(new DashboardPage(getDriver()).getTitle());
