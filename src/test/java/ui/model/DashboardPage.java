@@ -76,7 +76,4 @@ public class DashboardPage extends BasePage {
     public boolean verifyWelcomePanelIsOpened(){
        return welcomePanelTitle.isDisplayed();
     }
-
-
-
 }
