@@ -39,8 +39,52 @@ public class MainPageTest extends BaseTest {
             dashboard.screenOptionsButtonClick().clickCheckboxWelcomePanelHide();
         }
         dashboard.screenOptionsButtonClick()
-                .clickCheckboxWelcomePanelHide();
+                        .clickCheckboxWelcomePanelHide();
         Assert.assertFalse(dashboard.verifyWelcomePanelIsOpened());
+    }
+
+    @Test
+    public void testSiteHealthStatusPanelHidingViaScreenOptions(){
+        DashboardPage dashboard = new DashboardPage(getDriver());
+        if (!dashboard.checkSiteHealthStatusPanelIsVisible()){
+            dashboard.screenOptionsButtonClick().clickCheckboxSiteHealthStatus();
+        }
+        dashboard.screenOptionsButtonClick()
+                .clickCheckboxSiteHealthStatus();
+        Assert.assertFalse(dashboard.checkSiteHealthStatusPanelIsVisible());
+    }
+
+    @Test
+    public void testAtAGlancePanelPanelHidingViaScreenOptions(){
+        DashboardPage dashboard = new DashboardPage(getDriver());
+        if (!dashboard.checkAtAGlancePanelPanelIsVisible()){
+            dashboard.screenOptionsButtonClick().clickCheckboxAtAGlance();
+        }
+        dashboard.screenOptionsButtonClick()
+                .clickCheckboxAtAGlance();
+        Assert.assertFalse(dashboard.checkAtAGlancePanelPanelIsVisible());
+    }
+
+    @Test
+    public void testActivityPanelHidingViaScreenOptions(){
+        DashboardPage dashboard = new DashboardPage(getDriver());
+        if (!dashboard.checkActivityPanelIsVisible()){
+            dashboard.screenOptionsButtonClick().clickCheckboxActivity();
+        }
+        dashboard.screenOptionsButtonClick()
+                .clickCheckboxActivity();
+        Assert.assertFalse(dashboard.checkActivityPanelIsVisible());
+    }
+
+    @Test
+    public void testQuickDraftPanelHidingViaScreenOptions(){
+        DashboardPage dashboard = new DashboardPage(getDriver());
+        if (!dashboard.checkQuickDraftPanelIsVisible()){
+            dashboard.screenOptionsButtonClick().clickCheckboxQuickDraft();
+        }
+        dashboard.screenOptionsButtonClick()
+                .clickCheckboxQuickDraft();
+        Assert.assertFalse(dashboard.checkQuickDraftPanelIsVisible());
     }
 
 }
