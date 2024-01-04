@@ -14,7 +14,7 @@ public class UserTest extends BaseTest {
     private static final String WEBSITE = "google.com";
 
     @Test
-    public void testNewUserCreation () {
+    public void testNewUserCreation() {
 
         String actualUsername = new DashboardPage(getDriver())
                 .hoverOnNewButton()
@@ -28,5 +28,22 @@ public class UserTest extends BaseTest {
                 .getUsernameValue();
 
         Assert.assertEquals(actualUsername, USERNAME);
+    }
+
+    @Test(dependsOnMethods = "testNewUserCreation")
+    public void testDeleteCreatedUser() {
+
+        int initialSizeOfUserList = new DashboardPage(getDriver())
+                .goToUserPage()
+                .getUsersAmount();
+
+        int actualSizeofUserListAfterDeletion = new DashboardPage(getDriver())
+                .goToUserPage()
+                .hoverOnCreatedUser()
+                .clickDeleteUserButton()
+                .clickConfirmDeletionButton()
+                .getUsersAmount();
+
+        Assert.assertEquals(actualSizeofUserListAfterDeletion, initialSizeOfUserList-1);
     }
 }

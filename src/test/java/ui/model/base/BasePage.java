@@ -5,10 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ui.model.DashboardPage;
-import ui.model.LoginPage;
-import ui.model.NewPostPage;
-import ui.model.NewUserPage;
+import ui.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +47,9 @@ public abstract class BasePage {
 
     @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/user-new.php']")
     private WebElement newUserButton;
+
+    @FindBy(id = "menu-users")
+    private WebElement sideMenuUsersButton;
 
     private final WebDriver driver;
 
@@ -139,5 +139,11 @@ public abstract class BasePage {
         newUserButton.click();
 
         return new NewUserPage(getDriver());
+    }
+
+    public UserPage goToUserPage() {
+        sideMenuUsersButton.click();
+
+        return new UserPage(getDriver());
     }
 }
