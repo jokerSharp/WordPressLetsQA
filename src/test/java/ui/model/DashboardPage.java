@@ -32,6 +32,30 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "div[class='welcome-panel-header'] h2")
     private WebElement welcomePanelTitle;
 
+    @FindBy(xpath = "//label[@for='dashboard_site_health-hide']")
+    private WebElement checkboxSiteHealthStatus;
+
+    @FindBy(xpath = "//h2[normalize-space()='Site Health Status']")
+   private  WebElement siteHealthStatusPanel;
+
+    @FindBy(xpath = "//label[@for='dashboard_right_now-hide']")
+    private WebElement checkboxAtAGlance;
+
+    @FindBy(xpath = "//h2[normalize-space()='At a Glance']")
+    private  WebElement AtAGlancePanel;
+
+    @FindBy(xpath = "//label[@for='dashboard_activity-hide']")
+    private WebElement checkboxActivity;
+
+    @FindBy(xpath = "//h2[normalize-space()='Activity']")
+    private  WebElement ActivityPanel;
+
+    @FindBy(xpath = "//label[@for='dashboard_quick_press-hide']")
+    private WebElement checkboxQuickDraft;
+
+    @FindBy(xpath = "//h2/span[normalize-space()='Quick Draft']")
+    private  WebElement QuickDraftPanel;
+
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
@@ -76,4 +100,45 @@ public class DashboardPage extends BasePage {
     public boolean verifyWelcomePanelIsOpened(){
        return welcomePanelTitle.isDisplayed();
     }
+
+    public DashboardPage clickCheckboxSiteHealthStatus(){
+        checkboxSiteHealthStatus.click();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public boolean checkSiteHealthStatusPanelIsVisible(){
+        return siteHealthStatusPanel.isDisplayed();
+    }
+
+    public DashboardPage clickCheckboxAtAGlance(){
+        checkboxAtAGlance.click();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public boolean checkAtAGlancePanelPanelIsVisible(){
+        return AtAGlancePanel.isDisplayed();
+    }
+
+    public DashboardPage clickCheckboxActivity(){
+        checkboxActivity.click();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public boolean checkActivityPanelIsVisible(){
+        return ActivityPanel.isDisplayed();
+    }
+
+    public DashboardPage clickCheckboxQuickDraft(){
+        checkboxQuickDraft.click();
+
+        return new DashboardPage(getDriver());
+    }
+
+    public boolean checkQuickDraftPanelIsVisible(){
+        return QuickDraftPanel.isDisplayed();
+    }
+
 }
