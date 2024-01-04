@@ -77,4 +77,6 @@ public class DashboardPage extends BasePage {
        return welcomePanelTitle.isDisplayed();
     }
 
+
+
 }
