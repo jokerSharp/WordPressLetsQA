@@ -1,14 +1,10 @@
 package ui;
 
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
-import ui.model.NewPostPage;
 import ui.runner.BaseTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class HeaderTest extends BaseTest {
