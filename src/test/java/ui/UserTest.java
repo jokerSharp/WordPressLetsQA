@@ -51,7 +51,7 @@ public class UserTest extends BaseTest {
     @Test
     public void testVerifyColorOfBackgroundLightScheme() {
 
-        String expectedColorOfBackground = new DashboardPage(getDriver())
+        String expectedBackgroundColorWithLightScheme = new DashboardPage(getDriver())
                 .goToUserPage()
                 .goToUserProfilePage()
                 .selectColorLightScheme()
@@ -60,6 +60,15 @@ public class UserTest extends BaseTest {
         String actualColorOfBackground = new UserProfilePage(getDriver())
                 .getBackgroundColor();
 
-        Assert.assertEquals(actualColorOfBackground, expectedColorOfBackground);
+        Assert.assertEquals(actualColorOfBackground, expectedBackgroundColorWithLightScheme);
+
+        String expectedBackgroundColorWithBDefaultScheme = new UserProfilePage(getDriver())
+                .selectColorDefaultScheme()
+                .getFirstColorOfDefaultScheme();
+
+        actualColorOfBackground = new UserProfilePage(getDriver())
+                .getBackgroundColor();
+
+        Assert.assertEquals(actualColorOfBackground, expectedBackgroundColorWithBDefaultScheme);
     }
 }
