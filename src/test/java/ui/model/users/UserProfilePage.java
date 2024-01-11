@@ -8,10 +8,16 @@ import ui.model.base.BasePage;
 public class UserProfilePage extends BasePage {
 
     @FindBy(id = "admin_color_light")
-    private WebElement colorLightRadioButton;
+    private WebElement colorLightSchemeRadioButton;
+
+    @FindBy(id = "admin_color_fresh")
+    private WebElement colorDefaultSchemeRadioButton;
 
     @FindBy(css = ".color-option.selected > table > tbody > tr > td:nth-child(1)")
     private WebElement firstColorOfLightScheme;
+
+    @FindBy(css = ".color-option.selected > table > tbody > tr > td:nth-child(1)")
+    private WebElement firstColorOfDefaultScheme;
 
     @FindBy(id = "adminmenuwrap")
     private WebElement sideMenuBackground;
@@ -21,12 +27,21 @@ public class UserProfilePage extends BasePage {
     }
 
     public UserProfilePage selectColorLightScheme() {
-        colorLightRadioButton.click();
+        colorLightSchemeRadioButton.click();
+        return this;
+    }
+
+    public UserProfilePage selectColorDefaultScheme() {
+        colorDefaultSchemeRadioButton.click();
         return this;
     }
 
     public String getFirstColorOfLightScheme() {
         return firstColorOfLightScheme.getCssValue("background-color");
+    }
+
+    public String getFirstColorOfDefaultScheme() {
+        return firstColorOfDefaultScheme.getCssValue("background-color");
     }
 
     public String getBackgroundColor() {
