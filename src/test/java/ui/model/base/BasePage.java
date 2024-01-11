@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.model.*;
+import ui.model.posts.NewPostPage;
+import ui.model.users.NewUserPage;
+import ui.model.users.UserPage;
 
 import java.time.Duration;
 import java.util.ArrayList;
