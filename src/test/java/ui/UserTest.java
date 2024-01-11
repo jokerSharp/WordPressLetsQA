@@ -3,6 +3,7 @@ package ui;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.users.UserProfilePage;
 import ui.runner.BaseTest;
 
 public class UserTest extends BaseTest {
@@ -45,5 +46,20 @@ public class UserTest extends BaseTest {
                 .getUsersAmount();
 
         Assert.assertEquals(actualSizeofUserListAfterDeletion, initialSizeOfUserList-1);
+    }
+
+    @Test
+    public void testVerifyColorOfBackgroundLightScheme() {
+
+        String expectedColorOfBackground = new DashboardPage(getDriver())
+                .goToUserPage()
+                .goToUserProfilePage()
+                .selectColorLightScheme()
+                .getFirstColorOfLightScheme();
+
+        String actualColorOfBackground = new UserProfilePage(getDriver())
+                .getBackgroundColor();
+
+        Assert.assertEquals(actualColorOfBackground, expectedColorOfBackground);
     }
 }
