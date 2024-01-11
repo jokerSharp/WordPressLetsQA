@@ -1,4 +1,4 @@
-package ui.model;
+package ui.model.users;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +18,9 @@ public class UserPage extends BasePage {
 
     @FindBy(css = ".submitdelete")
     private WebElement deleteUserButton;
+
+    @FindBy(xpath = "//a[@href='profile.php']")
+    private WebElement profileButton;
 
     public UserPage(WebDriver driver) {
         super(driver);
@@ -43,5 +46,11 @@ public class UserPage extends BasePage {
         deleteUserButton.click();
 
         return new DeleteUsersPage(getDriver());
+    }
+
+    public UserProfilePage goToUserProfilePage() {
+        profileButton.click();
+
+        return new UserProfilePage(getDriver());
     }
 }
