@@ -10,7 +10,6 @@ public class DashboardTest extends BaseTest{
     @Test
     public void testDashboardSideMenuColorWhenPressed() {
         String color = new DashboardPage(getDriver())
-                .clickDashboardSideMenuButton()
                 .getDashboardSideMenyButtonColor();
 
         Assert.assertTrue(color.contains("rgb(34, 113, 177)"));

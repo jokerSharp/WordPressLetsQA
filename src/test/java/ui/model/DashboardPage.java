@@ -2,8 +2,8 @@ package ui.model;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 
 public class DashboardPage extends BasePage {
@@ -70,6 +70,7 @@ public class DashboardPage extends BasePage {
     }
 
     public boolean tabOverviewIsDisplayed(){
+        getWait2().until(ExpectedConditions.textToBePresentInElement(tabOverview, "Overview"));
         return tabOverview.isDisplayed();
     }
 
