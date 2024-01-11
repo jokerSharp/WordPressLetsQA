@@ -16,7 +16,7 @@ public class MainPageTest extends BaseTest {
     @Test
     public void testHelpPanelIsOpened(){
        boolean actualResult = new DashboardPage(getDriver())
-                .helpButtonClick()
+               .helpButtonClick()
                .tabOverviewIsDisplayed();
 
         Assert.assertTrue(actualResult);
