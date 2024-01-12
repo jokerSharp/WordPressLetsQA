@@ -8,10 +8,15 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
+import ui.model.base.Header;
+import ui.model.base.SidePanel;
 
 import java.time.Duration;
 
 public class DashboardPage extends BasePage {
+
+    private Header header;
+    private SidePanel sidePanel;
 
     @FindBy(id = "contextual-help-link")
     private WebElement helpButton;
@@ -75,7 +80,16 @@ public class DashboardPage extends BasePage {
 
     public DashboardPage(WebDriver driver) {
         super(driver);
+        header = new Header(driver);
+        sidePanel = new SidePanel(driver);
     }
+
+    public Header getHeader() {
+        return header;
+    }
+     public SidePanel sidePanel() {
+        return sidePanel;
+     }
 
     public String getTitle() {
         return getDriver().getTitle();
