@@ -141,4 +141,8 @@ public abstract class BasePage extends BaseModel{
 
         return new UserPage(getDriver());
     }
+
+    public String getCurrentUrl() {
+        return getDriver().getCurrentUrl();
+    }
 }
