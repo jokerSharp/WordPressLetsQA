@@ -1,10 +1,15 @@
 package ui.model;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
+
+import java.time.Duration;
 
 public class DashboardPage extends BasePage {
 
@@ -36,7 +41,7 @@ public class DashboardPage extends BasePage {
     private WebElement checkboxSiteHealthStatus;
 
     @FindBy(xpath = "//h2[normalize-space()='Site Health Status']")
-   private  WebElement siteHealthStatusPanel;
+    private  WebElement siteHealthStatusPanel;
 
     @FindBy(xpath = "//label[@for='dashboard_right_now-hide']")
     private WebElement checkboxAtAGlance;
@@ -55,6 +60,18 @@ public class DashboardPage extends BasePage {
 
     @FindBy(xpath = "//h2/span[normalize-space()='Quick Draft']")
     private  WebElement QuickDraftPanel;
+
+    @FindBy(xpath = "//a[@href = 'https://make.wordpress.org/community/meetups-landing-page']")
+    private WebElement meetupsButton;
+
+    @FindBy(xpath = "//a[@href = 'https://central.wordcamp.org/schedule/']")
+    private WebElement wordCampsButton;
+
+    @FindBy(xpath = "//a[@href = 'https://wordpress.org/news/']")
+    private WebElement newsButton;
+
+    @FindBy(id = "footer-upgrade")
+    private WebElement footerVersion;
 
     public DashboardPage(WebDriver driver) {
         super(driver);
@@ -142,4 +159,19 @@ public class DashboardPage extends BasePage {
         return QuickDraftPanel.isDisplayed();
     }
 
+    public OuterPage scrollAndClickMeetupsButton() {
+        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.id("community-events"))));
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", meetupsButton);
+
+        getWait2().until(ExpectedConditions.elementToBeClickable(meetupsButton));
+        meetupsButton.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public String getMeetupButtonUrl() {
+        return meetupsButton.getAttribute("href");
+    }
 }

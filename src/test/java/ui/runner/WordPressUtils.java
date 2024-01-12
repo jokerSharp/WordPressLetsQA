@@ -12,4 +12,11 @@ public class WordPressUtils {
         driver.findElement(By.id("user_pass")).sendKeys(password);
         driver.findElement(By.id("wp-submit")).click();
     }
+
+    static void setDefaultColorScheme(WebDriver driver) {
+        driver.get("http://localhost:8000/wp-admin/profile.php");
+        if (!driver.findElement(By.cssSelector(".color-option.selected")).getText().equals("Default")) {
+            driver.findElement(By.id("admin_color_fresh")).click();
+        }
+    }
 }
