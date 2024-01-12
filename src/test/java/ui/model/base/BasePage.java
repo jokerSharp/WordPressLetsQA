@@ -4,18 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.model.*;
 import ui.model.posts.NewPostPage;
 import ui.model.users.NewUserPage;
 import ui.model.users.UserPage;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BasePage {
+public abstract class BasePage extends BaseModel{
 
     @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/profile.php']")
     private WebElement userProfileButton;
@@ -56,39 +53,8 @@ public abstract class BasePage {
     @FindBy(id = "menu-users")
     private WebElement sideMenuUsersButton;
 
-    private final WebDriver driver;
-    private WebDriverWait wait2;
-    private WebDriverWait wait5;
-    private WebDriverWait wait10;
-
-    protected WebDriver getDriver() {
-        return driver;
-    }
-
-    protected WebDriverWait getWait2() {
-        if (wait2 == null) {
-            wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(2));
-        }
-        return wait2;
-    }
-
-    protected WebDriverWait getWait5() {
-        if (wait5 == null) {
-            wait5 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        }
-        return wait5;
-    }
-
-    protected WebDriverWait getWait10() {
-        if (wait10 == null) {
-            wait10 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        }
-        return wait10;
-    }
-
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    protected BasePage(WebDriver driver) {
+        super(driver);
     }
 
     public DashboardPage hoverOnUserProfileButton() {
