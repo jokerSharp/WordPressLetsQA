@@ -45,6 +45,7 @@ public abstract class BaseTest {
 //            WordPressUtils.logout(driver);
 //        } catch (Exception ignore) {
 //        }
+
         closeDriver();
     }
 

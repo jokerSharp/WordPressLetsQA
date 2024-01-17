@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.Properties;
 
 public final class ProjectUtils {
-
         private static final String PREFIX_PROP = "local.";
         private static final String PROP_HOST = PREFIX_PROP + "host";
         private static final String PROP_PORT = PREFIX_PROP + "port";
