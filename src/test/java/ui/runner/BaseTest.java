@@ -41,22 +41,20 @@ public abstract class BaseTest {
     }
 
     private void stopDriver() {
-        try {
-            WordPressUtils.logout(driver);
-        } catch (Exception ignore) {
-        }
+//        try {
+//            WordPressUtils.logout(driver);
+//        } catch (Exception ignore) {
+//        }
         closeDriver();
     }
 
     private void closeDriver() {
         if (driver != null) {
             driver.quit();
-
             driver = null;
             wait2 = null;
             wait5 = null;
             wait10 = null;
-
             ProjectUtils.log("Browser closed");
         }
     }
@@ -80,9 +78,9 @@ public abstract class BaseTest {
         if (ProjectUtils.isServerRun() && !testResult.isSuccess()) {
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
-//        stopDriver();
-//        ProjectUtils.logf("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000);
-        driver.quit();
+        stopDriver();
+        ProjectUtils.logf("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000);
+//        driver.quit();
     }
 
     protected WebDriver getDriver() {
