@@ -73,7 +73,8 @@ public final class ProjectUtils {
         }
 
         static boolean isServerRun() {
-            return System.getenv("CI_RUN") != null;
+//            return System.getenv("CI_RUN") != null;
+            return true;
         }
 
         static boolean closeBrowserIfError() {
