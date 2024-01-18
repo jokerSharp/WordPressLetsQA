@@ -76,12 +76,11 @@ public abstract class BaseTest {
 
     @AfterMethod
     protected void afterMethod(Method method, ITestResult testResult) {
-        if (ProjectUtils.isServerRun() && !testResult.isSuccess()) {
+        if (!testResult.isSuccess()) {
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
         stopDriver();
         ProjectUtils.logf("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000);
-//        driver.quit();
     }
 
     protected WebDriver getDriver() {

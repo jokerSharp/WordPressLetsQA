@@ -3,6 +3,7 @@ package ui.model.users;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 
 public class UserProfilePage extends BasePage {
@@ -32,6 +33,7 @@ public class UserProfilePage extends BasePage {
     }
 
     public UserProfilePage selectColorDefaultScheme() {
+        getWait2().until(ExpectedConditions.visibilityOf(colorDefaultSchemeRadioButton));
         colorDefaultSchemeRadioButton.click();
         return this;
     }
