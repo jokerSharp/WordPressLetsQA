@@ -18,8 +18,7 @@ public class DashboardTest extends BaseTest{
 
     @Test
     public void testLogin() {
-        System.out.println(new DashboardPage(getDriver()).getTitle());
-        Assert.assertTrue(new DashboardPage(getDriver()).getTitle().contains("LetsQA"));
+        Assert.assertTrue(new DashboardPage(getDriver()).getTitle().contains("Dashboard"));
     }
 
     @Test
