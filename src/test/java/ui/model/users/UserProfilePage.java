@@ -1,5 +1,6 @@
 package ui.model.users;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,18 +24,23 @@ public class UserProfilePage extends BasePage {
     @FindBy(id = "adminmenuwrap")
     private WebElement sideMenuBackground;
 
+    @FindBy(id = "submit")
+    private WebElement updateProfilebutton;
+
     public UserProfilePage(WebDriver driver) {
         super(driver);
     }
 
     public UserProfilePage selectColorLightScheme() {
         colorLightSchemeRadioButton.click();
+
         return this;
     }
 
     public UserProfilePage selectColorDefaultScheme() {
         getWait2().until(ExpectedConditions.visibilityOf(colorDefaultSchemeRadioButton));
         colorDefaultSchemeRadioButton.click();
+
         return this;
     }
 
@@ -43,11 +49,21 @@ public class UserProfilePage extends BasePage {
     }
 
     public String getFirstColorOfDefaultScheme() {
+        getWait5().until(ExpectedConditions.visibilityOf(firstColorOfDefaultScheme));
+
         return firstColorOfDefaultScheme.getCssValue("background-color");
     }
 
     public String getBackgroundColor() {
         return sideMenuBackground.getCssValue("background-color");
+    }
+
+    public UserProfilePage clickUpdateProfileButton() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", updateProfilebutton);
+        updateProfilebutton.click();
+
+        return this;
     }
 
 
