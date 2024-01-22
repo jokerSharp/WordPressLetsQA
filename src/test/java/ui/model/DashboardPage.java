@@ -4,14 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 import ui.model.base.Header;
 import ui.model.base.SidePanel;
-
-import java.time.Duration;
 
 public class DashboardPage extends BasePage {
 
@@ -37,34 +34,37 @@ public class DashboardPage extends BasePage {
     private WebElement getDashboardSideMenuButtonFull;
 
     @FindBy(xpath = "//label[@for='wp_welcome_panel-hide']")
-    private WebElement checkboxWelcomePanelHide;
+    private WebElement welcomePanelHideCheckbox;
 
     @FindBy(css = "div[class='welcome-panel-header'] h2")
     private WebElement welcomePanelTitle;
 
     @FindBy(xpath = "//label[@for='dashboard_site_health-hide']")
-    private WebElement checkboxSiteHealthStatus;
+    private WebElement siteHealthStatusCheckbox;
 
     @FindBy(xpath = "//h2[normalize-space()='Site Health Status']")
     private  WebElement siteHealthStatusPanel;
 
     @FindBy(xpath = "//label[@for='dashboard_right_now-hide']")
-    private WebElement checkboxAtAGlance;
+    private WebElement atAGlanceCheckbox;
 
     @FindBy(xpath = "//h2[normalize-space()='At a Glance']")
-    private  WebElement AtAGlancePanel;
+    private  WebElement atAGlancePanel;
 
     @FindBy(xpath = "//label[@for='dashboard_activity-hide']")
-    private WebElement checkboxActivity;
+    private WebElement activityCheckbox;
 
     @FindBy(xpath = "//h2[normalize-space()='Activity']")
-    private  WebElement ActivityPanel;
+    private  WebElement activityPanel;
 
     @FindBy(xpath = "//label[@for='dashboard_quick_press-hide']")
-    private WebElement checkboxQuickDraft;
+    private WebElement quickDraftCheckbox;
 
     @FindBy(xpath = "//h2/span[normalize-space()='Quick Draft']")
-    private  WebElement QuickDraftPanel;
+    private  WebElement quickDraftPanel;
+
+    @FindBy(id = "community-events")
+    private WebElement eventsAndNewsFrame;
 
     @FindBy(xpath = "//a[@href = 'https://make.wordpress.org/community/meetups-landing-page']")
     private WebElement meetupsButton;
@@ -124,7 +124,7 @@ public class DashboardPage extends BasePage {
     }
 
     public DashboardPage clickCheckboxWelcomePanelHide(){
-        checkboxWelcomePanelHide.click();
+        welcomePanelHideCheckbox.click();
 
         return new DashboardPage(getDriver());
     }
@@ -134,7 +134,7 @@ public class DashboardPage extends BasePage {
     }
 
     public DashboardPage clickCheckboxSiteHealthStatus(){
-        checkboxSiteHealthStatus.click();
+        siteHealthStatusCheckbox.click();
 
         return new DashboardPage(getDriver());
     }
@@ -144,48 +144,44 @@ public class DashboardPage extends BasePage {
     }
 
     public DashboardPage clickCheckboxAtAGlance(){
-        checkboxAtAGlance.click();
+        atAGlanceCheckbox.click();
 
         return new DashboardPage(getDriver());
     }
 
     public boolean checkAtAGlancePanelPanelIsVisible(){
-        return AtAGlancePanel.isDisplayed();
+        return atAGlancePanel.isDisplayed();
     }
 
     public DashboardPage clickCheckboxActivity(){
-        checkboxActivity.click();
+        activityCheckbox.click();
 
         return new DashboardPage(getDriver());
     }
 
     public boolean checkActivityPanelIsVisible(){
-        return ActivityPanel.isDisplayed();
+        return activityPanel.isDisplayed();
     }
 
     public DashboardPage clickCheckboxQuickDraft(){
-        checkboxQuickDraft.click();
+        quickDraftCheckbox.click();
 
         return new DashboardPage(getDriver());
     }
 
     public boolean checkQuickDraftPanelIsVisible(){
-        return QuickDraftPanel.isDisplayed();
+        return quickDraftPanel.isDisplayed();
     }
 
     public OuterPage scrollAndClickMeetupsButton() {
-        getWait5().until(ExpectedConditions.visibilityOf(getDriver().findElement(By.id("community-events"))));
+        getWait5().until(ExpectedConditions.visibilityOf(eventsAndNewsFrame));
 
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].scrollIntoView();", meetupsButton);
 
-        getWait2().until(ExpectedConditions.elementToBeClickable(meetupsButton));
+//        getWait2().until(ExpectedConditions.elementToBeClickable(meetupsButton));
         meetupsButton.click();
 
         return new OuterPage(getDriver());
-    }
-
-    public String getMeetupButtonUrl() {
-        return meetupsButton.getAttribute("href");
     }
 }
