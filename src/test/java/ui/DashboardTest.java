@@ -4,9 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.OuterPage;
 import ui.runner.BaseTest;
 
-public class DashboardTest extends BaseTest{
+import java.util.ArrayList;
+
+public class DashboardTest extends BaseTest {
 
     @Test
     public void testDashboardSideMenuColorWhenPressed() {
@@ -22,7 +25,7 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testHelpPanelIsOpened(){
+    public void testHelpPanelIsOpened() {
         boolean actualResult = new DashboardPage(getDriver())
                 .helpButtonClick()
                 .tabOverviewIsDisplayed();
@@ -32,8 +35,8 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testScreenOptionsPanelIsOpened(){
-        String actualTitle =  new DashboardPage(getDriver())
+    public void testScreenOptionsPanelIsOpened() {
+        String actualTitle = new DashboardPage(getDriver())
                 .screenOptionsButtonClick()
                 .getScreenOptionsTitle();
 
@@ -41,9 +44,9 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testWelcomePanelHidingViaScreenOptions(){
+    public void testWelcomePanelHidingViaScreenOptions() {
         DashboardPage dashboard = new DashboardPage(getDriver());
-        if (!dashboard.verifyWelcomePanelIsOpened()){
+        if (!dashboard.verifyWelcomePanelIsOpened()) {
             dashboard.screenOptionsButtonClick().clickCheckboxWelcomePanelHide();
         }
         dashboard.screenOptionsButtonClick()
@@ -52,9 +55,9 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testSiteHealthStatusPanelHidingViaScreenOptions(){
+    public void testSiteHealthStatusPanelHidingViaScreenOptions() {
         DashboardPage dashboard = new DashboardPage(getDriver());
-        if (!dashboard.checkSiteHealthStatusPanelIsVisible()){
+        if (!dashboard.checkSiteHealthStatusPanelIsVisible()) {
             dashboard.screenOptionsButtonClick().clickCheckboxSiteHealthStatus();
         }
         dashboard.screenOptionsButtonClick()
@@ -63,9 +66,9 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testAtAGlancePanelPanelHidingViaScreenOptions(){
+    public void testAtAGlancePanelPanelHidingViaScreenOptions() {
         DashboardPage dashboard = new DashboardPage(getDriver());
-        if (!dashboard.checkAtAGlancePanelPanelIsVisible()){
+        if (!dashboard.checkAtAGlancePanelPanelIsVisible()) {
             dashboard.screenOptionsButtonClick().clickCheckboxAtAGlance();
         }
         dashboard.screenOptionsButtonClick()
@@ -74,9 +77,9 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testActivityPanelHidingViaScreenOptions(){
+    public void testActivityPanelHidingViaScreenOptions() {
         DashboardPage dashboard = new DashboardPage(getDriver());
-        if (!dashboard.checkActivityPanelIsVisible()){
+        if (!dashboard.checkActivityPanelIsVisible()) {
             dashboard.screenOptionsButtonClick().clickCheckboxActivity();
         }
         dashboard.screenOptionsButtonClick()
@@ -85,9 +88,9 @@ public class DashboardTest extends BaseTest{
     }
 
     @Test
-    public void testQuickDraftPanelHidingViaScreenOptions(){
+    public void testQuickDraftPanelHidingViaScreenOptions() {
         DashboardPage dashboard = new DashboardPage(getDriver());
-        if (!dashboard.checkQuickDraftPanelIsVisible()){
+        if (!dashboard.checkQuickDraftPanelIsVisible()) {
             dashboard.screenOptionsButtonClick().clickCheckboxQuickDraft();
         }
         dashboard.screenOptionsButtonClick()
@@ -95,16 +98,14 @@ public class DashboardTest extends BaseTest{
         Assert.assertFalse(dashboard.checkQuickDraftPanelIsVisible());
     }
 
-    @Ignore
     @Test
     public void testClickMeetupButton() {
-        String expectedUrl = new DashboardPage(getDriver())
-                .getMeetupButtonUrl();
+        String expectedUrl = "https://www.meetup.com/pro/wordpress/";
 
         String actualUrl = new DashboardPage(getDriver())
                 .scrollAndClickMeetupsButton()
-                .getCurrentUrl();
+                .getOuterPageUrl();
 
-        Assert.assertEquals(actualUrl,expectedUrl);
+        Assert.assertEquals(actualUrl, expectedUrl);
     }
 }
