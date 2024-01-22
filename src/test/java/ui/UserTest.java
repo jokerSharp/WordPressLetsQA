@@ -69,6 +69,7 @@ public class UserTest extends BaseTest {
 
         String expectedBackgroundColorWithBDefaultScheme = new UserProfilePage(getDriver())
                 .selectColorDefaultScheme()
+                .clickUpdateProfileButton()
                 .getFirstColorOfDefaultScheme();
 
         actualColorOfBackground = new UserProfilePage(getDriver())

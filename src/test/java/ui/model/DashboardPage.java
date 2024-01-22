@@ -179,7 +179,6 @@ public class DashboardPage extends BasePage {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].scrollIntoView();", meetupsButton);
 
-//        getWait2().until(ExpectedConditions.elementToBeClickable(meetupsButton));
         meetupsButton.click();
 
         return new OuterPage(getDriver());
