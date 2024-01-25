@@ -2,7 +2,7 @@
 
 Our team - Let's QA - was found during study in RedRover School, Aug-Dec 2023.
 
-After the course finished we desided to continue with our own project.
+After the course finished we decided to continue with our own project.
 
 And here it is!
 
@@ -21,11 +21,11 @@ to conduct automation testing of WordPress web-application
 
 
 :brain:	Lets'a QA team:
-* [InnaBaranova](https://github.com/InnaBaranova)
-* [jokerSharp](https://github.com/jokerSharp)
-* [Nataliia B](https://github.com/NataliiaBor1)
-* [PAVEL PASHCHENKOV](https://github.com/ppashchenkov)
-* [spinoglaz](https://github.com/spinoglaz)
+* [Inna](https://github.com/InnaBaranova)
+* [Eugene](https://github.com/jokerSharp)
+* [Nataliia](https://github.com/NataliiaBor1)
+* [Pavel](https://github.com/ppashchenkov)
+* [Daria](https://github.com/spinoglaz)
 * [Elena](https://github.com/Sosnitsky-E)
 
 :mechanical_arm:	Technologies:
