@@ -14,7 +14,6 @@ public class HeaderTest extends BaseTest {
         String actualLoginMessageText = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnUserProfileButton()
-                .getHeader()
                 .clickLogOutButton()
                 .getLoginMessageText();
 
@@ -35,7 +34,6 @@ public class HeaderTest extends BaseTest {
         List<String> actualLogoMenuItems = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnWpLogo()
-                .getHeader()
                 .getWpLogoMenuItemsList();
 
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
@@ -55,7 +53,6 @@ public class HeaderTest extends BaseTest {
         List<String> actualLogoMenuItems = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnWpLogo()
-                .getHeader()
                 .getWpLogoMenuItemsList2();
 
         Assert.assertEquals(actualLogoMenuItems, expectedLogoMenuItems);
@@ -68,9 +65,7 @@ public class HeaderTest extends BaseTest {
         String actualString = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnWpLogo()
-                .getHeader()
                 .hoverOnFeedbackLogoMenuItem()
-                .getHeader()
                 .getColorOfFeedbackLogoMenuItem();
 
         Assert.assertEquals(actualString, expectedColor);
@@ -81,7 +76,6 @@ public class HeaderTest extends BaseTest {
         String actualColor = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnWpLogo()
-                .getHeader()
                 .getWpLogoIconColor();
 
         Assert.assertEquals(actualColor, "rgba(114, 174, 230, 1)");
@@ -92,7 +86,6 @@ public class HeaderTest extends BaseTest {
         new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnNewContentButton()
-                .getHeader()
                 .clickNewPostButton();
 
         Assert.assertTrue(getDriver().getTitle().contains("Add New Post"));

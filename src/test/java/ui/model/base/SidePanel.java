@@ -18,7 +18,6 @@ public class SidePanel {
         PageFactory.initElements(driver, this);
     }
 
-
     public UserPage goToUserPage() {
         sideMenuUsersButton.click();
 
