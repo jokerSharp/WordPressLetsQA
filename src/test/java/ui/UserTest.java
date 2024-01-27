@@ -20,7 +20,6 @@ public class UserTest extends BaseTest {
         String actualUsername = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnNewButton()
-                .getHeader()
                 .clickNewUserButton()
                 .typeUsername(USERNAME)
                 .typeEmail(EMAIL)

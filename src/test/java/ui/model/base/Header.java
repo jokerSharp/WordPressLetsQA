@@ -53,12 +53,12 @@ public class Header {
         PageFactory.initElements(driver, this);
     }
 
-    public DashboardPage hoverOnUserProfileButton() {
+    public Header hoverOnUserProfileButton() {
         new Actions(driver)
                 .moveToElement(userProfileButton)
                 .perform();
 
-        return new DashboardPage(driver);
+        return this;
     }
 
     public LoginPage clickLogOutButton() {
@@ -66,12 +66,12 @@ public class Header {
         return new LoginPage(driver);
     }
 
-    public DashboardPage hoverOnWpLogo() {
+    public Header hoverOnWpLogo() {
         new Actions(driver)
                 .moveToElement(wpLogo)
                 .perform();
 
-        return new DashboardPage(driver);
+        return this;
     }
 
     public String getWpLogoIconColor() {
@@ -84,24 +84,24 @@ public class Header {
         return List.of(res.split("\\n"));
     }
 
-    public DashboardPage hoverOnFeedbackLogoMenuItem() {
+    public Header hoverOnFeedbackLogoMenuItem() {
         new Actions(driver)
                 .moveToElement(feedbackLogoMenuItem)
                 .perform();
 
-        return new DashboardPage(driver);
+        return this;
     }
 
     public String getColorOfFeedbackLogoMenuItem() {
         return feedbackLogoMenuItem.getCssValue("color");
     }
 
-    public DashboardPage hoverOnNewContentButton() {
+    public Header hoverOnNewContentButton() {
         new Actions(driver)
                 .moveToElement(newContentButton)
                 .perform();
 
-        return new DashboardPage(driver);
+        return this;
     }
     public NewPostPage clickNewPostButton() {
         newPostButton.click();
@@ -116,12 +116,12 @@ public class Header {
         return menuItemsList;
     }
 
-    public DashboardPage hoverOnNewButton() {
+    public Header hoverOnNewButton() {
         new Actions(driver)
                 .moveToElement(newContentButton)
                 .perform();
 
-        return new DashboardPage(driver);
+        return this;
     }
 
     public NewUserPage clickNewUserButton() {
