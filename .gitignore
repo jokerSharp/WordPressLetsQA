@@ -1,4 +1,5 @@
 allure-report
+screenshots
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
