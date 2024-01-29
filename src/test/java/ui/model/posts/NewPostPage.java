@@ -43,10 +43,10 @@ public class NewPostPage extends BasePage {
         return this;
     }
 
-    public PostPage clickViewPost() {
+    public ViewPostPage clickViewPost() {
         viewPost.click();
 
-        return new PostPage(getDriver());
+        return new ViewPostPage(getDriver());
     }
 
 }
