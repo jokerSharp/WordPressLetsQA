@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ui.model.posts.AllPostsPage;
+import ui.model.posts.ViewPostPage;
 import ui.model.users.UserPage;
 
 public class SidePanel {
@@ -12,6 +14,9 @@ public class SidePanel {
 
     @FindBy(id = "menu-users")
     private WebElement sideMenuUsersButton;
+
+    @FindBy(xpath = "//div[contains(text(), 'Posts')]")
+    private WebElement sideMenuPostsButton;
 
     public SidePanel(WebDriver driver) {
         this.driver = driver;
@@ -22,5 +27,11 @@ public class SidePanel {
         sideMenuUsersButton.click();
 
         return new UserPage(driver);
+    }
+
+    public AllPostsPage clickSideMenuPostsButton() {
+        sideMenuPostsButton.click();
+
+        return new AllPostsPage(driver);
     }
 }
