@@ -90,4 +90,18 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertTrue(getDriver().getTitle().contains("Add New Post"));
     }
+
+    @Test
+    public void testCreateNewPost() {
+        new DashboardPage(getDriver())
+                .getHeader()
+                .hoverOnNewContentButton()
+                .clickNewPostButton()
+                .typeTitle("qwerty")
+                .clickPreliminaryPublishButton()
+                .clickFinalPublishButton()
+                .clickViewPost();
+
+        Assert.assertTrue(getDriver().getTitle().contains("qwerty"));
+    }
 }

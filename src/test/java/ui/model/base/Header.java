@@ -105,6 +105,7 @@ public class Header {
     }
     public NewPostPage clickNewPostButton() {
         newPostButton.click();
+
         return new NewPostPage(driver);
     }
     public List<String> getWpLogoMenuItemsList2() {
