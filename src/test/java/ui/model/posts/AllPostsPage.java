@@ -36,16 +36,8 @@ public class AllPostsPage extends BasePage {
         return new AllPostsPage(getDriver());
     }
 
-    public List<String> getPostsTitlesList() {
-        List<String> postsTitlesList = new ArrayList<>();
-
-        for (WebElement item : postsList) {
-            postsTitlesList.add(item.getText());
-        }
-        return postsTitlesList;
-    }
-
     public int getPostsListSize() {
-        return getPostsTitlesList().size();
+
+        return postsList.size();
     }
 }
