@@ -36,12 +36,12 @@ public class UserTest extends BaseTest {
     public void testDeleteCreatedUser() {
 
         int initialSizeOfUserList = new DashboardPage(getDriver())
-                .sidePanel()
+                .getSidePanel()
                 .goToUserPage()
                 .getUsersAmount();
 
         int actualSizeofUserListAfterDeletion = new DashboardPage(getDriver())
-                .sidePanel()
+                .getSidePanel()
                 .goToUserPage()
                 .hoverOnCreatedUser()
                 .clickDeleteUserButton()
@@ -55,7 +55,7 @@ public class UserTest extends BaseTest {
     public void testVerifyColorOfBackgroundLightScheme() {
 
         String expectedBackgroundColorWithLightScheme = new DashboardPage(getDriver())
-                .sidePanel()
+                .getSidePanel()
                 .goToUserPage()
                 .goToUserProfilePage()
                 .selectColorLightScheme()

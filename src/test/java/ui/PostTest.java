@@ -28,7 +28,7 @@ public class PostTest extends BaseTest {
     public void testDeleteNewPost() {
 
         int expectedPostsAmount = new DashboardPage(getDriver())
-                .sidePanel()
+                .getSidePanel()
                 .clickSideMenuPostsButton()
                 .getPostsListSize();
 

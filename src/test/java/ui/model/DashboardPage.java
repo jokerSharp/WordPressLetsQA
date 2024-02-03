@@ -1,6 +1,5 @@
 package ui.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -87,7 +86,7 @@ public class DashboardPage extends BasePage {
     public Header getHeader() {
         return header;
     }
-     public SidePanel sidePanel() {
+     public SidePanel getSidePanel() {
         return sidePanel;
      }
 
