@@ -27,5 +27,5 @@ services:
       WORDPRESS_DB_PASSWORD: Pa$$5w0rD
       WORDPRESS_DB_NAME: MyWordPressDatabaseName
 # Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.
-volumes:
-  mysql: {}
+#volumes:
+#  mysql: {}
