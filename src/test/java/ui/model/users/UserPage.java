@@ -7,13 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import ui.model.base.BasePage;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserPage extends BasePage {
 
-    @FindBy(xpath = "//strong/a[contains(@href,'http://localhost:8000/wp-admin/user-edit')]")
-    private WebElement newCreatedUserUsername;
-
-    @FindBy(xpath = "//tbody/tr/td/strong")
+    @FindBy(xpath = "//td[contains(@class,'username')]")
     private List<WebElement> allUsersList;
 
     @FindBy(css = ".submitdelete")
@@ -26,17 +24,18 @@ public class UserPage extends BasePage {
         super(driver);
     }
 
-    public String getUsernameValue() {
-        return newCreatedUserUsername.getText();
+    public List<String> getUsernames() {
+        return allUsersList.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public int getUsersAmount() {
         return allUsersList.size();
     }
 
-    public UserPage hoverOnCreatedUser() {
+    public UserPage hoverOnUser(String username) {
+        WebElement userElement = allUsersList.stream().filter(element -> element.getText().equals(username)).findFirst().orElse(null);
         new Actions(getDriver())
-                .moveToElement(newCreatedUserUsername)
+                .moveToElement(userElement)
                 .perform();
 
         return this;

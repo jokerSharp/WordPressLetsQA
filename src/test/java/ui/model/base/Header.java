@@ -17,7 +17,7 @@ public class Header {
 
     private final WebDriver driver;
 
-    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/profile.php']")
+    @FindBy(id = "wp-admin-bar-my-account")
     private WebElement userProfileButton;
 
     @FindBy(xpath = "//a[text()='Log Out']")
@@ -45,7 +45,7 @@ public class Header {
     @FindBy(id = "wp-admin-bar-new-post")
     private WebElement newPostButton;
 
-    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/user-new.php']")
+    @FindBy(id = "wp-admin-bar-new-user")
     private WebElement newUserButton;
 
     public Header (WebDriver driver) {
