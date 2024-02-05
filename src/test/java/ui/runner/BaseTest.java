@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.testng.annotations.*;
+import ui.model.start.SelectLanguagePage;
 
 public abstract class BaseTest {
     static private Network dockerNetwork;
@@ -84,15 +85,16 @@ public abstract class BaseTest {
             System.out.println("Found logo");
             break;
         }
-        driver.findElement(By.xpath("//option[@lang='en']")).click();
-        driver.findElement(By.id("language-continue")).click();
-        driver.findElement(By.id("weblog_title")).sendKeys("Let's QA");
-        driver.findElement(By.id("user_login")).sendKeys(ProjectUtils.getUserName());
-        driver.findElement(By.id("pass1")).clear();
-        driver.findElement(By.id("pass1")).sendKeys(ProjectUtils.getPassword());
-        driver.findElement(By.className("pw-checkbox")).click();
-        driver.findElement(By.id("admin_email")).sendKeys("admin@gmail.com");
-        driver.findElement(By.id("submit")).click();
+        new SelectLanguagePage(driver)
+                .selectEnglishLanguage()
+                .clickContinue()
+                .inputWeblogTitle("Let's QA")
+                .inputUsername(ProjectUtils.getUserName())
+                .clearPassword()
+                .inputPassword(ProjectUtils.getPassword())
+                .agreeWithWeakPassword()
+                .inputAdminEmail("admin@gmail.com")
+                .submit();
         driver.quit();
     }
 
