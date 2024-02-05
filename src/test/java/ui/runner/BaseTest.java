@@ -10,12 +10,10 @@ import org.testng.ITestResult;
 import java.lang.reflect.Method;
 import java.time.Duration;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 public abstract class BaseTest {
+    static private Network dockerNetwork;
     GenericContainer mysql;
     GenericContainer wordpress;
     private WebDriver driver;
@@ -50,32 +48,37 @@ public abstract class BaseTest {
         }
     }
 
-    @BeforeClass
-    protected void beforeClass() throws InterruptedException {
-        Network network = Network.newNetwork();
+    @BeforeSuite
+    protected void beforeSuite() {
+        dockerNetwork = Network.newNetwork();
         mysql = new GenericContainer("mysql:5.7");
-        mysql.addEnv("MYSQL_ROOT_PASSWORD", "MyR00tMySQLPa$$5w0rD");
-        mysql.addEnv("MYSQL_DATABASE", "MyWordPressDatabaseName");
-        mysql.addEnv("MYSQL_USER", "MyWordPressUser");
-        mysql.addEnv("MYSQL_PASSWORD", "Pa$$5w0rD");
-        mysql.setNetwork(network);
+        mysql.addEnv("MYSQL_ROOT_PASSWORD", "admin");
+        mysql.addEnv("MYSQL_DATABASE", "wp");
+        mysql.addEnv("MYSQL_USER", "wp");
+        mysql.addEnv("MYSQL_PASSWORD", "wp");
+        mysql.setNetwork(dockerNetwork);
         mysql = mysql.withNetworkAliases("mysql");
         mysql.start();
-        wordpress = new GenericContainer("wordpress:latest");
+    }
+
+    @BeforeClass
+    protected void beforeClass() {
+        wordpress = new GenericContainer("wordpress:php8.2-apache");
         wordpress.addEnv("WORDPRESS_DB_HOST", "mysql:3306");
-        wordpress.addEnv("WORDPRESS_DB_USER", "MyWordPressUser");
-        wordpress.addEnv("WORDPRESS_DB_PASSWORD", "Pa$$5w0rD");
-        wordpress.addEnv("WORDPRESS_DB_NAME", "MyWordPressDatabaseName");
+        wordpress.addEnv("WORDPRESS_DB_USER", "wp");
+        wordpress.addEnv("WORDPRESS_DB_PASSWORD", "wp");
+        wordpress.addEnv("WORDPRESS_DB_NAME", "wp");
+        wordpress.addEnv("WORDPRESS_TABLE_PREFIX", this.getClass().getName().replace('.', '_') + "_");
         wordpress.addExposedPorts(80);
-        wordpress.setNetwork(network);
+        wordpress.setNetwork(dockerNetwork);
         wordpress.start();
         WebDriver driver = ProjectUtils.createDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         for(int i = 0; i < 30; ++i) {
             driver.get("http://localhost:" + wordpress.getFirstMappedPort());
             try {
                 driver.findElement(By.id("logo"));
             } catch(NoSuchElementException e) {
-                Thread.sleep(1000);
                 continue;
             }
             System.out.println("Found logo");
@@ -84,9 +87,9 @@ public abstract class BaseTest {
         driver.findElement(By.xpath("//option[@lang='en']")).click();
         driver.findElement(By.id("language-continue")).click();
         driver.findElement(By.id("weblog_title")).sendKeys("Let's QA");
-        driver.findElement(By.id("user_login")).sendKeys("admin");
+        driver.findElement(By.id("user_login")).sendKeys(ProjectUtils.getUserName());
         driver.findElement(By.id("pass1")).clear();
-        driver.findElement(By.id("pass1")).sendKeys("admin");
+        driver.findElement(By.id("pass1")).sendKeys(ProjectUtils.getPassword());
         driver.findElement(By.className("pw-checkbox")).click();
         driver.findElement(By.id("admin_email")).sendKeys("admin@gmail.com");
         driver.findElement(By.id("submit")).click();
@@ -116,8 +119,12 @@ public abstract class BaseTest {
 
     @AfterClass
     protected void afterClass() {
-        mysql.stop();
         wordpress.stop();
+    }
+
+    @AfterSuite
+    protected void afterSuite() {
+        mysql.stop();
     }
 
     protected WebDriver getDriver() {
