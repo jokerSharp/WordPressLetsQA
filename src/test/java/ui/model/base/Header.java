@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ui.model.DashboardPage;
 import ui.model.LoginPage;
 import ui.model.posts.NewPostPage;
 import ui.model.users.NewUserPage;
@@ -17,7 +16,7 @@ public class Header {
 
     private final WebDriver driver;
 
-    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/profile.php']")
+    @FindBy(id = "wp-admin-bar-my-account")
     private WebElement userProfileButton;
 
     @FindBy(xpath = "//a[text()='Log Out']")
@@ -45,7 +44,7 @@ public class Header {
     @FindBy(id = "wp-admin-bar-new-post")
     private WebElement newPostButton;
 
-    @FindBy(xpath = "//a[@href='http://localhost:8000/wp-admin/user-new.php']")
+    @FindBy(id = "wp-admin-bar-new-user")
     private WebElement newUserButton;
 
     public Header (WebDriver driver) {

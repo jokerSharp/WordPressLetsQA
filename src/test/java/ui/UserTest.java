@@ -6,6 +6,8 @@ import ui.model.DashboardPage;
 import ui.model.users.UserProfilePage;
 import ui.runner.BaseTest;
 
+import java.util.List;
+
 public class UserTest extends BaseTest {
 
     private static final String USERNAME = "User";
@@ -17,7 +19,7 @@ public class UserTest extends BaseTest {
     @Test
     public void testNewUserCreation() {
 
-        String actualUsername = new DashboardPage(getDriver())
+        List<String> actualUsernames = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnNewButton()
                 .clickNewUserButton()
@@ -27,9 +29,9 @@ public class UserTest extends BaseTest {
                 .typeLastName(LAST_NAME)
                 .typeWebsite(WEBSITE)
                 .clickAddNewUserButton()
-                .getUsernameValue();
+                .getUsernames();
 
-        Assert.assertEquals(actualUsername, USERNAME);
+        Assert.assertListContainsObject(actualUsernames, USERNAME, "No user found");
     }
 
     @Test(dependsOnMethods = "testNewUserCreation")
@@ -43,7 +45,7 @@ public class UserTest extends BaseTest {
         int actualSizeofUserListAfterDeletion = new DashboardPage(getDriver())
                 .getSidePanel()
                 .goToUserPage()
-                .hoverOnCreatedUser()
+                .hoverOnUser(USERNAME)
                 .clickDeleteUserButton()
                 .clickConfirmDeletionButton()
                 .getUsersAmount();
