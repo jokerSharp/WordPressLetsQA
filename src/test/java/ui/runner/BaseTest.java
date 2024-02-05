@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.testng.annotations.*;
+import ui.model.LoginPage;
 import ui.model.start.SelectLanguagePage;
 
 public abstract class BaseTest {
@@ -25,13 +26,7 @@ public abstract class BaseTest {
 
     private void startDriver() {
         ProjectUtils.log("Browser open");
-
         driver = ProjectUtils.createDriver();
-    }
-
-    private void loginWeb() {
-        ProjectUtils.log("Login");
-        WordPressUtils.login(driver, wordpress.getFirstMappedPort());
     }
 
     private void acceptAlert() {
@@ -103,7 +98,10 @@ public abstract class BaseTest {
         ProjectUtils.logf("Run %s.%s", this.getClass().getName(), method.getName());
         startDriver();
         try {
-            loginWeb();
+            String baseUrl = "http://localhost:" + wordpress.getFirstMappedPort() + "/";
+            LoginPage
+                    .open(getDriver(), baseUrl)
+                    .login(ProjectUtils.getUserName(), ProjectUtils.getPassword());
         } catch (Exception e) {
             stopDriver();
             throw new RuntimeException(e);

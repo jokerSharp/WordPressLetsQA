@@ -117,13 +117,6 @@ public class WordPressUtils {
 
         return page.body();
     }
-
-    static void login(WebDriver driver, int port) {
-        driver.get("http://localhost:" + port + "/wp-admin/");
-        driver.findElement(By.id("user_login")).sendKeys(ProjectUtils.getUserName());
-        driver.findElement(By.id("user_pass")).sendKeys(ProjectUtils.getPassword());
-        driver.findElement(By.id("wp-submit")).click();
-    }
 }
 
 
