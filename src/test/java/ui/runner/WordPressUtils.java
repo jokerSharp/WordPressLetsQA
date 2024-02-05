@@ -117,26 +117,6 @@ public class WordPressUtils {
 
         return page.body();
     }
-
-    static void clearData() {
-//            WordPressUtils.deleteViews();
-//            WordPressUtils.deleteJobs();
-//            WordPressUtils.deleteUsers();
-//            WordPressUtils.deleteNodes();
-//            WordPressUtils.deleteDescription();
-//            WordPressUtils.deleteCredentials();
-    }
-
-    static void login(WebDriver driver) {
-        driver.findElement(By.id("user_login")).sendKeys(ProjectUtils.getUserName());
-        driver.findElement(By.id("user_pass")).sendKeys(ProjectUtils.getPassword());
-        driver.findElement(By.id("wp-submit")).click();
-    }
-
-    static void logout(WebDriver driver) {
-        ProjectUtils.get(driver);
-        driver.findElement(By.id("wp-admin-bar-logout")).click();
-    }
 }
 
 
