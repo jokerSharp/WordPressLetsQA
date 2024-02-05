@@ -19,14 +19,8 @@ public final class ProjectUtils {
     private static final String PROP_PORT = PREFIX_PROP + "port";
     private static final String PROP_ADMIN_USERNAME = PREFIX_PROP + "admin.username";
     private static final String PROP_ADMIN_PAS = PREFIX_PROP + "admin.password";
-
-    private static final String CLOSE_BROWSER_IF_ERROR = PREFIX_PROP + "closeBrowserIfError";
-
     private static final String ENV_CHROME_OPTIONS = "CHROME_OPTIONS";
-    private static final String ENV_APP_OPTIONS = "APP_OPTIONS";
-
     private static final String PROP_CHROME_OPTIONS = PREFIX_PROP + ENV_CHROME_OPTIONS.toLowerCase();
-
     private static Properties properties;
 
     private static void initProperties() {
@@ -61,10 +55,6 @@ public final class ProjectUtils {
         WebDriverManager.chromedriver().setup();
     }
 
-    static boolean closeBrowserIfError() {
-        return Boolean.getBoolean(properties.getProperty(CLOSE_BROWSER_IF_ERROR, "true"));
-    }
-
     static String getUrl() {
         return String.format("http://%s:%s/wp-admin/",
                 properties.getProperty(PROP_HOST),
@@ -77,16 +67,6 @@ public final class ProjectUtils {
 
     static String getPassword() {
         return properties.getProperty(PROP_ADMIN_PAS);
-    }
-
-    public static void get(WebDriver driver) {
-        driver.get(getUrl());
-    }
-
-    static void login(WebDriver driver) {
-        driver.findElement(By.id("user_login")).sendKeys(getUserName());
-        driver.findElement(By.id("user_pass")).sendKeys(getPassword());
-        driver.findElement(By.id("wp-submit")).click();
     }
 
     static void acceptAlert(WebDriver driver) {

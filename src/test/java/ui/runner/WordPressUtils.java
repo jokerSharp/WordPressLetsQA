@@ -124,11 +124,6 @@ public class WordPressUtils {
         driver.findElement(By.id("user_pass")).sendKeys(ProjectUtils.getPassword());
         driver.findElement(By.id("wp-submit")).click();
     }
-
-    static void logout(WebDriver driver) {
-        ProjectUtils.get(driver);
-        driver.findElement(By.id("wp-admin-bar-logout")).click();
-    }
 }
 
 
