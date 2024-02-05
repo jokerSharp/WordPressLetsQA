@@ -39,4 +39,12 @@ public class PostTest extends BaseTest {
 
         Assert.assertEquals(actualPostsAmount, expectedPostsAmount-1);
     }
+
+    @Test
+    public void testEmptyTrash() {
+        new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+
+    }
 }
