@@ -4,13 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.model.posts.AllPostsPage;
+import ui.model.posts.TrashPostsPage;
 import ui.runner.BaseTest;
 
 public class PostTest extends BaseTest {
 
     private final String POST_TITLE = "qwerty";
 
-    @Test
+    @Test(invocationCount = 5)
     public void testCreateNewPost() {
         new DashboardPage(getDriver())
                 .getHeader()
@@ -42,9 +43,28 @@ public class PostTest extends BaseTest {
 
     @Test
     public void testEmptyTrash() {
-        new DashboardPage(getDriver())
+        int amountOfallSelectedPostsOnTrashPage = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuPostsButton()
+                .clickSelectAllPostsCheckbox()
+                .clickHelloWorldPostCheckbox()
+                .clickBulkActionSelector()
+                .clickMoveToTrashOption()
+                .clickApplyButton()
+                .clickTrashLink()
+                .getPostsListSize();
 
+        Assert.assertTrue(amountOfallSelectedPostsOnTrashPage > 0);
+
+        boolean permanentlyDeletedMessage = new TrashPostsPage(getDriver())
+                .clickEmptyTrashButton()
+                .permanentlyDeletedMessageIsVisible();
+
+        Assert.assertTrue(permanentlyDeletedMessage);
+
+        amountOfallSelectedPostsOnTrashPage = new TrashPostsPage(getDriver())
+                .getPostsListSize();
+
+        Assert.assertTrue(amountOfallSelectedPostsOnTrashPage == 0);
     }
 }
