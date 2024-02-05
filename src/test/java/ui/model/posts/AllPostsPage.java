@@ -9,7 +9,6 @@ import ui.model.base.BasePage;
 import ui.model.base.Header;
 import ui.model.base.SidePanel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AllPostsPage extends BasePage {
@@ -17,8 +16,27 @@ public class AllPostsPage extends BasePage {
     private Header header;
 
     private SidePanel sidePanel;
+
     @FindBy(css = "#the-list > tr > td > strong")
     private List<WebElement> postsList;
+
+    @FindBy(id = "cb-select-all-1")
+    private WebElement allPostsCheckbox;
+
+    @FindBy(id = "cb-select-1")
+    private WebElement helloWorldPostCheckbox;
+
+    @FindBy(id = "bulk-action-selector-top")
+    private WebElement bulkActionSelector;
+
+    @FindBy(css = "option[value=\"trash\"]")
+    private WebElement moveToTrashOption;
+
+    @FindBy(id = "doaction")
+    private WebElement applyButton;
+
+    @FindBy(xpath = "//a[@href='edit.php?post_status=trash&post_type=post']")
+    private WebElement trashLink;
 
     public AllPostsPage(WebDriver driver) {
         super(driver);
@@ -44,7 +62,6 @@ public class AllPostsPage extends BasePage {
     }
 
     public int getPostsListSize() {
-
         return postsList.size();
     }
 
@@ -54,5 +71,35 @@ public class AllPostsPage extends BasePage {
 
     public SidePanel getSidePanel() {
         return sidePanel;
+    }
+
+    public AllPostsPage clickSelectAllPostsCheckbox() {
+        allPostsCheckbox.click();
+        return this;
+    }
+
+    public AllPostsPage clickHelloWorldPostCheckbox() {
+        helloWorldPostCheckbox.click();
+        return this;
+    }
+
+    public AllPostsPage clickBulkActionSelector() {
+        bulkActionSelector.click();
+        return this;
+    }
+
+    public AllPostsPage clickMoveToTrashOption() {
+        moveToTrashOption.click();
+        return this;
+    }
+
+    public AllPostsPage clickApplyButton() {
+        applyButton.click();
+        return this;
+    }
+
+    public TrashPostsPage clickTrashLink() {
+        trashLink.click();
+        return new TrashPostsPage(getDriver());
     }
 }
