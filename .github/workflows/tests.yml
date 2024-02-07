@@ -15,11 +15,5 @@ jobs:
           java-version: 17
           distribution: 'corretto'
           cache: 'maven'
-      - name: Set chrome options
-        uses: Reedyuk/write-properties@latest
-        with:
-          file: './src/test/resources/local.properties'
-          property: 'local.chrome_options'
-          value: '--headless;--disable-dev-shm-usage;--no-sandbox'
       - name: Maven Verify
-        run: mvn verify
+        run: mvn verify -Dlocal.chrome_options="--headless;--disable-dev-shm-usage;--no-sandbox"
