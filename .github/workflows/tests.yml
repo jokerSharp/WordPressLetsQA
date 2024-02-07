@@ -20,6 +20,6 @@ jobs:
         with:
           file: src/test/resources/local.properties
           property: local.chrome_options
-          value: --headless --disable-dev-shm-usage --no-sandbox
+          value: '--headless --disable-dev-shm-usage --no-sandbox'
       - name: Maven Verify
         run: mvn verify
