@@ -110,7 +110,7 @@ public abstract class BaseTest {
 
     @AfterMethod
     protected void afterMethod(Method method, ITestResult testResult) {
-        stopDriver();
+        //stopDriver();
         if (!testResult.isSuccess()) {
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
