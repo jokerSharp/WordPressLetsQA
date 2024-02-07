@@ -16,4 +16,4 @@ jobs:
           distribution: 'corretto'
           cache: 'maven'
       - name: Maven Verify
-        run: mvn verify -Dlocal.chrome_options="--headless;--disable-dev-shm-usage;--no-sandbox"
+        run: mvn verify -Dlocal.chrome_options="--headless;--disable-dev-shm-usage;--no-sandbox;--remote-debugging-pipe"
