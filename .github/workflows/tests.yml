@@ -15,5 +15,11 @@ jobs:
           java-version: 17
           distribution: 'corretto'
           cache: 'maven'
+      - name: Set chrome options
+        uses: dschanoeh/change-property@v1
+        with:
+          file: src/test/resources/local.properties
+          property: local.chrome_options
+          value: --headless --disable-dev-shm-usage --no-sandbox
       - name: Maven Verify
         run: mvn verify
