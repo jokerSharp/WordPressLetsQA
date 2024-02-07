@@ -16,4 +16,4 @@ jobs:
           distribution: 'corretto'
           cache: 'maven'
       - name: Maven Verify
-        run: mvn verify -Dlocal.chrome_options2="--remote-allow-origins=*;--disable-gpu;--headless=new;--disable-dev-shm-usage;--no-sandbox;--window-size=1920,1080"
+        run: mvn verify -Dlocal.chrome_options="--remote-allow-origins=*;--disable-gpu;--headless=new;--disable-dev-shm-usage;--no-sandbox;--window-size=1920,1080"
