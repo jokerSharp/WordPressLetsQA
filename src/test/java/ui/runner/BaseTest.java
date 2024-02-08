@@ -12,7 +12,7 @@ import java.time.Duration;
 
 import org.testng.annotations.*;
 import ui.model.LoginPage;
-import ui.model.start.SelectLanguagePage;
+import ui.model.installation.SelectLanguagePage;
 
 public abstract class BaseTest {
     static private Network dockerNetwork;
@@ -59,7 +59,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     protected void beforeClass() {
-        wordpress = new GenericContainer("wordpress:php8.2-apache");
+        wordpress = new GenericContainer("wordpress:6.4.2-php8.2-apache");
         wordpress.addEnv("WORDPRESS_DB_HOST", "mysql:3306");
         wordpress.addEnv("WORDPRESS_DB_USER", "wp");
         wordpress.addEnv("WORDPRESS_DB_PASSWORD", "wp");
@@ -83,13 +83,14 @@ public abstract class BaseTest {
         new SelectLanguagePage(driver)
                 .selectEnglishLanguage()
                 .clickContinue()
+                .waitForGeneratedPassword()
                 .inputWeblogTitle("Let's QA")
                 .inputUsername(ProjectUtils.getUserName())
                 .clearPassword()
                 .inputPassword(ProjectUtils.getPassword())
-                .agreeWithWeakPassword()
                 .inputAdminEmail("admin@gmail.com")
-                .submit();
+                .submit()
+                .proceedToLogin();
         driver.quit();
     }
 
