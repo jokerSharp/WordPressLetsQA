@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ui.model.base.AllPostsBasePage;
 
-import java.util.List;
-
 public class TrashPostsPage extends AllPostsBasePage {
 
     @FindBy(id = "delete_all")
