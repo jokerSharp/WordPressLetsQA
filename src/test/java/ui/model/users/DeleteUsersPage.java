@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ui.model.base.BasePage;
-import ui.model.users.UserPage;
 
 public class DeleteUsersPage extends BasePage {
 

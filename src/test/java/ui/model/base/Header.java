@@ -34,7 +34,6 @@ public class Header {
     @FindBy(xpath = "//li[@id='wp-admin-bar-wp-logo']/div/ul/li")
     private List<WebElement> wpLogoMenuItemsList2;
 
-
     @FindBy(xpath = "//a[@href='https://wordpress.org/support/forum/requests-and-feedback']")
     private WebElement feedbackLogoMenuItem;
 

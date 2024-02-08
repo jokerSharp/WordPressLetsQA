@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
-import ui.model.posts.ViewPostPage;
 import ui.model.users.UserPage;
 
 public class SidePanel {
