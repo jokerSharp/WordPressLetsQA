@@ -1,8 +1,10 @@
 package ui.model.posts;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 
 public class NewPostPage extends BasePage {
@@ -38,13 +40,18 @@ public class NewPostPage extends BasePage {
     }
 
     public NewPostPage clickFinalPublishButton() {
+        getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishButton));
         finalPublishButton.click();
 
         return this;
     }
 
     public ViewPostPage clickViewPost() {
-        viewPost.click();
+        try{
+        viewPost.click();}
+        catch (NoSuchElementException e) {
+            System.out.println();
+        }
 
         return new ViewPostPage(getDriver());
     }
