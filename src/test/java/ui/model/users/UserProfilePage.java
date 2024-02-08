@@ -65,7 +65,4 @@ public class UserProfilePage extends BasePage {
 
         return this;
     }
-
-
-
 }

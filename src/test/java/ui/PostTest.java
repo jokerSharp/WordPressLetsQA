@@ -35,7 +35,7 @@ public class PostTest extends BaseTest {
 
         int actualPostsAmount = new AllPostsPage(getDriver())
                 .hoverOnPostTitle(POST_TITLE)
-                .clickTrashButton(POST_TITLE)
+                .clickTrashButtonUnderPostTitle(POST_TITLE)
                 .getPostsListSize();
 
         Assert.assertEquals(actualPostsAmount, expectedPostsAmount-1);

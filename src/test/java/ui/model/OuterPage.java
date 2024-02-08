@@ -1,7 +1,6 @@
 package ui.model;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
 import ui.model.base.BasePage;
 
 import java.util.ArrayList;
