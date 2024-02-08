@@ -81,7 +81,6 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertEquals(actualColor, "rgba(114, 174, 230, 1)");
     }
-    @Ignore
     @Test
     public void testOpenNewPostPage() {
         new DashboardPage(getDriver())
