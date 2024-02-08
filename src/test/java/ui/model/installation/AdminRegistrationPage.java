@@ -28,6 +28,15 @@ public class AdminRegistrationPage extends BasePage {
         super(driver);
     }
 
+    public String getPassword() {
+        return passwordInput.getAttribute("value");
+    }
+
+    public AdminRegistrationPage waitForGeneratedPassword() {
+        getWait5().until(driver -> !getPassword().isEmpty());
+        return this;
+    }
+
     public AdminRegistrationPage inputWeblogTitle(String title) {
         weblogTitleInput.sendKeys(title);
         return this;

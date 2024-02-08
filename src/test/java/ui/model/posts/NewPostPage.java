@@ -16,7 +16,7 @@ public class NewPostPage extends BasePage {
     @FindBy(css = ".editor-post-publish-button")
     private WebElement finalPublishButton;
 
-    @FindBy(xpath = "//a[text()=\"View Post\"]")
+    @FindBy(xpath = "//a[text() = 'View Post']")
     WebElement viewPost;
 
     public NewPostPage(WebDriver driver) {
