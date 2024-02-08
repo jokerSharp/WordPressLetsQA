@@ -9,9 +9,13 @@ import ui.model.base.BasePage;
 import ui.model.base.Header;
 import ui.model.base.SidePanel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DashboardPage extends BasePage {
 
     private Header header;
+
     private SidePanel sidePanel;
 
     @FindBy(id = "contextual-help-link")
@@ -25,9 +29,6 @@ public class DashboardPage extends BasePage {
 
     @FindBy(css = ".metabox-prefs legend")
     private WebElement screenOptionsTitle;
-
-    @FindBy(xpath = "//div[contains(text(), 'Dashboard')]")
-    private WebElement dashboardSideMenuButtonText;
 
     @FindBy(xpath = "//div[contains(text(), 'Dashboard')]//parent::a")
     private WebElement getDashboardSideMenuButtonFull;
@@ -66,13 +67,16 @@ public class DashboardPage extends BasePage {
     private WebElement eventsAndNewsFrame;
 
     @FindBy(xpath = "//a[@href = 'https://make.wordpress.org/community/meetups-landing-page']")
-    private WebElement meetupsButton;
+    private WebElement meetupsLink;
 
     @FindBy(xpath = "//a[@href = 'https://central.wordcamp.org/schedule/']")
-    private WebElement wordCampsButton;
+    private WebElement wordCampsLink;
 
     @FindBy(xpath = "//a[@href = 'https://wordpress.org/news/']")
-    private WebElement newsButton;
+    private WebElement newsLink;
+
+    @FindBy(css = ".community-events-footer > a")
+    private List<WebElement> outerPagesLinks;
 
     @FindBy(id = "footer-upgrade")
     private WebElement footerVersion;
@@ -86,7 +90,8 @@ public class DashboardPage extends BasePage {
     public Header getHeader() {
         return header;
     }
-     public SidePanel getSidePanel() {
+
+    public SidePanel getSidePanel() {
         return sidePanel;
      }
 
@@ -111,11 +116,6 @@ public class DashboardPage extends BasePage {
 
     public String getScreenOptionsTitle(){
        return screenOptionsTitle.getText();
-    }
-
-    public DashboardPage clickDashboardSideMenuButton() {
-        dashboardSideMenuButtonText.click();
-        return new DashboardPage(getDriver());
     }
 
     public String getDashboardSideMenyButtonColor() {
@@ -176,9 +176,41 @@ public class DashboardPage extends BasePage {
         getWait5().until(ExpectedConditions.visibilityOf(eventsAndNewsFrame));
 
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("arguments[0].scrollIntoView();", meetupsButton);
+        js.executeScript("arguments[0].scrollIntoView();", meetupsLink);
 
-        meetupsButton.click();
+        meetupsLink.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public List<String> outerPagesLinksList() {
+        List<String> outerPagesLinksList = new ArrayList<>();
+
+        for (WebElement e : outerPagesLinks) {
+            outerPagesLinksList.add(e.getAttribute("href"));
+        }
+
+        return outerPagesLinksList;
+    }
+
+    public OuterPage scrollAndClickWordCampLink() {
+        getWait5().until(ExpectedConditions.visibilityOf(eventsAndNewsFrame));
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", wordCampsLink);
+
+        wordCampsLink.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public OuterPage scrollAndClickNewsLink() {
+        getWait5().until(ExpectedConditions.visibilityOf(eventsAndNewsFrame));
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", newsLink);
+
+        newsLink.click();
 
         return new OuterPage(getDriver());
     }

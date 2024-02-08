@@ -1,13 +1,12 @@
 package ui;
 
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.model.OuterPage;
 import ui.runner.BaseTest;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardTest extends BaseTest {
 
@@ -99,13 +98,33 @@ public class DashboardTest extends BaseTest {
     }
 
     @Test
-    public void testClickMeetupButton() {
-        String expectedUrl = "https://www.meetup.com/pro/wordpress/";
+    public void testOuterLinksWork() {
+        String expectedUrlMeetupsPage = "https://www.meetup.com/pro/wordpress/";
 
-        String actualUrl = new DashboardPage(getDriver())
+        List<String> expectedUrlsOfOuterPages = new DashboardPage(getDriver())
+                .outerPagesLinksList();
+
+        String actualUrlMeetupsLink = new DashboardPage(getDriver())
                 .scrollAndClickMeetupsButton()
-                .getOuterPageUrl();
+                .goToOuterPageTab()
+                .getCurrentUrl();
 
-        Assert.assertEquals(actualUrl, expectedUrl);
+        Assert.assertEquals(actualUrlMeetupsLink, expectedUrlMeetupsPage);
+
+        String actualUrlWordCampLink = new OuterPage(getDriver())
+                .closeOuterPageTabAndReturnToDashboardPage()
+                .scrollAndClickWordCampLink()
+                .goToOuterPageTab()
+                .getCurrentUrl();
+
+        Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualUrlWordCampLink));
+
+        String actualUrlNewsLink = new OuterPage(getDriver())
+                .closeOuterPageTabAndReturnToDashboardPage()
+                .scrollAndClickNewsLink()
+                .goToOuterPageTab()
+                .getCurrentUrl();
+
+        Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualUrlNewsLink));
     }
 }
