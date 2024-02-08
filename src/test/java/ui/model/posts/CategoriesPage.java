@@ -23,7 +23,7 @@ public class CategoriesPage extends BasePage {
     }
     public CategoriesPage clickAddNewCategory() {
         addNewCategoryButton.click();
-        new Actions(getDriver()).pause(300).perform();
+        new Actions(getDriver()).pause(800).perform();
 
         return new CategoriesPage(getDriver());
     }
