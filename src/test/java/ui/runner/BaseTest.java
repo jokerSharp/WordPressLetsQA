@@ -12,7 +12,7 @@ import java.time.Duration;
 
 import org.testng.annotations.*;
 import ui.model.LoginPage;
-import ui.model.start.SelectLanguagePage;
+import ui.model.installation.SelectLanguagePage;
 
 public abstract class BaseTest {
     static private Network dockerNetwork;
@@ -87,9 +87,9 @@ public abstract class BaseTest {
                 .inputUsername(ProjectUtils.getUserName())
                 .clearPassword()
                 .inputPassword(ProjectUtils.getPassword())
-                .agreeWithWeakPassword()
                 .inputAdminEmail("admin@gmail.com")
-                .submit();
+                .submit()
+                .proceedToLogin();
         driver.quit();
     }
 

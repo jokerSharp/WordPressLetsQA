@@ -1,4 +1,4 @@
-package ui.model.start;
+package ui.model.installation;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,7 +58,8 @@ public class AdminRegistrationPage extends BasePage {
         return this;
     }
 
-    public void submit() {
+    public SuccessfulInstallationPage submit() {
         submitButton.click();
+        return new SuccessfulInstallationPage(getDriver());
     }
 }
