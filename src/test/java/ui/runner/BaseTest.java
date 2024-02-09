@@ -83,7 +83,6 @@ public abstract class BaseTest {
         new SelectLanguagePage(driver)
                 .selectEnglishLanguage()
                 .clickContinue()
-                .waitForGeneratedPassword()
                 .inputWeblogTitle("Let's QA")
                 .inputUsername(ProjectUtils.getUserName())
                 .clearPassword()

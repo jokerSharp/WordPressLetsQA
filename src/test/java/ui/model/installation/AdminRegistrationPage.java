@@ -24,17 +24,17 @@ public class AdminRegistrationPage extends BasePage {
     @FindBy(id = "submit")
     WebElement submitButton;
 
-    protected AdminRegistrationPage(WebDriver driver) {
+    public AdminRegistrationPage(WebDriver driver) {
         super(driver);
+        waitForGeneratedPassword();
     }
 
     public String getPassword() {
         return passwordInput.getAttribute("value");
     }
 
-    public AdminRegistrationPage waitForGeneratedPassword() {
+    private void waitForGeneratedPassword() {
         getWait5().until(driver -> !getPassword().isEmpty());
-        return this;
     }
 
     public AdminRegistrationPage inputWeblogTitle(String title) {

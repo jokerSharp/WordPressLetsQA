@@ -95,10 +95,6 @@ public class DashboardPage extends BasePage {
         return sidePanel;
      }
 
-    public String getTitle() {
-        return getDriver().getTitle();
-    }
-
     public DashboardPage helpButtonClick(){
         helpButton.click();
         return new DashboardPage(getDriver());

@@ -83,11 +83,13 @@ public class HeaderTest extends BaseTest {
     }
     @Test
     public void testOpenNewPostPage() {
-        new DashboardPage(getDriver())
+        String title = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnNewContentButton()
-                .clickNewPostButton();
+                .clickNewPostButton()
+                .getTitle();
 
-        Assert.assertTrue(getDriver().getTitle().contains("Add New Post"));
+
+        Assert.assertTrue(title.contains("Add New Post"));
     }
 }
