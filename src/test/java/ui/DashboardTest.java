@@ -26,11 +26,10 @@ public class DashboardTest extends BaseTest {
     @Test
     public void testHelpPanelIsOpened() {
         boolean actualResult = new DashboardPage(getDriver())
-                .helpButtonClick()
+                .clickHelpButton()
                 .tabOverviewIsDisplayed();
 
         Assert.assertTrue(actualResult);
-
     }
 
     @Test
@@ -126,5 +125,35 @@ public class DashboardTest extends BaseTest {
                 .getCurrentUrl();
 
         Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualUrlNewsLink));
+    }
+
+    @Test
+    public void testOuterLinksInHelpPanelWork() {
+        List<String> expectedUrlsOfOuterPages = new DashboardPage(getDriver())
+                .helpPanelOuterPagesLinksList();
+        System.out.println(expectedUrlsOfOuterPages);
+
+        String actualUrlDocumentationOnDashboardLink = new DashboardPage(getDriver())
+                .clickHelpButton()
+                .clickDocumentationOnDashboardLink()
+                .getCurrentUrl();
+
+        Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualUrlDocumentationOnDashboardLink));
+
+        String actualUrlSupportForumsLink = new OuterPage(getDriver())
+                .returnToPreviousPage(new DashboardPage(getDriver()))
+                .clickHelpButton()
+                .clickSupportForumsLink()
+                .getCurrentUrl();
+
+        Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualUrlSupportForumsLink));
+
+        String actualVersionLink = new OuterPage(getDriver())
+                .returnToPreviousPage(new DashboardPage(getDriver()))
+                .clickHelpButton()
+                .clickVersionLink()
+                .getCurrentUrl();
+
+        Assert.assertTrue(expectedUrlsOfOuterPages.contains(actualVersionLink));
     }
 }

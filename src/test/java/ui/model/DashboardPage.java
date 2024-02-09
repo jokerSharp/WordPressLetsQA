@@ -78,6 +78,18 @@ public class DashboardPage extends BasePage {
     @FindBy(css = ".community-events-footer > a")
     private List<WebElement> outerPagesLinks;
 
+    @FindBy(css = ".contextual-help-sidebar > p > a")
+    private List<WebElement> forMoreInformationOuterPagesLinksInHelpPanel;
+
+    @FindBy(xpath = "//div[@class = 'contextual-help-sidebar']//a[contains(text(), 'Documentation')]")
+    private WebElement documentationOnDashboardLink;
+
+    @FindBy(xpath = "//div[@class = 'contextual-help-sidebar']//a[contains(text(), 'Support')]")
+    private WebElement supportForumsLink;
+
+    @FindBy(xpath = "//div[@class = 'contextual-help-sidebar']//a[contains(text(), 'Version')]")
+    private WebElement versionLink;
+
     @FindBy(id = "footer-upgrade")
     private WebElement footerVersion;
 
@@ -95,7 +107,7 @@ public class DashboardPage extends BasePage {
         return sidePanel;
      }
 
-    public DashboardPage helpButtonClick(){
+    public DashboardPage clickHelpButton(){
         helpButton.click();
         return new DashboardPage(getDriver());
     }
@@ -207,6 +219,34 @@ public class DashboardPage extends BasePage {
         js.executeScript("arguments[0].scrollIntoView();", newsLink);
 
         newsLink.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public List<String> helpPanelOuterPagesLinksList() {
+        List<String> outerPagesLinksList = new ArrayList<>();
+
+        for (WebElement e : forMoreInformationOuterPagesLinksInHelpPanel) {
+            outerPagesLinksList.add(e.getAttribute("href"));
+        }
+
+        return outerPagesLinksList;
+    }
+
+    public OuterPage clickDocumentationOnDashboardLink() {
+        documentationOnDashboardLink.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public OuterPage clickSupportForumsLink() {
+        supportForumsLink.click();
+
+        return new OuterPage(getDriver());
+    }
+
+    public OuterPage clickVersionLink() {
+        versionLink.click();
 
         return new OuterPage(getDriver());
     }

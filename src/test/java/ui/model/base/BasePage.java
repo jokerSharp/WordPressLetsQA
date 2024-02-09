@@ -15,4 +15,10 @@ public abstract class BasePage extends BaseModel{
     public String getTitle() {
         return getDriver().getTitle();
     }
+
+    public <T extends BasePage> T returnToPreviousPage(T page) {
+        getDriver().navigate().back();
+
+        return page;
+    }
 }
