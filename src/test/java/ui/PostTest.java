@@ -13,16 +13,17 @@ public class PostTest extends BaseTest {
 
     @Test(invocationCount = 5)
     public void testCreateNewPost() {
-        new DashboardPage(getDriver())
+        String title = new DashboardPage(getDriver())
                 .getHeader()
                 .hoverOnNewContentButton()
                 .clickNewPostButton()
                 .typeTitle(POST_TITLE)
                 .clickPreliminaryPublishButton()
                 .clickFinalPublishButton()
-                .clickViewPost();
+                .clickViewPost()
+                .getTitle();
 
-        Assert.assertTrue(getDriver().getTitle().contains(POST_TITLE));
+        Assert.assertTrue(title.contains(POST_TITLE));
     }
 
     @Test(dependsOnMethods = "testCreateNewPost")

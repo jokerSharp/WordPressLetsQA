@@ -41,19 +41,19 @@ public class NewPostPage extends BasePage {
 
     public NewPostPage clickFinalPublishButton() {
         getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishButton));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         finalPublishButton.click();
 
         return this;
     }
 
     public ViewPostPage clickViewPost() {
-        try{
-        viewPost.click();}
-        catch (NoSuchElementException e) {
-            System.out.println();
-        }
+        viewPost.click();
 
         return new ViewPostPage(getDriver());
     }
-
 }

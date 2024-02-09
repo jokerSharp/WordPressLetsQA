@@ -21,6 +21,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        waitForUserNameIsActive();
     }
 
     static public LoginPage open(WebDriver driver, String baseUrl) {
@@ -37,5 +38,9 @@ public class LoginPage extends BasePage {
 
     public String getLoginMessageText() {
         return loginMessage.getText();
+    }
+
+    private void waitForUserNameIsActive() {
+        getWait2().until(driver -> driver.switchTo().activeElement().equals(usernameInput));
     }
 }
