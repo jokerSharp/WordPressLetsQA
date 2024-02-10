@@ -23,4 +23,17 @@ public class CategoryTest extends BaseTest {
 
         Assert.assertTrue(categories.contains(CATEGORY_NAME));
     }
+
+    @Test(dependsOnMethods = "testCreateCategoryRequiredFields")
+    public void testDeleteCategory() {
+        List<String> categories = new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+                .getSidePanel()
+                .clickSideMenuCategoriesButton()
+                .clickDeleteCategory(CATEGORY_NAME)
+                .getCategoriesList();
+
+        Assert.assertFalse(categories.contains(CATEGORY_NAME));
+    }
 }

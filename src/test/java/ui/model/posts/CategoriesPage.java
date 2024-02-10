@@ -1,9 +1,11 @@
 package ui.model.posts;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 
 import java.util.List;
@@ -23,12 +25,30 @@ public class CategoriesPage extends BasePage {
     }
     public CategoriesPage clickAddNewCategory() {
         addNewCategoryButton.click();
-        new Actions(getDriver()).pause(800).perform();
 
         return new CategoriesPage(getDriver());
     }
+
+    public CategoriesPage clickDeleteCategory(String name) {
+        new Actions(getDriver())
+                .moveToElement(getDriver()
+                        .findElement(By.xpath("//a[text()='" + name + "']")))
+                .moveToElement(getDriver()
+                        .findElement(By.xpath("//a[@aria-label='Delete “" + name+ "”']")))
+                .click()
+                .perform();
+
+        getWait2().until(ExpectedConditions.alertIsPresent()).accept();
+
+        return new CategoriesPage(getDriver());
+    }
+
     public List<String> getCategoriesList() {
-        return categoryName.stream().map(WebElement::getText).toList();
+        new Actions(getDriver()).pause(800).perform();
+
+        return categoryName.stream()
+                .map(WebElement::getText)
+                .toList();
     }
 
     public CategoriesPage(WebDriver driver) {
