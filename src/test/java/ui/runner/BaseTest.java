@@ -25,7 +25,7 @@ public abstract class BaseTest {
     private WebDriverWait wait10;
 
     private void startDriver() {
-        ProjectUtils.log("Browser open");
+        LoggerUtils.logInfo("Browser open");
         driver = ProjectUtils.createDriver();
     }
 
@@ -40,7 +40,7 @@ public abstract class BaseTest {
             wait2 = null;
             wait5 = null;
             wait10 = null;
-            ProjectUtils.log("Browser closed");
+            LoggerUtils.logInfo("Browser closed");
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class BaseTest {
             } catch(NoSuchElementException e) {
                 continue;
             }
-            System.out.println("Found logo");
+            LoggerUtils.logInfo("Found logo");
             break;
         }
         new SelectLanguagePage(driver)
@@ -95,7 +95,7 @@ public abstract class BaseTest {
 
     @BeforeMethod
     protected void beforeMethod(Method method) {
-        ProjectUtils.logf("Run %s.%s", this.getClass().getName(), method.getName());
+        LoggerUtils.logSuccess(String.format("Run %s.%s", this.getClass().getName(), method.getName()));
         startDriver();
         try {
             String baseUrl = "http://localhost:" + wordpress.getFirstMappedPort() + "/";
@@ -111,9 +111,10 @@ public abstract class BaseTest {
     @AfterMethod
     protected void afterMethod(Method method, ITestResult testResult) {
         if (!testResult.isSuccess()) {
+            LoggerUtils.logError(String.format("ERROR: %s.%s", this.getClass().getName(), method.getName()));
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
-        ProjectUtils.logf("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000);
+        LoggerUtils.logInfo(String.format("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000));
         stopDriver();
     }
 

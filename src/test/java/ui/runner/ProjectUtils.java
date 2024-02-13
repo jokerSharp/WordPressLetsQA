@@ -29,8 +29,8 @@ public final class ProjectUtils {
             try {
                 InputStream inputStream = ProjectUtils.class.getClassLoader().getResourceAsStream("local.properties");
                 if (inputStream == null) {
-                    System.out.println("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
-                    System.out.println("You need to create it from local.properties.TEMPLATE file.");
+                    LoggerUtils.logError("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
+                    LoggerUtils.logError("You need to create it from local.properties.TEMPLATE file.");
                     System.exit(1);
                 }
                 properties.load(inputStream);
@@ -82,15 +82,6 @@ public final class ProjectUtils {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         return driver;
-    }
-
-    public static void log(String str) {
-        System.out.println(str);
-    }
-
-    public static void logf(String str, Object... arr) {
-        System.out.printf(str, arr);
-        System.out.println();
     }
 
     static File takeScreenshot(WebDriver driver, String methodName, String className) {
