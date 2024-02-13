@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ui.model.LoginPage;
 import ui.model.base.BasePage;
+import ui.runner.LoggerUtils;
 
 public class SuccessfulInstallationPage extends BasePage {
 
@@ -20,7 +21,7 @@ public class SuccessfulInstallationPage extends BasePage {
     public LoginPage proceedToLogin() {
        try{ loginButton.click();}
        catch (NoSuchElementException e){
-           System.out.println();
+           LoggerUtils.logError("NoSuchElementException - SuccessfulInstallationPage");
        }
         return new LoginPage(getDriver());
     }
