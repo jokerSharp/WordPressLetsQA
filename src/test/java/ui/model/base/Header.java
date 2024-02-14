@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ui.model.LoginPage;
+import ui.model.nonAdminPages.NAHomePage;
 import ui.model.posts.NewPostPage;
 import ui.model.users.NewUserPage;
 
@@ -45,6 +46,9 @@ public class Header {
 
     @FindBy(id = "wp-admin-bar-new-user")
     private WebElement newUserButton;
+
+    @FindBy(id = "wp-admin-bar-site-name")
+    private WebElement letsQALogo;
 
     public Header (WebDriver driver) {
         this.driver = driver;
@@ -127,5 +131,11 @@ public class Header {
         newUserButton.click();
 
         return new NewUserPage(driver);
+    }
+
+    public NAHomePage goToNAHomePage() {
+        letsQALogo.click();
+
+        return new NAHomePage(driver);
     }
 }
