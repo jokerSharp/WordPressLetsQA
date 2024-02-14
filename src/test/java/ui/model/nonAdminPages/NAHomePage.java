@@ -17,11 +17,10 @@ public class NAHomePage extends BasePage {
         super(driver);
     }
 
-    public NAPostPage scrollAndClickFirstPostLink() throws InterruptedException {
+    public NAPostPage scrollAndClickFirstPostLink() {
 
 //        getWait5().until(ExpectedConditions.visibilityOf(firstPostName));
 
-        Thread.sleep(1000);
 //        JavascriptExecutor js = (JavascriptExecutor) getDriver();
 //        js.executeScript("arguments[0].scrollIntoView();", firstPostName);
 

@@ -50,6 +50,7 @@ public class Header {
     @FindBy(id = "wp-admin-bar-site-name")
     private WebElement letsQALogo;
 
+
     public Header (WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

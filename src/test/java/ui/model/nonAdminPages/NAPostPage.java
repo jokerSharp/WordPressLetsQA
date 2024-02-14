@@ -10,6 +10,7 @@ import java.util.List;
 
 public class NAPostPage extends BasePage {
 
+
     @FindBy(id = "comment")
     private WebElement commentInputField;
 

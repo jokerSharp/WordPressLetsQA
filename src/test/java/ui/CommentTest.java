@@ -10,7 +10,7 @@ import java.util.List;
 public class CommentTest extends BaseTest {
 
     @Test
-    public void createComment() throws InterruptedException {
+    public void createComment() {
         String comment = "new comment to first post";
 
         List<String> commentsList = new DashboardPage(getDriver())
