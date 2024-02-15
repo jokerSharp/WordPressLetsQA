@@ -16,7 +16,7 @@ public class CommentTest extends BaseTest {
         List<String> commentsList = new DashboardPage(getDriver())
                 .getHeader()
                 .goToNAHomePage()
-                .scrollAndClickFirstPostLink()
+                .clickFirstPostLink()
                 .typeNewComment(comment)
                 .clickPostCommentButton()
                 .getCommentsText();

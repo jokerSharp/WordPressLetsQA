@@ -9,4 +9,5 @@ public class CommentsPage extends BasePage {
     public CommentsPage(WebDriver driver) {
         super(driver);
     }
+
 }

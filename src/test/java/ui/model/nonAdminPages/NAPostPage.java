@@ -44,4 +44,5 @@ public class NAPostPage extends BasePage {
 
         return commentsTextList;
     }
+
 }

@@ -10,24 +10,24 @@ import ui.model.base.BasePage;
 
 public class NAHomePage extends BasePage {
 
-    @FindBy(css = "h2 > a[href*=\"/1/\"]")
+    @FindBy(css = "h2 > a[href*='/?p=1']")
     private WebElement firstPostName;
 
     public NAHomePage(WebDriver driver) {
         super(driver);
     }
 
-    public NAPostPage scrollAndClickFirstPostLink() throws InterruptedException {
+    public NAPostPage clickFirstPostLink() {
 
 //        getWait5().until(ExpectedConditions.visibilityOf(firstPostName));
 
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
 //        JavascriptExecutor js = (JavascriptExecutor) getDriver();
 //        js.executeScript("arguments[0].scrollIntoView();", firstPostName);
 
-        new Actions(getDriver())
-                .scrollToElement(firstPostName)
-                .perform();
+//        new Actions(getDriver())
+//                .scrollToElement(firstPostName)
+//                .perform();
 
         firstPostName.click();
 
