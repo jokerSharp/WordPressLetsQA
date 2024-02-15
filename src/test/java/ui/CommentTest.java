@@ -10,7 +10,7 @@ import java.util.List;
 public class CommentTest extends BaseTest {
 
     @Test
-    public void createComment() throws InterruptedException {
+    public void testCreateComment() {
         String comment = "new comment to first post";
 
         List<String> commentsList = new DashboardPage(getDriver())
@@ -22,7 +22,5 @@ public class CommentTest extends BaseTest {
                 .getCommentsText();
 
         Assert.assertTrue(commentsList.contains(comment));
-
-
     }
 }

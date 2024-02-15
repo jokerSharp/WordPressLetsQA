@@ -18,17 +18,6 @@ public class NAHomePage extends BasePage {
     }
 
     public NAPostPage clickFirstPostLink() {
-
-//        getWait5().until(ExpectedConditions.visibilityOf(firstPostName));
-
-//        Thread.sleep(1000);
-//        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-//        js.executeScript("arguments[0].scrollIntoView();", firstPostName);
-
-//        new Actions(getDriver())
-//                .scrollToElement(firstPostName)
-//                .perform();
-
         firstPostName.click();
 
         return new NAPostPage(getDriver());
