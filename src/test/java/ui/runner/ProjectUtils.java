@@ -27,7 +27,7 @@ public final class ProjectUtils {
     private static void initProperties() {
         if (properties == null) {
             properties = new Properties();
-            if (!isServerRun()) {
+            if (isServerRun()) {
 //                System.out.println("PRINT = ");
 //                System.getenv().forEach((k, v) -> {
 //                    System.out.println(k + ":" + v);
