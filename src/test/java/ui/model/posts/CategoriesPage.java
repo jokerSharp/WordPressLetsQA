@@ -13,8 +13,10 @@ import java.util.List;
 public class CategoriesPage extends BasePage {
     @FindBy(id = "tag-name")
     private WebElement nameInput;
+
     @FindBy(id = "submit")
     private WebElement addNewCategoryButton;
+
     @FindBy(xpath = "//tbody[@id='the-list']/tr/td[@data-colname='Name']/strong")
     private List <WebElement> categoryName;
 
