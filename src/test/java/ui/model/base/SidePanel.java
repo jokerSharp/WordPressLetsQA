@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
+import ui.model.posts.TagsPage;
 import ui.model.users.UserPage;
 
 public class SidePanel {
@@ -20,6 +21,9 @@ public class SidePanel {
 
     @FindBy(xpath = "//a[text()='Categories']")
     private WebElement sideMenuCategoriesButton;
+
+    @FindBy(xpath = "//a[text()='Tags']")
+    private WebElement sideMenuTagsButton;
 
     public SidePanel(WebDriver driver) {
         this.driver = driver;
@@ -42,6 +46,12 @@ public class SidePanel {
         sideMenuCategoriesButton.click();
 
         return new CategoriesPage(driver);
+    }
+
+    public TagsPage clickSideMenuTagsButton() {
+        sideMenuCategoriesButton.click();
+
+        return new TagsPage(driver);
     }
 
 }
