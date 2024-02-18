@@ -131,7 +131,6 @@ public class DashboardTest extends BaseTest {
     public void testOuterLinksInHelpPanelWork() {
         List<String> expectedUrlsOfOuterPages = new DashboardPage(getDriver())
                 .helpPanelOuterPagesLinksList();
-        System.out.println(expectedUrlsOfOuterPages);
 
         String actualUrlDocumentationOnDashboardLink = new DashboardPage(getDriver())
                 .clickHelpButton()

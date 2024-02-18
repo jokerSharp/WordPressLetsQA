@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.posts.CreateEditPostPage;
 import ui.runner.BaseTest;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class TagsTest extends BaseTest {
     public static final String TAG_NAME = RandomStringUtils.randomAlphanumeric(3,10);
 
     @Test
-    public void testCreateCategoryRequiredFields() {
+    public void testCreateTagRequiredFields() {
         List<String> tags = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuPostsButton()
@@ -25,32 +26,25 @@ public class TagsTest extends BaseTest {
         Assert.assertTrue(tags.contains(TAG_NAME));
     }
 
-    @Test (dependsOnMethods = {"testCreateCategoryRequiredFields", "testCreateNewPost"})
+    @Test (dependsOnMethods = {"testCreateTagRequiredFields"})
     public void testAssignTagToPost() {
         String messageText = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuPostsButton()
                 .clickAnyPostTitle()
                 .scrollToTagsSection()
-                .inputTagAndPushEnter(TAG_NAME)
+                .closeWelcomeWindowIfAppears()
+                .inputTagsName(TAG_NAME)
+                .clickTagNameFromDropdown()
                 .clickFinalPublishOrUpdateButton()
                 .getSuccessMessageText();
 
         Assert.assertTrue(messageText.contains("Post updated."));
-    }
 
-    @Test
-    public void testCreateNewPost() {
-        String title = new DashboardPage(getDriver())
-                .getHeader()
-                .hoverOnNewContentButton()
-                .clickNewPostButton()
-                .typeTitle("new post")
-                .clickPreliminaryPublishButton()
-                .clickFinalPublishOrUpdateButton()
-                .clickViewPost()
-                .getTitle();
+        List<String> actualTagsList = new CreateEditPostPage(getDriver())
+                .clickWpLogo()
+                .getTagsList();
 
-        Assert.assertTrue(title.contains("new post"));
+        Assert.assertTrue(actualTagsList.contains(TAG_NAME));
     }
 }

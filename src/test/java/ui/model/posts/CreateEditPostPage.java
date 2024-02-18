@@ -20,16 +20,28 @@ public class CreateEditPostPage extends BasePage {
     private WebElement finalPublishOrUpdateButton;
 
     @FindBy(xpath = "//a[text() = 'View Post']")
-    WebElement viewPost;
+    private WebElement viewPost;
 
     @FindBy (xpath = "//div[@class = 'components-form-token-field']//input")
-    WebElement tagsInputField;
+    private WebElement tagsInputField;
 
     @FindBy (xpath = "//div[@class = 'components-panel']//button[contains(text(), 'Tags')]")
-    WebElement tagsRightPanelButton;
+    private WebElement tagsRightPanelButton;
 
     @FindBy(xpath = "//div[@class = 'components-snackbar__content']")
-    WebElement successMessage;
+    private WebElement successMessage;
+
+    @FindBy (xpath = "//a[@href = 'edit.php?post_type=post']")
+    private WebElement wpLogo;
+
+    @FindBy (xpath = "//button[@aria-label = 'Close']")
+    private WebElement welcomeWindowCloseButton;
+
+    @FindBy (css = ".components-modal__content")
+    private WebElement welcomeWindow;
+
+    @FindBy (css = ".components-form-token-field__suggestions-list > li")
+    private WebElement tagsDropDownList;
 
     public CreateEditPostPage(WebDriver driver) {
         super(driver);
@@ -74,13 +86,18 @@ public class CreateEditPostPage extends BasePage {
         return this;
     }
 
-    public CreateEditPostPage inputTagAndPushEnter(String tag) {
+    public CreateEditPostPage inputTagsName(String tag) {
         if (tagsRightPanelButton.getAttribute("aria-expanded").equals("false")) {
             tagsRightPanelButton.click();
         }
         tagsInputField.click();
         tagsInputField.sendKeys(tag);
-        tagsInputField.sendKeys(Keys.ENTER);
+
+        return this;
+    }
+
+    public CreateEditPostPage clickTagNameFromDropdown() {
+        tagsDropDownList.click();
 
         return this;
     }
@@ -89,5 +106,19 @@ public class CreateEditPostPage extends BasePage {
         getWait5().until(ExpectedConditions.visibilityOf(successMessage));
 
         return successMessage.getText();
+    }
+
+    public AllPostsPage clickWpLogo() {
+        wpLogo.click();
+
+        return new AllPostsPage(getDriver());
+    }
+
+    public CreateEditPostPage closeWelcomeWindowIfAppears() {
+        if (welcomeWindow.isDisplayed()) {
+            welcomeWindowCloseButton.click();
+        }
+
+        return this;
     }
 }

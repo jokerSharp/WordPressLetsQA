@@ -36,6 +36,9 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
     @FindBy(xpath = "//a[@href='edit.php?post_status=trash&post_type=post']")
     private WebElement trashLink;
 
+    @FindBy (xpath = "//tbody[@id = 'the-list']//td[@class = 'tags column-tags']/a")
+    private List<WebElement> tagsList;
+
     protected AllPostsBasePage(WebDriver driver) {
         super(driver);
         header = new Header(driver);
@@ -60,7 +63,6 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
             int max = getPostsListSize();
             int min = 0;
             int randomPost = (int) (Math.random()*(max-min)+min);
-            System.out.println(randomPost);
             postsList.get(randomPost).click();
         } else {
             System.out.println("No posts found!");
@@ -104,5 +106,14 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
     public TrashPostsPage clickTrashLink() {
         trashLink.click();
         return new TrashPostsPage(getDriver());
+    }
+
+    public List<String> getTagsList() {
+        List<String> tags = new ArrayList<>();
+
+        for (WebElement e : tagsList) {
+            tags.add(e.getText());
+        }
+        return tags;
     }
 }
