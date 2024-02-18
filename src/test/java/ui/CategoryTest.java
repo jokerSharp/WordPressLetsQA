@@ -17,9 +17,9 @@ public class CategoryTest extends BaseTest {
                 .clickSideMenuPostsButton()
                 .getSidePanel()
                 .clickSideMenuCategoriesButton()
-                .inputCategoryName(CATEGORY_NAME)
-                .clickAddNewCategory()
-                .getCategoriesList();
+                .inputElementName(CATEGORY_NAME)
+                .clickAddNewElement()
+                .getElementsList();
 
         Assert.assertTrue(categories.contains(CATEGORY_NAME));
     }
@@ -31,8 +31,8 @@ public class CategoryTest extends BaseTest {
                 .clickSideMenuPostsButton()
                 .getSidePanel()
                 .clickSideMenuCategoriesButton()
-                .clickDeleteCategory(CATEGORY_NAME)
-                .getCategoriesList();
+                .clickDeleteElement(CATEGORY_NAME)
+                .getElementsList();
 
         Assert.assertFalse(categories.contains(CATEGORY_NAME));
     }
