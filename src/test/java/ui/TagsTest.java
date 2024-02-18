@@ -17,9 +17,9 @@ public class TagsTest extends BaseTest {
                 .clickSideMenuPostsButton()
                 .getSidePanel()
                 .clickSideMenuTagsButton()
-                .inputTagName(TAG_NAME)
-                .clickAddNewTag()
-                .getTagsList();
+                .inputElementName(TAG_NAME)
+                .clickAddNewElement()
+                .getElementsList();
 
         Assert.assertTrue(tags.contains(TAG_NAME));
     }
