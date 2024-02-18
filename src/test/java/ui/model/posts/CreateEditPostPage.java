@@ -1,13 +1,12 @@
 package ui.model.posts;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
 
-public class NewPostPage extends BasePage {
+public class CreateEditPostPage extends BasePage {
 
     @FindBy(css = ".wp-block-post-title")
     private WebElement postTitle;
@@ -21,11 +20,11 @@ public class NewPostPage extends BasePage {
     @FindBy(xpath = "//a[text() = 'View Post']")
     WebElement viewPost;
 
-    public NewPostPage(WebDriver driver) {
+    public CreateEditPostPage(WebDriver driver) {
         super(driver);
     }
 
-    public NewPostPage typeTitle(String title) {
+    public CreateEditPostPage typeTitle(String title) {
         getDriver().switchTo().frame("editor-canvas");
         postTitle.sendKeys(title);
         getDriver().switchTo().defaultContent();
@@ -33,13 +32,13 @@ public class NewPostPage extends BasePage {
         return this;
     }
 
-    public NewPostPage clickPreliminaryPublishButton() {
+    public CreateEditPostPage clickPreliminaryPublishButton() {
         publishButton.click();
 
         return this;
     }
 
-    public NewPostPage clickFinalPublishButton() {
+    public CreateEditPostPage clickFinalPublishButton() {
         getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishButton));
         try {
             Thread.sleep(1000);

@@ -1,5 +1,6 @@
 package ui;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
@@ -8,7 +9,7 @@ import ui.runner.BaseTest;
 import java.util.List;
 
 public class TagsTest extends BaseTest {
-    public static final String TAG_NAME = "tagName";
+    public static final String TAG_NAME = RandomStringUtils.randomAlphanumeric(3,10);
 
     @Test
     public void testCreateCategoryRequiredFields() {
@@ -22,5 +23,13 @@ public class TagsTest extends BaseTest {
                 .getElementsList();
 
         Assert.assertTrue(tags.contains(TAG_NAME));
+    }
+
+    @Test (dependsOnMethods = "testCreateCategoryRequiredFields")
+    public void testAssignTagToPost() {
+        new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+                .clickAnyPostTitle();
     }
 }

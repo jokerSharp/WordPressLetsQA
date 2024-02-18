@@ -3,9 +3,12 @@ package ui.model.base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.model.posts.CreateEditPostPage;
 import ui.model.posts.TrashPostsPage;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.random.RandomGenerator;
 
 public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends BasePage{
     private Header header;
@@ -41,6 +44,25 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     public int getPostsListSize() {
         return postsList.size();
+    }
+
+    public List<String> getPostsIdList() {
+        List<String> postsIdList = new ArrayList<>();
+
+        for (WebElement e : postsList) {
+            postsIdList.add(e.getCssValue("id"));
+        }
+        return postsIdList;
+    }
+
+    public CreateEditPostPage clickAnyPostTitle() {
+        if (postsList != null) {
+            int randomPost = (int) Math.random()*(getPostsListSize()-0+1)+0;
+            postsList.get(randomPost).click();
+        } else {
+            System.out.println("No posts found!");
+        }
+        return new CreateEditPostPage(getDriver());
     }
 
     public Header getHeader() {
