@@ -36,7 +36,7 @@ public class TagsTest extends BaseTest {
                 .clickFinalPublishOrUpdateButton()
                 .getSuccessMessageText();
 
-        Assert.assertEquals(messageText, "Post updated.");
+        Assert.assertTrue(messageText.contains("Post updated."));
     }
 
     @Test

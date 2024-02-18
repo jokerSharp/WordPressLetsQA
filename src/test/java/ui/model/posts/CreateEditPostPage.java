@@ -51,11 +51,11 @@ public class CreateEditPostPage extends BasePage {
 
     public CreateEditPostPage clickFinalPublishOrUpdateButton() {
         getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishOrUpdateButton));
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         finalPublishOrUpdateButton.click();
 
         return this;
@@ -86,6 +86,8 @@ public class CreateEditPostPage extends BasePage {
     }
 
     public String getSuccessMessageText() {
+        getWait5().until(ExpectedConditions.visibilityOf(successMessage));
+
         return successMessage.getText();
     }
 }
