@@ -25,11 +25,32 @@ public class TagsTest extends BaseTest {
         Assert.assertTrue(tags.contains(TAG_NAME));
     }
 
-    @Test (dependsOnMethods = "testCreateCategoryRequiredFields")
+    @Test (dependsOnMethods = {"testCreateCategoryRequiredFields", "testCreateNewPost"})
     public void testAssignTagToPost() {
-        new DashboardPage(getDriver())
+        String messageText = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuPostsButton()
-                .clickAnyPostTitle();
+                .clickAnyPostTitle()
+                .scrollToTagsSection()
+                .inputTagAndPushEnter(TAG_NAME)
+                .clickFinalPublishOrUpdateButton()
+                .getSuccessMessageText();
+
+        Assert.assertEquals(messageText, "Post updated.");
+    }
+
+    @Test
+    public void testCreateNewPost() {
+        String title = new DashboardPage(getDriver())
+                .getHeader()
+                .hoverOnNewContentButton()
+                .clickNewPostButton()
+                .typeTitle("new post")
+                .clickPreliminaryPublishButton()
+                .clickFinalPublishOrUpdateButton()
+                .clickViewPost()
+                .getTitle();
+
+        Assert.assertTrue(title.contains("new post"));
     }
 }

@@ -1,5 +1,7 @@
 package ui.model.posts;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,10 +17,19 @@ public class CreateEditPostPage extends BasePage {
     private WebElement publishButton;
 
     @FindBy(css = ".editor-post-publish-button")
-    private WebElement finalPublishButton;
+    private WebElement finalPublishOrUpdateButton;
 
     @FindBy(xpath = "//a[text() = 'View Post']")
     WebElement viewPost;
+
+    @FindBy (xpath = "//div[@class = 'components-form-token-field']//input")
+    WebElement tagsInputField;
+
+    @FindBy (xpath = "//div[@class = 'components-panel']//button[contains(text(), 'Tags')]")
+    WebElement tagsRightPanelButton;
+
+    @FindBy(xpath = "//div[@class = 'components-snackbar__content']")
+    WebElement successMessage;
 
     public CreateEditPostPage(WebDriver driver) {
         super(driver);
@@ -38,14 +49,14 @@ public class CreateEditPostPage extends BasePage {
         return this;
     }
 
-    public CreateEditPostPage clickFinalPublishButton() {
-        getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishButton));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        finalPublishButton.click();
+    public CreateEditPostPage clickFinalPublishOrUpdateButton() {
+        getWait2().until(driver -> ExpectedConditions.elementToBeClickable(finalPublishOrUpdateButton));
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        finalPublishOrUpdateButton.click();
 
         return this;
     }
@@ -54,5 +65,27 @@ public class CreateEditPostPage extends BasePage {
         viewPost.click();
 
         return new ViewPostPage(getDriver());
+    }
+
+    public CreateEditPostPage scrollToTagsSection() {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", tagsRightPanelButton);
+
+        return this;
+    }
+
+    public CreateEditPostPage inputTagAndPushEnter(String tag) {
+        if (tagsRightPanelButton.getAttribute("aria-expanded").equals("false")) {
+            tagsRightPanelButton.click();
+        }
+        tagsInputField.click();
+        tagsInputField.sendKeys(tag);
+        tagsInputField.sendKeys(Keys.ENTER);
+
+        return this;
+    }
+
+    public String getSuccessMessageText() {
+        return successMessage.getText();
     }
 }

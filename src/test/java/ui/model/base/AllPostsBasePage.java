@@ -15,7 +15,7 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     private SidePanel sidePanel;
 
-    @FindBy(css = "#the-list > tr > td > strong")
+    @FindBy(css = "#the-list > tr > td > strong > a")
     private List<WebElement> postsList;
 
     @FindBy(id = "cb-select-all-1")
@@ -57,7 +57,10 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     public CreateEditPostPage clickAnyPostTitle() {
         if (postsList != null) {
-            int randomPost = (int) Math.random()*(getPostsListSize()-0+1)+0;
+            int max = getPostsListSize();
+            int min = 0;
+            int randomPost = (int) (Math.random()*(max-min)+min);
+            System.out.println(randomPost);
             postsList.get(randomPost).click();
         } else {
             System.out.println("No posts found!");

@@ -19,7 +19,7 @@ public class PostTest extends BaseTest {
                 .clickNewPostButton()
                 .typeTitle(POST_TITLE)
                 .clickPreliminaryPublishButton()
-                .clickFinalPublishButton()
+                .clickFinalPublishOrUpdateButton()
                 .clickViewPost()
                 .getTitle();
 
