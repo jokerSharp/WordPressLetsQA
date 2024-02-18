@@ -8,7 +8,6 @@ import ui.model.posts.TrashPostsPage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.random.RandomGenerator;
 
 public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends BasePage{
     private Header header;
@@ -47,15 +46,6 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     public int getPostsListSize() {
         return postsList.size();
-    }
-
-    public List<String> getPostsIdList() {
-        List<String> postsIdList = new ArrayList<>();
-
-        for (WebElement e : postsList) {
-            postsIdList.add(e.getCssValue("id"));
-        }
-        return postsIdList;
     }
 
     public CreateEditPostPage clickAnyPostTitle() {
