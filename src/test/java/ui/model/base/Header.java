@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ui.model.LoginPage;
 import ui.model.nonAdminPages.NAHomePage;
-import ui.model.posts.NewPostPage;
+import ui.model.posts.CreateEditPostPage;
 import ui.model.users.NewUserPage;
 
 import java.util.ArrayList;
@@ -105,10 +105,10 @@ public class Header {
 
         return this;
     }
-    public NewPostPage clickNewPostButton() {
+    public CreateEditPostPage clickNewPostButton() {
         newPostButton.click();
 
-        return new NewPostPage(driver);
+        return new CreateEditPostPage(driver);
     }
     public List<String> getWpLogoMenuItemsList2() {
         List<String> menuItemsList = new ArrayList<>();
