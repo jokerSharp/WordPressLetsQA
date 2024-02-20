@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ui.model.comments.CommentsPage;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
 import ui.model.posts.TagsPage;
@@ -18,6 +19,9 @@ public class SidePanel {
 
     @FindBy(xpath = "//div[contains(text(), 'Posts')]")
     private WebElement sideMenuPostsButton;
+
+    @FindBy(id = "menu-comments")
+    private WebElement sideMenuCommentsButton;
 
     @FindBy(xpath = "//a[text()='Categories']")
     private WebElement sideMenuCategoriesButton;
@@ -52,6 +56,12 @@ public class SidePanel {
         sideMenuCategoriesButton.click();
 
         return new TagsPage(driver);
+    }
+
+    public CommentsPage clickSideMenuCommentsButton() {
+        sideMenuCommentsButton.click();
+
+        return new CommentsPage(driver);
     }
 
 }

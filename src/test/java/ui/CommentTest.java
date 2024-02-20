@@ -9,18 +9,29 @@ import java.util.List;
 
 public class CommentTest extends BaseTest {
 
+    private final String COMMENT = "new comment to first post";
+
     @Test
     public void testCreateComment() {
-        String comment = "new comment to first post";
 
         List<String> commentsList = new DashboardPage(getDriver())
                 .getHeader()
                 .goToNAHomePage()
                 .clickFirstPostLink()
-                .typeNewComment(comment)
+                .typeNewComment(COMMENT)
                 .clickPostCommentButton()
                 .getCommentsText();
 
-        Assert.assertTrue(commentsList.contains(comment));
+        Assert.assertTrue(commentsList.contains(COMMENT));
+    }
+
+    @Test(dependsOnMethods = "testCreateComment")
+    public void testDeleteComment() {
+        new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuCommentsButton()
+                .clickSelectAllCheckbox()
+                .clickWordPressCommenterCheckbox();
+
     }
 }
