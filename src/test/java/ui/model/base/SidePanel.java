@@ -53,7 +53,7 @@ public class SidePanel {
     }
 
     public TagsPage clickSideMenuTagsButton() {
-        sideMenuCategoriesButton.click();
+        sideMenuTagsButton.click();
 
         return new TagsPage(driver);
     }

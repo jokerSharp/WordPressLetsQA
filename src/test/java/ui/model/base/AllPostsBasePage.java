@@ -3,8 +3,10 @@ package ui.model.base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.model.posts.CreateEditPostPage;
 import ui.model.posts.TrashPostsPage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends BasePage{
@@ -14,6 +16,9 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     @FindBy(css = "#the-list > tr > td > strong")
     private List<WebElement> postsList;
+
+    @FindBy(css = "#the-list > tr > td > strong > a")
+    private List<WebElement> postsClicableTitlesList;
 
     @FindBy(id = "cb-select-all-1")
     private WebElement allPostsCheckbox;
@@ -33,6 +38,9 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
     @FindBy(xpath = "//a[@href='edit.php?post_status=trash&post_type=post']")
     private WebElement trashLink;
 
+    @FindBy (xpath = "//tbody[@id = 'the-list']//td[@class = 'tags column-tags']/a")
+    private List<WebElement> tagsList;
+
     protected AllPostsBasePage(WebDriver driver) {
         super(driver);
         header = new Header(driver);
@@ -41,6 +49,18 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
 
     public int getPostsListSize() {
         return postsList.size();
+    }
+
+    public CreateEditPostPage clickAnyPostTitle() {
+        if (postsClicableTitlesList != null) {
+            int max = postsClicableTitlesList.size();
+            int min = 0;
+            int randomPost = (int) (Math.random()*(max-min)+min);
+            postsClicableTitlesList.get(randomPost).click();
+        } else {
+            System.out.println("No posts found!");
+        }
+        return new CreateEditPostPage(getDriver());
     }
 
     public Header getHeader() {
@@ -79,5 +99,14 @@ public abstract class AllPostsBasePage<Self extends AllPostsBasePage<?>> extends
     public TrashPostsPage clickTrashLink() {
         trashLink.click();
         return new TrashPostsPage(getDriver());
+    }
+
+    public List<String> getTagsList() {
+        List<String> tags = new ArrayList<>();
+
+        for (WebElement e : tagsList) {
+            tags.add(e.getText());
+        }
+        return tags;
     }
 }

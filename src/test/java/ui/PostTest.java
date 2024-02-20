@@ -19,7 +19,7 @@ public class PostTest extends BaseTest {
                 .clickNewPostButton()
                 .typeTitle(POST_TITLE)
                 .clickPreliminaryPublishButton()
-                .clickFinalPublishButton()
+                .clickFinalPublishOrUpdateButton()
                 .clickViewPost()
                 .getTitle();
 
@@ -42,7 +42,7 @@ public class PostTest extends BaseTest {
         Assert.assertEquals(actualPostsAmount, expectedPostsAmount-1);
     }
 
-    @Test
+    @Test (dependsOnMethods = {"testCreateNewPost", "testDeleteNewPost"})
     public void testEmptyTrash() {
         int amountOfallSelectedPostsOnTrashPage = new DashboardPage(getDriver())
                 .getSidePanel()
