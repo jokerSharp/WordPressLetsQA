@@ -21,12 +21,8 @@ to conduct automation testing of WordPress web-application
 
 
 :brain:	Lets'a QA team:
-* [Inna](https://github.com/InnaBaranova)
-* [Eugene](https://github.com/jokerSharp)
-* [Nataliia](https://github.com/NataliiaBor1)
-* [Pavel](https://github.com/ppashchenkov)
-* [Daria](https://github.com/spinoglaz)
-* [Elena](https://github.com/Sosnitsky-E)
+
+ [Inna](https://github.com/InnaBaranova) * [Eugene](https://github.com/jokerSharp) * [Nataliia](https://github.com/NataliiaBor1) * [Pavel](https://github.com/ppashchenkov) * [Daria](https://github.com/spinoglaz) * [Elena](https://github.com/Sosnitsky-E)
 
 :mechanical_arm:	Technologies:
 
