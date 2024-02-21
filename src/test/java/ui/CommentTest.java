@@ -3,6 +3,7 @@ package ui;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.comments.CommentsPage;
 import ui.runner.BaseTest;
 
 import java.util.List;
@@ -27,11 +28,21 @@ public class CommentTest extends BaseTest {
 
     @Test(dependsOnMethods = "testCreateComment")
     public void testDeleteComment() {
-        new DashboardPage(getDriver())
+
+        int expectedCommentsListSize =
+                new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuCommentsButton()
-                .clickSelectAllCheckbox()
-                .clickWordPressCommenterCheckbox();
+                .getCommentsListSize();
 
+        int actualCommentsListSizeAfterDeletion = new CommentsPage(getDriver())
+                .clickSelectAllCheckbox()
+                .clickWordPressCommenterCheckbox()
+                .clickBulkActionSelector()
+                .ClickMoveToTrashOption()
+                .clickApplyButton()
+                .getCommentsListSize();
+
+        Assert.assertEquals(actualCommentsListSizeAfterDeletion, expectedCommentsListSize -1);
     }
 }

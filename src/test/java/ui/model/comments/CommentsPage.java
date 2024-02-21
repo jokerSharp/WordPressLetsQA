@@ -3,8 +3,10 @@ package ui.model.comments;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ui.CommentTest;
 import ui.model.base.BasePage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommentsPage extends BasePage {
 
@@ -13,6 +15,18 @@ public class CommentsPage extends BasePage {
 
     @FindBy(id = "cb-select-1")
     private WebElement wordPressCommenterCheckbox;
+
+    @FindBy(id = "bulk-action-selector-top")
+    private WebElement bulkActionSelector;
+
+    @FindBy(css = "option[value=\"trash\"]")
+    private WebElement moveToTrashOption;
+
+    @FindBy(id = "doaction")
+    private WebElement applyButton;
+
+    @FindBy(css = "#the-comment-list > tr > td  > strong")
+    private List<WebElement> commentsList;
 
     public CommentsPage(WebDriver driver) {
         super(driver);
@@ -30,6 +44,34 @@ public class CommentsPage extends BasePage {
         return this;
     }
 
+    public CommentsPage clickBulkActionSelector() {
+        bulkActionSelector.click();
 
+        return this;
+    }
 
+    public CommentsPage ClickMoveToTrashOption() {
+        moveToTrashOption.click();
+
+        return this;
+    }
+
+    public CommentsPage clickApplyButton() {
+        applyButton.click();
+        return this;
+    }
+
+    public List<String> getCommentsAuthorsList() {
+        List<String> comments = new ArrayList<>();
+
+        for (WebElement e : commentsList) {
+            comments.add(e.getText());
+        }
+        System.out.println(comments);
+        return comments;
+    }
+
+    public int getCommentsListSize() {
+        return commentsList.size();
+    }
 }
