@@ -63,5 +63,4 @@ public class SidePanel {
 
         return new CommentsPage(driver);
     }
-
 }
