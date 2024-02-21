@@ -45,4 +45,5 @@ public class CommentTest extends BaseTest {
 
         Assert.assertEquals(actualCommentsListSizeAfterDeletion, expectedCommentsListSize -1);
     }
+
 }

@@ -63,7 +63,6 @@ public class CommentsPage extends BasePage {
 
     public List<String> getCommentsAuthorsList() {
         List<String> comments = new ArrayList<>();
-
         for (WebElement e : commentsList) {
             comments.add(e.getText());
         }
