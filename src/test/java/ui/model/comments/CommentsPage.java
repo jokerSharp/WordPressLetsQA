@@ -26,7 +26,10 @@ public class CommentsPage extends BasePage {
     private WebElement applyButton;
 
     @FindBy(css = "#the-comment-list > tr > td  > strong")
-    private List<WebElement> commentsList;
+    private List<WebElement> commentsAuthorsList;
+
+    @FindBy(css = ".comment-author + p")
+    private List<WebElement> commentsTextList;
 
     public CommentsPage(WebDriver driver) {
         super(driver);
@@ -64,14 +67,24 @@ public class CommentsPage extends BasePage {
     public List<String> getCommentsAuthorsList() {
         List<String> comments = new ArrayList<>();
 
-        for (WebElement e : commentsList) {
+        for (WebElement e : commentsAuthorsList) {
             comments.add(e.getText());
         }
-        System.out.println(comments);
+
+        return comments;
+    }
+
+    public List<String> getCommentsTextList() {
+        List<String> comments = new ArrayList<>();
+
+        for (WebElement e : commentsTextList) {
+            comments.add(e.getText());
+        }
+
         return comments;
     }
 
     public int getCommentsListSize() {
-        return commentsList.size();
+        return commentsAuthorsList.size();
     }
 }

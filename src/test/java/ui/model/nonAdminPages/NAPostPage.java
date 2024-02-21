@@ -3,6 +3,7 @@ package ui.model.nonAdminPages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.model.DashboardPage;
 import ui.model.base.BasePage;
 
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ public class NAPostPage extends BasePage {
     @FindBy(xpath = "//div[@class='wp-block-comment-content']/p")
     private List<WebElement> commentsList;
 
-    protected NAPostPage(WebDriver driver) {
+    @FindBy(css = "#wp-admin-bar-site-name > a[href*='/wp-admin']")
+    private WebElement adminLogo;
+
+    public NAPostPage(WebDriver driver) {
         super(driver);
     }
 
@@ -43,5 +47,11 @@ public class NAPostPage extends BasePage {
         }
 
         return commentsTextList;
+    }
+
+    public DashboardPage goToDashboardPage() {
+        adminLogo.click();
+
+        return new DashboardPage(getDriver());
     }
 }
