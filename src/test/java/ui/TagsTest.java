@@ -47,4 +47,36 @@ public class TagsTest extends BaseTest {
 
         Assert.assertTrue(actualTagsList.contains(TAG_NAME));
     }
+
+    @Test
+    public void testDeleteTag() {
+        testCreateTagRequiredFields();
+
+        List<String> categories = new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+                .getSidePanel()
+                .clickSideMenuTagsButton()
+                .clickDeleteElement(TAG_NAME)
+                .getElementsList();
+
+        Assert.assertFalse(categories.contains(TAG_NAME));
+    }
+
+    @Test
+    public void testSearchTag() {
+        testCreateTagRequiredFields();
+
+        String itemCounter = new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+                .getSidePanel()
+                .clickSideMenuTagsButton()
+                .inputElementName(TAG_NAME)
+                .inputSearchValue(TAG_NAME)
+                .clickSearchButton()
+                .getItemCounter();
+
+        Assert.assertEquals(itemCounter, "1 item");
+    }
 }

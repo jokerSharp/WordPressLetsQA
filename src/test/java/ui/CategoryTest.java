@@ -24,8 +24,10 @@ public class CategoryTest extends BaseTest {
         Assert.assertTrue(categories.contains(CATEGORY_NAME));
     }
 
-    @Test(dependsOnMethods = "testCreateCategoryRequiredFields")
+    @Test
     public void testDeleteCategory() {
+        testCreateCategoryRequiredFields();
+
         List<String> categories = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuPostsButton()
@@ -35,5 +37,22 @@ public class CategoryTest extends BaseTest {
                 .getElementsList();
 
         Assert.assertFalse(categories.contains(CATEGORY_NAME));
+    }
+
+    @Test
+    public void testSearchCategory() {
+        testCreateCategoryRequiredFields();
+
+        String itemCounter = new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPostsButton()
+                .getSidePanel()
+                .clickSideMenuCategoriesButton()
+                .inputElementName(CATEGORY_NAME)
+                .inputSearchValue(CATEGORY_NAME)
+                .clickSearchButton()
+                .getItemCounter();
+
+        Assert.assertEquals(itemCounter, "1 item");
     }
 }
