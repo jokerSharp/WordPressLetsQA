@@ -41,6 +41,7 @@ public final class ProjectUtils {
                         properties.setProperty(PREFIX_PROP + optionArr[0], optionArr[1]);
                     }
                 }
+                LoggerUtils.logFatal(properties.toString());
             } else {
                 try {
                     InputStream inputStream = ProjectUtils.class.getClassLoader().getResourceAsStream("local.properties");
