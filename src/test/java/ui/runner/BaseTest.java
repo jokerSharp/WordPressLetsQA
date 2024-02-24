@@ -15,6 +15,8 @@ import ui.model.LoginPage;
 import ui.model.installation.SelectLanguagePage;
 
 public abstract class BaseTest {
+    static private String login = "admin";
+    static private String password = "Asdf.1234.qpwoei";
     static private Network dockerNetwork;
     GenericContainer mysql;
     GenericContainer wordpress;
@@ -84,9 +86,9 @@ public abstract class BaseTest {
                 .selectEnglishLanguage()
                 .clickContinue()
                 .inputWeblogTitle("Let's QA")
-                .inputUsername(ProjectUtils.getUserName())
+                .inputUsername(login)
                 .clearPassword()
-                .inputPassword(ProjectUtils.getPassword())
+                .inputPassword(password)
                 .inputAdminEmail("admin@gmail.com")
                 .submit()
                 .proceedToLogin();
@@ -101,7 +103,7 @@ public abstract class BaseTest {
             String baseUrl = "http://localhost:" + wordpress.getFirstMappedPort() + "/";
             LoginPage
                     .open(getDriver(), baseUrl)
-                    .login(ProjectUtils.getUserName(), ProjectUtils.getPassword());
+                    .login(login, password);
         } catch (Exception e) {
             stopDriver();
             throw new RuntimeException(e);
