@@ -28,20 +28,13 @@ public final class ProjectUtils {
         if (properties == null) {
             properties = new Properties();
             if (isServerRun()) {
-//                System.out.println("PRINT = ");
-//                System.getenv().forEach((k, v) -> {
-//                    System.out.println(k + ":" + v);
-//                });
-//                System.exit(22);
                 properties.setProperty(PROP_CHROME_OPTIONS, System.getenv(ENV_CHROME_OPTIONS));
-
                 if (System.getenv(ENV_APP_OPTIONS) != null) {
                     for (String option : System.getenv(ENV_APP_OPTIONS).split(";")) {
                         String[] optionArr = option.split("=");
                         properties.setProperty(PREFIX_PROP + optionArr[0], optionArr[1]);
                     }
                 }
-                LoggerUtils.logFatal(properties.toString());
             } else {
                 try {
                     InputStream inputStream = ProjectUtils.class.getClassLoader().getResourceAsStream("local.properties");
