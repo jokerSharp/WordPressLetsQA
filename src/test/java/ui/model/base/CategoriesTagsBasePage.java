@@ -19,6 +19,14 @@ public abstract class CategoriesTagsBasePage <PostSupportPage extends Categories
     @FindBy(xpath = "//tbody[@id='the-list']/tr/td[@data-colname='Name']/strong")
     private List<WebElement> elementName;
 
+    @FindBy(id = "tag-search-input")
+    private WebElement searchInput;
+
+    @FindBy(id = "search-submit")
+    private WebElement searchButton;
+    @FindBy(xpath = "//div[@class='tablenav top']/div[@class='tablenav-pages one-page']/span[@class='displaying-num']")
+    private WebElement topItemCounter;
+
     protected abstract PostSupportPage createPage();
 
     public PostSupportPage inputElementName(String name) {
@@ -55,6 +63,23 @@ public abstract class CategoriesTagsBasePage <PostSupportPage extends Categories
                              .map(WebElement::getText)
                              .toList();
     }
+
+    public PostSupportPage inputSearchValue(String value) {
+        searchInput.sendKeys(value);
+
+        return createPage();
+    }
+
+    public PostSupportPage clickSearchButton() {
+        searchButton.click();
+
+        return createPage();
+    }
+
+    public String getItemCounter() {
+        return topItemCounter.getText();
+    }
+
     public CategoriesTagsBasePage(WebDriver driver) {
         super(driver);
     }
