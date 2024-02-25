@@ -18,21 +18,32 @@ public final class ProjectUtils {
     private static final String PROP_HOST = PREFIX_PROP + "host";
     private static final String PROP_PORT = PREFIX_PROP + "port";
     private static final String ENV_CHROME_OPTIONS = "CHROME_OPTIONS";
+    private static final String ENV_APP_OPTIONS = "APP_OPTIONS";
     private static final String PROP_CHROME_OPTIONS = PREFIX_PROP + ENV_CHROME_OPTIONS.toLowerCase();
     private static Properties properties;
 
     private static void initProperties() {
         if (properties == null) {
             properties = new Properties();
-            try {
-                InputStream inputStream = ProjectUtils.class.getClassLoader().getResourceAsStream("local.properties");
-                if (inputStream == null) {
-                    LoggerUtils.logError("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
-                    LoggerUtils.logError("You need to create it from local.properties.TEMPLATE file.");
-                    System.exit(1);
+            if (isServerRun()) {
+                properties.setProperty(PROP_CHROME_OPTIONS, System.getenv(ENV_CHROME_OPTIONS));
+                if (System.getenv(ENV_APP_OPTIONS) != null) {
+                    for (String option : System.getenv(ENV_APP_OPTIONS).split(";")) {
+                        String[] optionArr = option.split("=");
+                        properties.setProperty(PREFIX_PROP + optionArr[0], optionArr[1]);
+                    }
                 }
-                properties.load(inputStream);
-            } catch (IOException ignore) {
+            } else {
+                try {
+                    InputStream inputStream = ProjectUtils.class.getClassLoader().getResourceAsStream("local.properties");
+                    if (inputStream == null) {
+                        LoggerUtils.logError("ERROR: The \u001B[31mlocal.properties\u001B[0m file not found in src/test/resources/ directory.");
+                        LoggerUtils.logError("You need to create it from local.properties.TEMPLATE file.");
+                        System.exit(1);
+                    }
+                    properties.load(inputStream);
+                } catch (IOException ignore) {
+                }
             }
         }
     }
@@ -52,6 +63,10 @@ public final class ProjectUtils {
         }
 
         WebDriverManager.chromedriver().setup();
+    }
+
+    static boolean isServerRun() {
+        return System.getenv("CI_RUN") != null;
     }
 
     static String getUrl() {
