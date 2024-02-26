@@ -15,8 +15,8 @@ import ui.model.LoginPage;
 import ui.model.installation.SelectLanguagePage;
 
 public abstract class BaseTest {
-    static private String login = "admin";
-    static private String password = "Asdf.1234.qpwoei";
+    static private final String login = ProjectUtils.getAdminName();
+    static private final String password = ProjectUtils.getAdminPassword();
     static private Network dockerNetwork;
     GenericContainer mysql;
     GenericContainer wordpress;

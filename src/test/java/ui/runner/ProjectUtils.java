@@ -17,6 +17,8 @@ public final class ProjectUtils {
     private static final String PREFIX_PROP = "local.";
     private static final String PROP_HOST = PREFIX_PROP + "host";
     private static final String PROP_PORT = PREFIX_PROP + "port";
+    private static final String PROP_ADMIN_USERNAME = PREFIX_PROP + "admin.username";
+    private static final String PROP_ADMIN_PAS = PREFIX_PROP + "admin.password";
     private static final String ENV_CHROME_OPTIONS = "CHROME_OPTIONS";
     private static final String ENV_APP_OPTIONS = "APP_OPTIONS";
     private static final String PROP_CHROME_OPTIONS = PREFIX_PROP + ENV_CHROME_OPTIONS.toLowerCase();
@@ -73,6 +75,14 @@ public final class ProjectUtils {
         return String.format("http://%s:%s/wp-admin/",
                 properties.getProperty(PROP_HOST),
                 properties.getProperty(PROP_PORT));
+    }
+
+    static String getAdminName() {
+        return properties.getProperty(PROP_ADMIN_USERNAME);
+    }
+
+    static String getAdminPassword() {
+        return properties.getProperty(PROP_ADMIN_PAS);
     }
 
     static void acceptAlert(WebDriver driver) {
