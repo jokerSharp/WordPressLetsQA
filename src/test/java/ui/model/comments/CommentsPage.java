@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ui.model.base.BasePage;
+import ui.model.posts.ViewPostPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class CommentsPage extends BasePage {
 
     @FindBy(css = ".comment-author + p")
     private List<WebElement> commentsTextList;
+
+    @FindBy(xpath = "//div/a[contains(text(),'View Post')]")
+    private List<WebElement> viewPostLinksList;
 
     public CommentsPage(WebDriver driver) {
         super(driver);
@@ -86,5 +90,15 @@ public class CommentsPage extends BasePage {
 
     public int getCommentsListSize() {
         return commentsAuthorsList.size();
+    }
+
+    public List<WebElement> getViewPostLinksList() {
+        return viewPostLinksList;
+    }
+
+    public ViewPostPage clickTopViewPostLink() {
+        getViewPostLinksList().get(0).click();
+
+        return new ViewPostPage(getDriver());
     }
 }

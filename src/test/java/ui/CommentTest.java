@@ -13,6 +13,7 @@ import java.util.List;
 public class CommentTest extends BaseTest {
 
     private final String COMMENT = RandomStringUtils.randomAlphabetic(20);
+    private final String POST = "New Post";
 
     @Test
     public void testCreateComment() {
@@ -54,5 +55,27 @@ public class CommentTest extends BaseTest {
                 .getCommentsListSize();
 
         Assert.assertEquals(actualCommentsListSizeAfterDeletion, expectedCommentsListSize -1);
+    }
+
+    @Test
+    public void testVerifyTransitionToPostPageByClickingViewPostButton() {
+
+        String actualPostName = new DashboardPage(getDriver())
+                .getHeader()
+                .hoverOnNewContentButton()
+                .clickNewPostButton()
+                .typeTitle(POST)
+                .clickPreliminaryPublishButton()
+                .clickFinalPublishOrUpdateButton()
+                .clickViewPost()
+                .typeComment(COMMENT)
+                .clickPostCommentButton()
+                .goToDashboardPage()
+                .getSidePanel()
+                .clickSideMenuCommentsButton()
+                .clickTopViewPostLink()
+                .getPostTitleText();
+
+        Assert.assertEquals(actualPostName, POST);
     }
 }
