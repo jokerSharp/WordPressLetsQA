@@ -23,7 +23,11 @@ public class AddPluginsPage extends BasePage {
     }
 
     public AddPluginsPage enterTextToSearchPluginsTextArea(String textForSearch) {
-        new Actions(getDriver()).moveToElement(getDriver().findElement(By.id("search-plugins")))
+        new Actions(getDriver())
+                .pause(500)
+                .moveToElement(getDriver().findElement(By.id("search-plugins")))
+                .click()
+                .pause(500)
                 .sendKeys(textForSearch)
                 .perform();
 
@@ -37,7 +41,11 @@ public class AddPluginsPage extends BasePage {
     }
 
     public PluginsPage clickActivateWpApiSwaggerUiPlugin() {
-        activateWpApiSwaggerUiPlugin.click();
+        new Actions(getDriver())
+                .pause(2000)
+                .moveToElement(activateWpApiSwaggerUiPlugin)
+                .click()
+                .perform();
 
         return new PluginsPage(getDriver());
     }

@@ -28,13 +28,18 @@ public class SwaggerTest extends BaseTest {
 
         LoggerUtils.logInfo("First is OK");
 
-//        actual = new SidePanel(getDriver()).clickSideMenuPluginsButton()
-//                .clickAddNewPluginButton()
-//                .enterTextToSearchPluginsTextArea(SWAGGER)
-//                .clickInstallWpApiSwaggerUiPlugin()
-//                .clickActivateWpApiSwaggerUiPlugin()
-//                .getNoticeMessage();
-//
-//        Assert.assertEquals(actual, ACTIVATED);
+        actual = new DashboardPage(getDriver())
+                .getSidePanel()
+                .clickSideMenuPluginsButton()
+                .clickAddNewPluginButton()
+                .enterTextToSearchPluginsTextArea(SWAGGER)
+                .clickInstallWpApiSwaggerUiPlugin()
+                .clickActivateWpApiSwaggerUiPlugin()
+                .getNoticeMessage();
+
+        LoggerUtils.logInfo("actual = " + actual);
+        LoggerUtils.logInfo("expect = " + ACTIVATED);
+
+        Assert.assertEquals(actual, ACTIVATED, "Dismiss this notice.");
     }
 }
