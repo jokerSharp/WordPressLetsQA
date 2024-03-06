@@ -22,6 +22,8 @@ public abstract class BaseTest {
     GenericContainer wordpress;
     private WebDriver driver;
 
+    protected String baseUrl;
+
     private WebDriverWait wait2;
     private WebDriverWait wait5;
     private WebDriverWait wait10;
@@ -29,10 +31,6 @@ public abstract class BaseTest {
     private void startDriver() {
         LoggerUtils.logInfo("Browser open");
         driver = ProjectUtils.createDriver();
-    }
-
-    private void acceptAlert() {
-        ProjectUtils.acceptAlert(getDriver());
     }
 
     private void stopDriver() {
@@ -72,8 +70,9 @@ public abstract class BaseTest {
         wordpress.start();
         WebDriver driver = ProjectUtils.createDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        baseUrl = "http://localhost:" + wordpress.getFirstMappedPort() + "/";
         for(int i = 0; i < 30; ++i) {
-            driver.get("http://localhost:" + wordpress.getFirstMappedPort());
+            driver.get(baseUrl);
             try {
                 driver.findElement(By.id("logo"));
             } catch(NoSuchElementException e) {
@@ -100,7 +99,6 @@ public abstract class BaseTest {
         LoggerUtils.logSuccess(String.format("Run %s.%s", this.getClass().getName(), method.getName()));
         startDriver();
         try {
-            String baseUrl = "http://localhost:" + wordpress.getFirstMappedPort() + "/";
             LoginPage
                     .open(getDriver(), baseUrl)
                     .login(login, password);
