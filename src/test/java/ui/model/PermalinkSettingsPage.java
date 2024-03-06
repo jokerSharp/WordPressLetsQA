@@ -3,9 +3,8 @@ package ui.model;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ui.model.base.BasePage;
-import ui.model.base.Header;
-import ui.model.base.SidePanel;
 
 public class PermalinkSettingsPage extends BasePage {
 
@@ -15,7 +14,8 @@ public class PermalinkSettingsPage extends BasePage {
     @FindBy(css = "#submit")
     private WebElement submit;
 
-    @FindBy(css = "#setting-error-settings_updated")
+//    @FindBy(css = "#setting-error-settings_updated")
+    @FindBy(xpath = "//*[@id='setting-error-settings_updated']/p/strong")
     private WebElement settingsUpdated;
 
     public PermalinkSettingsPage(WebDriver driver) {
@@ -31,10 +31,11 @@ public class PermalinkSettingsPage extends BasePage {
     public PermalinkSettingsPage submit() {
         submit.click();
 
-        return new PermalinkSettingsPage(getDriver());
+        return this;
     }
 
     public String getTextSettingsUpdated() {
+        getWait2().until(ExpectedConditions.visibilityOf(settingsUpdated));
 
         return settingsUpdated.getText();
     }

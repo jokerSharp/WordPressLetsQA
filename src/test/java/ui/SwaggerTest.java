@@ -3,11 +3,16 @@ package ui;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.base.SidePanel;
 import ui.runner.BaseTest;
+import ui.runner.LoggerUtils;
 
 public class SwaggerTest extends BaseTest {
 
     private final String settingsUpdatedText = "Permalink structure updated.";
+
+    private final String SWAGGER = "swagger";
+    private final String ACTIVATED = "Plugin activated.";
 
     @Test
     public void testSwaggerEnable() {
@@ -20,5 +25,16 @@ public class SwaggerTest extends BaseTest {
                 .getTextSettingsUpdated();
 
         Assert.assertEquals(actual, settingsUpdatedText);
+
+        LoggerUtils.logInfo("First is OK");
+
+//        actual = new SidePanel(getDriver()).clickSideMenuPluginsButton()
+//                .clickAddNewPluginButton()
+//                .enterTextToSearchPluginsTextArea(SWAGGER)
+//                .clickInstallWpApiSwaggerUiPlugin()
+//                .clickActivateWpApiSwaggerUiPlugin()
+//                .getNoticeMessage();
+//
+//        Assert.assertEquals(actual, ACTIVATED);
     }
 }
