@@ -139,5 +139,4 @@ public class SidePanel {
 
         return new SwaggerSettingPage(driver);
     }
-
 }

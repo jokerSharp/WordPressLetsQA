@@ -14,7 +14,6 @@ public class PermalinkSettingsPage extends BasePage {
     @FindBy(css = "#submit")
     private WebElement submit;
 
-//    @FindBy(css = "#setting-error-settings_updated")
     @FindBy(xpath = "//*[@id='setting-error-settings_updated']/p/strong")
     private WebElement settingsUpdated;
 
