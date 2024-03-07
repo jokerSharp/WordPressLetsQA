@@ -59,7 +59,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     protected void beforeClass() {
-        wordpress = new GenericContainer("wordpress:6.4.2-php8.2-apache");
+        wordpress = new GenericContainer("wordpress:6.4.3-php8.1-apache");
         wordpress.addEnv("WORDPRESS_DB_HOST", "mysql:3306");
         wordpress.addEnv("WORDPRESS_DB_USER", "wp");
         wordpress.addEnv("WORDPRESS_DB_PASSWORD", "wp");
