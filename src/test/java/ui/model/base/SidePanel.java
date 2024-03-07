@@ -2,10 +2,12 @@ package ui.model.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ui.model.AddPluginsPage;
 import ui.model.PermalinkSettingsPage;
-import ui.model.PluginsPage;
+import ui.model.SwaggerSettingPage;
 import ui.model.comments.CommentsPage;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
@@ -39,6 +41,12 @@ public class SidePanel {
 
     @FindBy(xpath = "//a[@href='options-permalink.php']")
     private WebElement sideMenuSettingsPermalinksChoice;
+
+    @FindBy(xpath = "//a[@href='plugin-install.php']")
+    private WebElement addNewPluginButton;
+
+    @FindBy(xpath = "//a[@href='options-general.php?page=swagger-ui']")
+    private WebElement sideMenuSettingsSwaggerButton;
 
     public SidePanel(WebDriver driver) {
         this.driver = driver;
@@ -75,8 +83,9 @@ public class SidePanel {
         return new CommentsPage(driver);
     }
 
-    public SidePanel clickSideMenuSettingsButton() {
-        sideMenuSettingsButton.click();
+    public SidePanel hoverSideMenuSettingsButton() {
+        new Actions(driver).moveToElement(sideMenuSettingsButton)
+                        .perform();
 
         return this;
     }
@@ -87,10 +96,23 @@ public class SidePanel {
         return new PermalinkSettingsPage(driver);
     }
 
-    public PluginsPage clickSideMenuPluginsButton() {
-        sideMenuPluginsButton.click();
+    public SidePanel hoverSideMenuPluginsButton() {
+        new Actions(driver).moveToElement(sideMenuPluginsButton)
+                        .perform();
 
-        return new PluginsPage(driver);
+        return this;
+    }
+
+    public AddPluginsPage clickAddNewPluginButton() {
+        addNewPluginButton.click();
+
+        return new AddPluginsPage(driver);
+    }
+
+    public SwaggerSettingPage clickSideMenuSettingsSwaggerButton() {
+        sideMenuSettingsSwaggerButton.click();
+
+        return new SwaggerSettingPage(driver);
     }
 
 }

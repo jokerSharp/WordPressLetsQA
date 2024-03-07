@@ -1,6 +1,5 @@
 package ui.model;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,10 +23,10 @@ public class AddPluginsPage extends BasePage {
 
     public AddPluginsPage enterTextToSearchPluginsTextArea(String textForSearch) {
         new Actions(getDriver())
-                .pause(500)
-                .moveToElement(getDriver().findElement(By.id("search-plugins")))
+                .pause(300)
+                .moveToElement(searchPluginsTextArea)
                 .click()
-                .pause(500)
+                .pause(300)
                 .sendKeys(textForSearch)
                 .perform();
 
