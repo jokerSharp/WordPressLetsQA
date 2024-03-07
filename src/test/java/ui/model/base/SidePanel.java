@@ -9,6 +9,7 @@ import ui.model.AddPluginsPage;
 import ui.model.PermalinkSettingsPage;
 import ui.model.SwaggerSettingPage;
 import ui.model.comments.CommentsPage;
+import ui.model.pages.NewPagePage;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
 import ui.model.posts.TagsPage;
@@ -32,6 +33,12 @@ public class SidePanel {
 
     @FindBy(xpath = "//a[text()='Tags']")
     private WebElement sideMenuTagsButton;
+
+    @FindBy(id = "menu-pages")
+    private WebElement sideMenuPageButton;
+
+    @FindBy(xpath =  "//a[contains(text(), 'Add New Page')]")
+    private WebElement addNewPageButton;
 
     @FindBy(xpath = "//div[text()='Plugins ']")
     private WebElement sideMenuPluginsButton;
@@ -81,6 +88,24 @@ public class SidePanel {
         sideMenuCommentsButton.click();
 
         return new CommentsPage(driver);
+    }
+
+    public SidePanel hoverOnSideMenuPageButton() {
+        new Actions(driver)
+                .moveToElement(sideMenuPageButton)
+                .perform();
+
+        return this;
+    }
+
+    public NewPagePage clickAddNewPageButton() {
+        return clickAddNewPageButton(true);
+    }
+
+    public NewPagePage clickAddNewPageButton(boolean skipWelcomeDialog) {
+        addNewPageButton.click();
+
+        return new NewPagePage(driver, skipWelcomeDialog);
     }
 
     public SidePanel hoverSideMenuSettingsButton() {
