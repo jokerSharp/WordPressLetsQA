@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import ui.model.AddPluginsPage;
 import ui.model.PermalinkSettingsPage;
 import ui.model.SwaggerSettingPage;
+import ui.model.appearance.AppearancePage;
 import ui.model.comments.CommentsPage;
 import ui.model.pages.NewPagePage;
 import ui.model.posts.AllPostsPage;
@@ -54,6 +55,9 @@ public class SidePanel {
 
     @FindBy(xpath = "//a[@href='options-general.php?page=swagger-ui']")
     private WebElement sideMenuSettingsSwaggerButton;
+
+    @FindBy(id = "menu-appearance")
+    private WebElement sideMenuAppearanceButton;
 
     public SidePanel(WebDriver driver) {
         this.driver = driver;
@@ -138,5 +142,11 @@ public class SidePanel {
         sideMenuSettingsSwaggerButton.click();
 
         return new SwaggerSettingPage(driver);
+    }
+
+    public AppearancePage clickSideMenuAppearanceButton() {
+        sideMenuAppearanceButton.click();
+
+        return new AppearancePage(driver);
     }
 }
