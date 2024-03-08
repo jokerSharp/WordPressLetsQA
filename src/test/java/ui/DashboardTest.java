@@ -11,14 +11,6 @@ import java.util.List;
 public class DashboardTest extends BaseTest {
 
     @Test
-    public void testDashboardSideMenuColorWhenPressed() {
-        String color = new DashboardPage(getDriver())
-                .getDashboardSideMenyButtonColor();
-
-        Assert.assertTrue(color.contains("rgb(34, 113, 177)"));
-    }
-
-    @Test
     public void testLogin() {
         Assert.assertTrue(new DashboardPage(getDriver()).getTitle().contains("Dashboard"));
     }

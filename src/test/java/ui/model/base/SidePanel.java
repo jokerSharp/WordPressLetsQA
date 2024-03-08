@@ -59,43 +59,53 @@ public class SidePanel {
     @FindBy(id = "menu-appearance")
     private WebElement sideMenuAppearanceButton;
 
+    @FindBy(id = "collapse-button")
+    private WebElement collapseMenuButton;
+
+    @FindBy(id = "adminmenuwrap")
+    private WebElement theWholeSidePanel;
+
     public SidePanel(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
+    protected WebDriver getDriver() {
+        return driver;
+    }
+
     public UserPage goToUserPage() {
         sideMenuUsersButton.click();
 
-        return new UserPage(driver);
+        return new UserPage(getDriver());
     }
 
     public AllPostsPage clickSideMenuPostsButton() {
         sideMenuPostsButton.click();
 
-        return new AllPostsPage(driver);
+        return new AllPostsPage(getDriver());
     }
 
     public CategoriesPage clickSideMenuCategoriesButton() {
         sideMenuCategoriesButton.click();
 
-        return new CategoriesPage(driver);
+        return new CategoriesPage(getDriver());
     }
 
     public TagsPage clickSideMenuTagsButton() {
         sideMenuTagsButton.click();
 
-        return new TagsPage(driver);
+        return new TagsPage(getDriver());
     }
 
     public CommentsPage clickSideMenuCommentsButton() {
         sideMenuCommentsButton.click();
 
-        return new CommentsPage(driver);
+        return new CommentsPage(getDriver());
     }
 
     public SidePanel hoverOnSideMenuPageButton() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(sideMenuPageButton)
                 .perform();
 
@@ -109,11 +119,11 @@ public class SidePanel {
     public NewPagePage clickAddNewPageButton(boolean skipWelcomeDialog) {
         addNewPageButton.click();
 
-        return new NewPagePage(driver, skipWelcomeDialog);
+        return new NewPagePage(getDriver(), skipWelcomeDialog);
     }
 
     public SidePanel hoverSideMenuSettingsButton() {
-        new Actions(driver).moveToElement(sideMenuSettingsButton)
+        new Actions(getDriver()).moveToElement(sideMenuSettingsButton)
                         .perform();
 
         return this;
@@ -122,12 +132,13 @@ public class SidePanel {
     public PermalinkSettingsPage clickSideMenuSettingsPermalinksChoice() {
         sideMenuSettingsPermalinksChoice.click();
 
-        return new PermalinkSettingsPage(driver);
+        return new PermalinkSettingsPage(getDriver());
     }
 
     public SidePanel hoverSideMenuPluginsButton() {
-        new Actions(driver).moveToElement(sideMenuPluginsButton)
-                        .perform();
+        new Actions(getDriver())
+                .moveToElement(sideMenuPluginsButton)
+                .perform();
 
         return this;
     }
@@ -135,18 +146,28 @@ public class SidePanel {
     public AddPluginsPage clickAddNewPluginButton() {
         addNewPluginButton.click();
 
-        return new AddPluginsPage(driver);
+        return new AddPluginsPage(getDriver());
     }
 
     public SwaggerSettingPage clickSideMenuSettingsSwaggerButton() {
         sideMenuSettingsSwaggerButton.click();
 
-        return new SwaggerSettingPage(driver);
+        return new SwaggerSettingPage(getDriver());
     }
 
     public AppearancePage clickSideMenuAppearanceButton() {
         sideMenuAppearanceButton.click();
 
-        return new AppearancePage(driver);
+        return new AppearancePage(getDriver());
+    }
+
+    public SidePanel clickSideMenuCollapseMenuButton() {
+        collapseMenuButton.click();
+
+        return this;
+    }
+
+    public String getTheWholeSidePanelWidth() {
+        return theWholeSidePanel.getCssValue("width");
     }
 }
