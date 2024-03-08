@@ -1,4 +1,4 @@
-package ui.model;
+package ui.model.settings;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
