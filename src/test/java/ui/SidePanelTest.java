@@ -20,18 +20,15 @@ public class SidePanelTest extends BaseTest {
     }
 
     @Test
-    public void testSidePanelCollapsed() {
+    public void testSidePanelCollapsedUncollapsed() {
         String actualSidePanelWidth = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuCollapseMenuButton()
                 .getTheWholeSidePanelWidth();
 
         Assert.assertEquals(actualSidePanelWidth, EXPECTED_COLLAPSED_SIDE_PANEL_WIDTH);
-    }
 
-    @Test(dependsOnMethods = "testSidePanelCollapsed")
-    public void testSidePanelUncollapsed() {
-        String actualSidePanelWidth = new DashboardPage(getDriver())
+        actualSidePanelWidth = new DashboardPage(getDriver())
                 .getSidePanel()
                 .clickSideMenuCollapseMenuButton()
                 .getTheWholeSidePanelWidth();
