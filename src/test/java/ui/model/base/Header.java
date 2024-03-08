@@ -55,8 +55,12 @@ public class Header {
         PageFactory.initElements(driver, this);
     }
 
+    protected WebDriver getDriver() {
+        return driver;
+    }
+
     public Header hoverOnUserProfileButton() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(userProfileButton)
                 .perform();
 
@@ -65,11 +69,11 @@ public class Header {
 
     public LoginPage clickLogOutButton() {
         logOutButton.click();
-        return new LoginPage(driver);
+        return new LoginPage(getDriver());
     }
 
     public Header hoverOnWpLogo() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(wpLogo)
                 .perform();
 
@@ -87,7 +91,7 @@ public class Header {
     }
 
     public Header hoverOnFeedbackLogoMenuItem() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(feedbackLogoMenuItem)
                 .perform();
 
@@ -99,7 +103,7 @@ public class Header {
     }
 
     public Header hoverOnNewContentButton() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(newContentButton)
                 .perform();
 
@@ -108,7 +112,7 @@ public class Header {
     public CreateEditPostPage clickNewPostButton() {
         newPostButton.click();
 
-        return new CreateEditPostPage(driver);
+        return new CreateEditPostPage(getDriver());
     }
     public List<String> getWpLogoMenuItemsList2() {
         List<String> menuItemsList = new ArrayList<>();
@@ -120,7 +124,7 @@ public class Header {
     }
 
     public Header hoverOnNewButton() {
-        new Actions(driver)
+        new Actions(getDriver())
                 .moveToElement(newContentButton)
                 .perform();
 
@@ -130,12 +134,12 @@ public class Header {
     public NewUserPage clickNewUserButton() {
         newUserButton.click();
 
-        return new NewUserPage(driver);
+        return new NewUserPage(getDriver());
     }
 
     public NAHomePage goToNAHomePage() {
         letsQALogo.click();
 
-        return new NAHomePage(driver);
+        return new NAHomePage(getDriver());
     }
 }

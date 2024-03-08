@@ -81,6 +81,7 @@ public class HeaderTest extends BaseTest {
 
         Assert.assertEquals(actualColor, "rgba(114, 174, 230, 1)");
     }
+
     @Test
     public void testOpenNewPostPage() {
         String title = new DashboardPage(getDriver())
@@ -88,7 +89,6 @@ public class HeaderTest extends BaseTest {
                 .hoverOnNewContentButton()
                 .clickNewPostButton()
                 .getTitle();
-
 
         Assert.assertTrue(title.contains("Add New Post"));
     }
