@@ -1,4 +1,4 @@
-package ui.model;
+package ui.model.api;
 
 import org.openqa.selenium.WebDriver;
 import ui.model.base.BasePage;

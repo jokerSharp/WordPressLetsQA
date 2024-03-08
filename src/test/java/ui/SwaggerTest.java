@@ -13,7 +13,7 @@ public class SwaggerTest extends BaseTest {
     private final String SWAGGER_API_DOCS_URL = "?page=swagger-ui";
 
     @Test
-    public void testSwaggerEnable() {
+    public void testPermalinksChange() {
         String actual = new DashboardPage(getDriver())
                 .getSidePanel()
                 .hoverSideMenuSettingsButton()
@@ -23,8 +23,11 @@ public class SwaggerTest extends BaseTest {
                 .getTextSettingsUpdated();
 
         Assert.assertEquals(actual, SETTINGS_UPDATED);
+    }
 
-        actual = new DashboardPage(getDriver())
+    @Test(dependsOnMethods = "testPermalinksChange")
+    public void testAddSwaggerPlugin() {
+        String actual = new DashboardPage(getDriver())
                 .getSidePanel()
                 .hoverSideMenuPluginsButton()
                 .clickAddNewPluginButton()
@@ -34,8 +37,11 @@ public class SwaggerTest extends BaseTest {
                 .getNoticeMessage();
 
         Assert.assertEquals(actual, ACTIVATED);
+    }
 
-        actual = new DashboardPage(getDriver())
+    @Test(dependsOnMethods = "testAddSwaggerPlugin")
+    public void testSwaggerEnable() {
+        String actual = new DashboardPage(getDriver())
                 .getSidePanel()
                 .hoverSideMenuSettingsButton()
                 .clickSideMenuSettingsSwaggerButton()
