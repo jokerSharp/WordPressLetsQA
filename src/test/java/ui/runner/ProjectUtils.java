@@ -6,7 +6,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ui.model.LoginPage;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,25 +71,12 @@ public final class ProjectUtils {
         return System.getenv("CI_RUN") != null;
     }
 
-    static String getUrl() {
-        return String.format("http://%s:%s/wp-admin/",
-                properties.getProperty(PROP_HOST),
-                properties.getProperty(PROP_PORT));
-    }
-
     static String getAdminName() {
         return properties.getProperty(PROP_ADMIN_USERNAME);
     }
 
     static String getAdminPassword() {
         return properties.getProperty(PROP_ADMIN_PAS);
-    }
-
-    static void acceptAlert(WebDriver driver) {
-        Alert alert = ExpectedConditions.alertIsPresent().apply(driver);
-        if (alert != null) {
-            alert.accept();
-        }
     }
 
     public static WebDriver createDriver() {

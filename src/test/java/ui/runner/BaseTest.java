@@ -73,7 +73,7 @@ public abstract class BaseTest {
                 Arrays.stream(this.getClass().getMethods())
                         .filter(m -> m.getAnnotation(Test.class) != null && m.getAnnotation(Ignore.class) == null)
                         .collect(Collectors.toList()),
-                m -> m.getName(),
+                Method::getName,
                 m -> m.getAnnotation(Test.class).dependsOnMethods());
 
         wordpress = new GenericContainer("wordpress:6.4.3-php8.1-apache");
