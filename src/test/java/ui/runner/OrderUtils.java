@@ -1,4 +1,4 @@
-package ui.runner.order;
+package ui.runner;
 
 import java.util.*;
 import java.util.function.Function;
