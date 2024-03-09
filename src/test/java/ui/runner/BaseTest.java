@@ -119,7 +119,7 @@ public abstract class BaseTest {
                 startDriver();
                 getWeb();
                 LoginPage
-                        .open(driver, baseUrl)
+                        .open(getDriver(), baseUrl)
                         .login(login, password);
             } else {
                 getWeb();
@@ -138,9 +138,14 @@ public abstract class BaseTest {
             LoggerUtils.logError(String.format("ERROR: %s.%s", this.getClass().getName(), method.getName()));
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
-        if (methodsOrder.isGroupFinished(method) || testResult.isSuccess()) {
+
+        if (methodsOrder.isGroupFinished(method) && testResult.isSuccess()) {
             stopDriver();
         }
+
+//        if (!methodsOrder.isGroupStarted(method) && testResult.isSuccess()) {
+//            stopDriver();
+//        }
 
         LoggerUtils.logInfo(String.format("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000));
     }
