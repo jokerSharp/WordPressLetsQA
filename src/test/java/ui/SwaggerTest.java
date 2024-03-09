@@ -39,7 +39,7 @@ public class SwaggerTest extends BaseTest {
         Assert.assertEquals(actual, ACTIVATED);
     }
 
-    @Test(dependsOnMethods = "testAddSwaggerPlugin")
+    @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
     public void testSwaggerEnable() {
         String actual = new DashboardPage(getDriver())
                 .getSidePanel()

@@ -71,12 +71,6 @@ public final class ProjectUtils {
         return System.getenv("CI_RUN") != null;
     }
 
-    static String getUrl() {
-        return String.format("http://%s:%s/wp-admin/",
-                properties.getProperty(PROP_HOST),
-                properties.getProperty(PROP_PORT));
-    }
-
     static String getAdminName() {
         return properties.getProperty(PROP_ADMIN_USERNAME);
     }
@@ -85,18 +79,15 @@ public final class ProjectUtils {
         return properties.getProperty(PROP_ADMIN_PAS);
     }
 
-    static void acceptAlert(WebDriver driver) {
-        Alert alert = ExpectedConditions.alertIsPresent().apply(driver);
-        if (alert != null) {
-            alert.accept();
-        }
-    }
-
     public static WebDriver createDriver() {
         WebDriver driver = new ChromeDriver(ProjectUtils.chromeOptions);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         return driver;
+    }
+
+    public static void get(WebDriver driver, String url) {
+        driver.get(url);
     }
 
     static File takeScreenshot(WebDriver driver, String methodName, String className) {
