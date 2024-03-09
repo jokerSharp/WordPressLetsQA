@@ -9,10 +9,13 @@ import org.testcontainers.containers.Network;
 import org.testng.ITestResult;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.testng.annotations.*;
 import ui.model.LoginPage;
 import ui.model.installation.SelectLanguagePage;
+import ui.runner.order.OrderUtils;
 
 public abstract class BaseTest {
     static private final String login = ProjectUtils.getAdminName();
@@ -28,9 +31,16 @@ public abstract class BaseTest {
     private WebDriverWait wait5;
     private WebDriverWait wait10;
 
+    private OrderUtils.MethodsOrder<Method> methodsOrder;
+
     private void startDriver() {
         LoggerUtils.logInfo("Browser open");
         driver = ProjectUtils.createDriver();
+    }
+
+    private void getWeb() {
+        LoggerUtils.logInfo("Get web page");
+        ProjectUtils.get(driver, baseUrl + "wp-admin/");
     }
 
     private void stopDriver() {
@@ -59,6 +69,13 @@ public abstract class BaseTest {
 
     @BeforeClass
     protected void beforeClass() {
+        methodsOrder = OrderUtils.createMethodsOrder(
+                Arrays.stream(this.getClass().getMethods())
+                        .filter(m -> m.getAnnotation(Test.class) != null && m.getAnnotation(Ignore.class) == null)
+                        .collect(Collectors.toList()),
+                m -> m.getName(),
+                m -> m.getAnnotation(Test.class).dependsOnMethods());
+
         wordpress = new GenericContainer("wordpress:6.4.3-php8.1-apache");
         wordpress.addEnv("WORDPRESS_DB_HOST", "mysql:3306");
         wordpress.addEnv("WORDPRESS_DB_USER", "wp");
@@ -97,14 +114,21 @@ public abstract class BaseTest {
     @BeforeMethod
     protected void beforeMethod(Method method) {
         LoggerUtils.logSuccess(String.format("Run %s.%s", this.getClass().getName(), method.getName()));
-        startDriver();
         try {
-            LoginPage
-                    .open(getDriver(), baseUrl)
-                    .login(login, password);
+            if (!methodsOrder.isGroupStarted(method) || methodsOrder.isGroupFinished(method)) {
+                startDriver();
+                getWeb();
+                LoginPage
+                        .open(driver, baseUrl)
+                        .login(login, password);
+            } else {
+                getWeb();
+            }
         } catch (Exception e) {
             stopDriver();
             throw new RuntimeException(e);
+        } finally {
+            methodsOrder.markAsInvoked(method);
         }
     }
 
@@ -114,8 +138,11 @@ public abstract class BaseTest {
             LoggerUtils.logError(String.format("ERROR: %s.%s", this.getClass().getName(), method.getName()));
             ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
         }
+        if (methodsOrder.isGroupFinished(method) || testResult.isSuccess()) {
+            stopDriver();
+        }
+
         LoggerUtils.logInfo(String.format("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000));
-        stopDriver();
     }
 
     @AfterClass

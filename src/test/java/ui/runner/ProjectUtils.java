@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ui.model.LoginPage;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,6 +98,10 @@ public final class ProjectUtils {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         return driver;
+    }
+
+    public static void get(WebDriver driver, String url) {
+        driver.get(url);
     }
 
     static File takeScreenshot(WebDriver driver, String methodName, String className) {
