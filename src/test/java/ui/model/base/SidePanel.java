@@ -14,6 +14,7 @@ import ui.model.pages.NewPagePage;
 import ui.model.posts.AllPostsPage;
 import ui.model.posts.CategoriesPage;
 import ui.model.posts.TagsPage;
+import ui.model.tools.ToolsPage;
 import ui.model.users.UserPage;
 
 public class SidePanel {
@@ -64,6 +65,12 @@ public class SidePanel {
 
     @FindBy(id = "adminmenuwrap")
     private WebElement theWholeSidePanel;
+
+    @FindBy(xpath = "//div[contains(text(), 'Tools')]")
+    private WebElement sideMenuToolsButton;
+
+    @FindBy(xpath = "//a[@href='import.php']")
+    private WebElement subMenuToolsImportButton;
 
     public SidePanel(WebDriver driver) {
         this.driver = driver;
@@ -169,5 +176,19 @@ public class SidePanel {
 
     public String getTheWholeSidePanelWidth() {
         return theWholeSidePanel.getCssValue("width");
+    }
+
+    public SidePanel hoverOnSideMenuToolsButton() {
+        new Actions(getDriver())
+                .moveToElement(sideMenuToolsButton)
+                .perform();
+
+        return this;
+    }
+
+    public ToolsPage clickSubMenuToolsImportButton() {
+        subMenuToolsImportButton.click();
+
+        return new ToolsPage(driver);
     }
 }
