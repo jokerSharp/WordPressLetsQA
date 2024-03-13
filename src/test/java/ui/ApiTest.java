@@ -55,11 +55,9 @@ public class ApiTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testPermalinksChange")
-    public void getUsers() {
+    public void testGetUsersList() {
         String url = getDriver().getCurrentUrl().substring(0,23);
         Response users = ApiPage.getListUsers(url);
-
-        LoggerUtils.logInfo(users.asPrettyString());
 
         Assert.assertEquals(users.getStatusCode(), 200);
     }
