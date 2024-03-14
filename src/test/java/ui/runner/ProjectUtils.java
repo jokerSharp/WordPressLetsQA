@@ -5,7 +5,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,11 +70,11 @@ public final class ProjectUtils {
         return System.getenv("CI_RUN") != null;
     }
 
-    static String getAdminName() {
+    public static String getAdminName() {
         return properties.getProperty(PROP_ADMIN_USERNAME);
     }
 
-    static String getAdminPassword() {
+    public static String getAdminPassword() {
         return properties.getProperty(PROP_ADMIN_PAS);
     }
 
