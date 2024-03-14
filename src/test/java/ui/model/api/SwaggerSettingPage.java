@@ -10,6 +10,9 @@ public class SwaggerSettingPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(), 'Docs URL')]")
     private WebElement apiDocsUrl;
 
+    @FindBy(css = "select[name=swagger_api_basepath]>[selected=selected]")
+    private WebElement basePath;
+
     public SwaggerSettingPage(WebDriver driver) {
         super(driver);
     }
@@ -18,5 +21,9 @@ public class SwaggerSettingPage extends BasePage {
         apiDocsUrl.click();
 
         return new SwaggerPage(getDriver());
+    }
+
+    public String getBasePath() {
+        return basePath.getAttribute("value");
     }
 }

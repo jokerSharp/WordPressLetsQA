@@ -1,11 +1,13 @@
 package ui;
 
 import io.restassured.response.Response;
+import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
+import ui.runner.LoggerUtils;
 
 public class ApiTest extends BaseTest {
 
@@ -43,14 +45,13 @@ public class ApiTest extends BaseTest {
 
     @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
     public void testSwaggerEnable() {
-        String actual = new DashboardPage(getDriver())
+        String basePath = new DashboardPage(getDriver())
                 .getSidePanel()
                 .hoverSideMenuSettingsButton()
                 .clickSideMenuSettingsSwaggerButton()
-                .clickApiDocsUrl()
-                .getUrlSwaggerApidocs();
+                .getBasePath();
 
-        Assert.assertEquals(actual, SWAGGER_API_DOCS_URL);
+        Assert.assertEquals(basePath, "wp/v2");
     }
 
     @Test(dependsOnMethods = "testPermalinksChange")
@@ -59,5 +60,21 @@ public class ApiTest extends BaseTest {
         Response users = ApiUtils.getListUsers(url);
 
         Assert.assertEquals(users.getStatusCode(), 200);
+    }
+
+    @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
+    public void testPostNewUser() {
+        String url = getDriver().getCurrentUrl().substring(0,23);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("username", "user25");
+        requestBody.put("first_name", "Ivan");
+        requestBody.put("last_name", "Petrov");
+        requestBody.put("password", "12345gdh");
+        requestBody.put("email", "user25@gmail.com");
+
+        boolean resp = ApiUtils.postNewUser(requestBody.toString(), url);
+
+        Assert.assertTrue(resp);
     }
 }
