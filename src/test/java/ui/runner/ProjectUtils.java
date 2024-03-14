@@ -70,11 +70,11 @@ public final class ProjectUtils {
         return System.getenv("CI_RUN") != null;
     }
 
-    public static String getAdminName() {
+    static String getAdminName() {
         return properties.getProperty(PROP_ADMIN_USERNAME);
     }
 
-    public static String getAdminPassword() {
+    static String getAdminPassword() {
         return properties.getProperty(PROP_ADMIN_PAS);
     }
 

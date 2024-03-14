@@ -4,9 +4,8 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
-import ui.model.api.ApiPage;
+import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
-import ui.runner.LoggerUtils;
 
 public class ApiTest extends BaseTest {
 
@@ -57,7 +56,7 @@ public class ApiTest extends BaseTest {
     @Test(dependsOnMethods = "testPermalinksChange")
     public void testGetUsersList() {
         String url = getDriver().getCurrentUrl().substring(0,23);
-        Response users = ApiPage.getListUsers(url);
+        Response users = ApiUtils.getListUsers(url);
 
         Assert.assertEquals(users.getStatusCode(), 200);
     }
