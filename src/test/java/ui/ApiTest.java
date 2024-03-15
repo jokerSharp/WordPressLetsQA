@@ -43,7 +43,7 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(actual, ACTIVATED);
     }
 
-    @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
+    @Test(priority = 2)
     public void testSwaggerEnable() {
         String basePath = new DashboardPage(getDriver())
                 .getSidePanel()
