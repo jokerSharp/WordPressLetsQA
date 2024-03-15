@@ -1,13 +1,13 @@
 package ui;
 
 import io.restassured.response.Response;
-import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.api.UserReq;
+import ui.model.api.UserResp;
 import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
-import ui.runner.LoggerUtils;
 
 public class ApiTest extends BaseTest {
 
@@ -43,7 +43,7 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(actual, ACTIVATED);
     }
 
-    @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
+    @Test(priority = 2)
     public void testSwaggerEnable() {
         String basePath = new DashboardPage(getDriver())
                 .getSidePanel()
@@ -65,16 +65,12 @@ public class ApiTest extends BaseTest {
     @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
     public void testPostNewUser() {
         String url = getDriver().getCurrentUrl().substring(0,23);
+        Response resp = null;
+        UserReq userReq = new UserReq("user25", "Ivan", "Petrov",
+                "12345gdh", "user25@gmail.com");
+        UserResp userResp = ApiUtils.postNewUser(userReq, url);
 
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("username", "user25");
-        requestBody.put("first_name", "Ivan");
-        requestBody.put("last_name", "Petrov");
-        requestBody.put("password", "12345gdh");
-        requestBody.put("email", "user25@gmail.com");
-
-        boolean resp = ApiUtils.postNewUser(requestBody.toString(), url);
-
-        Assert.assertTrue(resp);
+        Assert.assertEquals(userResp.getEmail(), userReq.getEmail());
+        Assert.assertEquals(userResp.getUsername(), userReq.getUsername());
     }
 }
