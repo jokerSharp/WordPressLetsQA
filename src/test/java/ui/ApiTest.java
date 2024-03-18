@@ -4,8 +4,10 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
+import ui.model.api.Auth;
 import ui.model.api.UserReq;
 import ui.model.api.UserResp;
+import ui.model.plugins.PluginsPage;
 import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
 
@@ -13,7 +15,9 @@ public class ApiTest extends BaseTest {
 
     private final String SETTINGS_UPDATED = "Permalink structure updated.";
     private final String SWAGGER = "swagger";
+    private final String JWT = "WordPress REST API Authentication";
     private final String ACTIVATED = "Plugin activated.";
+    private final String CONFIGURED = "JWT Authentication Method is configured successfully.";
     private final String SWAGGER_API_DOCS_URL = "?page=swagger-ui";
 
     @Test
@@ -30,31 +34,38 @@ public class ApiTest extends BaseTest {
     }
 
     @Test(dependsOnMethods = "testPermalinksChange")
-    public void testAddSwaggerPlugin() {
+    public void testRestApiAuthenticationPlugin() {
         String actual = new DashboardPage(getDriver())
                 .getSidePanel()
                 .hoverSideMenuPluginsButton()
                 .clickAddNewPluginButton()
-                .enterTextToSearchPluginsTextArea(SWAGGER)
-                .clickInstallWpApiSwaggerUiPlugin()
-                .clickActivateWpApiSwaggerUiPlugin()
+                .enterTextToSearchPluginsTextArea(JWT)
+                .clickInstallRestApiAuthenticationPlugin()
+                .clickActivateRestApiAuthenticationPlugin()
                 .getNoticeMessage();
 
         Assert.assertEquals(actual, ACTIVATED);
+
+        actual = new PluginsPage(getDriver())
+                .clickConfigureRestApiAuthentication()
+                .clickJwtAuthentication()
+                .clickNext()
+                .clickFinish()
+                .getNoticeMessage();
+
+        Assert.assertEquals(actual, CONFIGURED);
+    }
+
+    @Test(priority = 1)
+    public void getToken() {
+        String url = getDriver().getCurrentUrl().substring(0,23);
+        Auth auth = new Auth();
+        ApiUtils.setTOKEN(auth, url);
+
+        Assert.assertTrue(true);
     }
 
     @Test(priority = 2)
-    public void testSwaggerEnable() {
-        String basePath = new DashboardPage(getDriver())
-                .getSidePanel()
-                .hoverSideMenuSettingsButton()
-                .clickSideMenuSettingsSwaggerButton()
-                .getBasePath();
-
-        Assert.assertEquals(basePath, "wp/v2");
-    }
-
-    @Test(dependsOnMethods = "testPermalinksChange")
     public void testGetUsersList() {
         String url = getDriver().getCurrentUrl().substring(0,23);
         Response users = ApiUtils.getListUsers(url);
@@ -62,7 +73,7 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(users.getStatusCode(), 200);
     }
 
-    @Test(dependsOnMethods = {"testAddSwaggerPlugin", "testPermalinksChange"})
+    @Test(priority = 2)
     public void testPostNewUser() {
         String url = getDriver().getCurrentUrl().substring(0,23);
         Response resp = null;

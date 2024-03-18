@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
+import ui.model.api.Auth;
 import ui.model.api.UserReq;
 import ui.model.api.UserResp;
 import ui.model.base.BasePage;
@@ -12,6 +13,7 @@ public class ApiUtils extends BasePage {
 
     private static final String apiLogin = ProjectUtils.getAdminName();
     private static final String apiPassword = ProjectUtils.getAdminPassword();
+    private static String TOKEN = "";
     private static final String apiUrl = "wp-json/wp/v2";
     private static final String USERS_LIST = "/users?context=view&page=1&per_page=10&order=desc&orderby=id";
     private static final String USER_POST = "/users";
@@ -21,14 +23,32 @@ public class ApiUtils extends BasePage {
         super(driver);
     }
 
+    public static void setTOKEN(Auth auth, String baseURL) {
+        auth.setUsername(apiLogin);
+        auth.setPassword(apiPassword);
+        Response resp = RestAssured
+                .given()
+                .log().all()
+                .contentType(ContentType.JSON)
+                .body(auth)
+                .when()
+                .post(baseURL + "wp-json/api/v1/token")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .response();
+        TOKEN = resp.path("token_type") + " " + resp.path("jwt_token");
+    }
+
     public static Response getListUsers(String baseURL) {
         Response resp = RestAssured
                 .given()
-                    .auth().preemptive().basic(apiLogin, apiPassword)
-                    .log().all()
+                    .header("Authorization", TOKEN)
                 .when()
                     .get(baseURL + apiUrl + USERS_LIST)
                 .then()
+                    .log().all()
                     .statusCode(200)
                     .extract().response();
 
@@ -39,7 +59,7 @@ public class ApiUtils extends BasePage {
         UserResp userResp = new UserResp();
         Response resp = RestAssured
                 .given()
-                    .auth().preemptive().basic(apiLogin, apiPassword)
+                    .header("Authorization", TOKEN)
                     .contentType(ContentType.JSON)
                     .body(userReq)
                 .when()

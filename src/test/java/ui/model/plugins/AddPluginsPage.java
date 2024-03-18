@@ -17,6 +17,12 @@ public class AddPluginsPage extends BasePage {
     @FindBy(css = ".button.activate-now[data-slug='wp-api-swaggerui']")
     private WebElement activateWpApiSwaggerUiPlugin;
 
+    @FindBy(css = ".install-now.button[data-slug='wp-rest-api-authentication']")
+    private WebElement installRestApiAuthentication;
+
+    @FindBy(css = ".button.activate-now[data-slug='wp-rest-api-authentication']")
+    private WebElement activateRestApiAuthentication;
+
     public AddPluginsPage(WebDriver driver) {
         super(driver);
     }
@@ -43,6 +49,22 @@ public class AddPluginsPage extends BasePage {
         new Actions(getDriver())
                 .pause(2000)
                 .moveToElement(activateWpApiSwaggerUiPlugin)
+                .click()
+                .perform();
+
+        return new PluginsPage(getDriver());
+    }
+
+    public AddPluginsPage clickInstallRestApiAuthenticationPlugin() {
+        installRestApiAuthentication.click();
+
+        return new AddPluginsPage(getDriver());
+    }
+
+    public PluginsPage clickActivateRestApiAuthenticationPlugin() {
+        new Actions(getDriver())
+                .pause(2000)
+                .moveToElement(activateRestApiAuthentication)
                 .click()
                 .perform();
 
