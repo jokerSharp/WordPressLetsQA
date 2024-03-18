@@ -23,7 +23,7 @@ public class ApiUtils extends BasePage {
         super(driver);
     }
 
-    public static void setTOKEN(Auth auth) {
+    public static void setTOKEN(Auth auth, String baseURL) {
         auth.setUsername(apiLogin);
         auth.setPassword(apiPassword);
         Response resp = RestAssured
@@ -32,9 +32,10 @@ public class ApiUtils extends BasePage {
                 .contentType(ContentType.JSON)
                 .body(auth)
                 .when()
-                .post("http://localhost:8000/wp-json/api/v1/token")
+                .post(baseURL + "wp-json/api/v1/token")
                 .then()
                 .log().all()
+                .statusCode(200)
                 .extract()
                 .response();
         TOKEN = resp.path("token_type") + " " + resp.path("jwt_token");
@@ -44,7 +45,6 @@ public class ApiUtils extends BasePage {
         Response resp = RestAssured
                 .given()
                     .header("Authorization", TOKEN)
-                    .log().all()
                 .when()
                     .get(baseURL + apiUrl + USERS_LIST)
                 .then()

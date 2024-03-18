@@ -2,8 +2,8 @@ package ui.model.api;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.testcontainers.shaded.org.apache.commons.io.build.AbstractOrigin;
 import ui.model.base.BasePage;
 
 public class ApiAuthenticationMethodsConfigurationPage extends BasePage {
@@ -14,7 +14,7 @@ public class ApiAuthenticationMethodsConfigurationPage extends BasePage {
     @FindBy(css = "form>div>button:nth-child(1)")
     private WebElement nextButton;
 
-    @FindBy(xpath = "//button[(text()='Finish')]")
+    @FindBy(xpath = "//button[@onclick='moJWTAuthenticationMethodFinish()']")
     private WebElement finishButton;
 
     @FindBy(css = ".mo_api_auth_admin_custom_notice_success")
@@ -25,24 +25,31 @@ public class ApiAuthenticationMethodsConfigurationPage extends BasePage {
     }
 
     public ApiAuthenticationMethodsConfigurationPage clickJwtAuthentication() {
-        jwtAuthentication.click();
+        new Actions(getDriver())
+                .pause(500)
+                .moveToElement(jwtAuthentication)
+                .click()
+                .perform();
 
-        return new ApiAuthenticationMethodsConfigurationPage(getDriver());
+        return this;
     }
 
     public ApiAuthenticationMethodsConfigurationPage clickNext() {
         nextButton.click();
 
-        return new ApiAuthenticationMethodsConfigurationPage(getDriver());
+        return this;
     }
 
     public ApiAuthenticationMethodsConfigurationPage clickFinish() {
         finishButton.click();
 
-        return new ApiAuthenticationMethodsConfigurationPage(getDriver());
+        return this;
     }
 
     public String getNoticeMessage() {
+        new Actions(getDriver())
+                .pause(500)
+                .perform();
 
         return noticeField.getText();
     }

@@ -2,7 +2,6 @@ package ui;
 
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.model.api.Auth;
@@ -34,7 +33,7 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(actual, SETTINGS_UPDATED);
     }
 
-    @Test
+    @Test(dependsOnMethods = "testPermalinksChange")
     public void testRestApiAuthenticationPlugin() {
         String actual = new DashboardPage(getDriver())
                 .getSidePanel()
@@ -49,6 +48,7 @@ public class ApiTest extends BaseTest {
 
         actual = new PluginsPage(getDriver())
                 .clickConfigureRestApiAuthentication()
+                .clickJwtAuthentication()
                 .clickNext()
                 .clickFinish()
                 .getNoticeMessage();
@@ -56,39 +56,11 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(actual, CONFIGURED);
     }
 
-    @Ignore
-    @Test(dependsOnMethods = "testPermalinksChange")
-    public void testAddSwaggerPlugin() {
-        String actual = new DashboardPage(getDriver())
-                .getSidePanel()
-                .hoverSideMenuPluginsButton()
-                .clickAddNewPluginButton()
-                .enterTextToSearchPluginsTextArea(SWAGGER)
-                .clickInstallWpApiSwaggerUiPlugin()
-                .clickActivateWpApiSwaggerUiPlugin()
-                .getNoticeMessage();
-
-        Assert.assertEquals(actual, ACTIVATED);
-
-//        new PluginsPage(getDriver())
-    }
-
-    @Ignore
-    @Test(priority = 2)
-    public void testSwaggerEnable() {
-        String basePath = new DashboardPage(getDriver())
-                .getSidePanel()
-                .hoverSideMenuSettingsButton()
-                .clickSideMenuSettingsSwaggerButton()
-                .getBasePath();
-
-        Assert.assertEquals(basePath, "wp/v2");
-    }
-
     @Test(priority = 1)
     public void getToken() {
+        String url = getDriver().getCurrentUrl().substring(0,23);
         Auth auth = new Auth();
-        ApiUtils.setTOKEN(auth);
+        ApiUtils.setTOKEN(auth, url);
 
         Assert.assertTrue(true);
     }
