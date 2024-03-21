@@ -73,4 +73,19 @@ public class ApiUtils extends BasePage {
         userResp.setId(resp.path("id"));
         return userResp;
     }
+
+    public static Response deleteNewUser(String request, String baseUrl) {
+        Response resp = RestAssured
+                .given()
+                .log().all()
+                .header("Authorization", TOKEN)
+                .when()
+                .delete(baseUrl + apiUrl + request)
+                .then()
+                .log().all()
+                .assertThat().statusCode(200)
+                .extract().response();
+
+        return resp;
+    }
 }

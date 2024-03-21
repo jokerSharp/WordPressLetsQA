@@ -84,4 +84,16 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(userResp.getEmail(), userReq.getEmail());
         Assert.assertEquals(userResp.getUsername(), userReq.getUsername());
     }
+
+    @Test(priority = 3)
+    public void testDeleteNewUser() {
+
+        String url = getDriver().getCurrentUrl().substring(0,23);
+        String request = "/users/2?force=true&reassign=1";
+
+        Response resp = ApiUtils.deleteNewUser(request, url);
+
+        Assert.assertTrue(resp.statusCode() == 200);
+        Assert.assertTrue(resp.path("deleted"));
+    }
 }
