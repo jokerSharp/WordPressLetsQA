@@ -19,6 +19,9 @@ public class ApiTest extends BaseTest {
     private final String ACTIVATED = "Plugin activated.";
     private final String CONFIGURED = "JWT Authentication Method is configured successfully.";
     private final String SWAGGER_API_DOCS_URL = "?page=swagger-ui";
+    private UserResp userResp = null;
+    private final String REASSIGN_PARAMETER = "reassign=1";
+    private final String FORCE_PARAMETER = "force=true";
 
     @Test
     public void testPermalinksChange() {
@@ -79,7 +82,7 @@ public class ApiTest extends BaseTest {
         Response resp = null;
         UserReq userReq = new UserReq("user25", "Ivan", "Petrov",
                 "12345gdh", "user25@gmail.com");
-        UserResp userResp = ApiUtils.postNewUser(userReq, url);
+        userResp = ApiUtils.postNewUser(userReq, url);
 
         Assert.assertEquals(userResp.getEmail(), userReq.getEmail());
         Assert.assertEquals(userResp.getUsername(), userReq.getUsername());
@@ -89,7 +92,7 @@ public class ApiTest extends BaseTest {
     public void testDeleteNewUser() {
 
         String url = getDriver().getCurrentUrl().substring(0,23);
-        String request = "/users/2?force=true&reassign=1";
+        String request = String.format("%s?%s&%s", userResp.getId(), FORCE_PARAMETER, REASSIGN_PARAMETER);
 
         Response resp = ApiUtils.deleteNewUser(request, url);
 

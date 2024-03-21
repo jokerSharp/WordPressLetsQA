@@ -17,6 +17,7 @@ public class ApiUtils extends BasePage {
     private static final String apiUrl = "wp-json/wp/v2";
     private static final String USERS_LIST = "/users?context=view&page=1&per_page=10&order=desc&orderby=id";
     private static final String USER_POST = "/users";
+    private static final String USER_DELETE = "/users/";
     public int new_user_id = 0;
 
     public ApiUtils(WebDriver driver) {
@@ -80,7 +81,7 @@ public class ApiUtils extends BasePage {
                 .log().all()
                 .header("Authorization", TOKEN)
                 .when()
-                .delete(baseUrl + apiUrl + request)
+                .delete(baseUrl + apiUrl + USER_DELETE + request)
                 .then()
                 .log().all()
                 .assertThat().statusCode(200)
