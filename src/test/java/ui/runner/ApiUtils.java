@@ -4,9 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
-import ui.model.api.Auth;
-import ui.model.api.UserReq;
-import ui.model.api.UserResp;
+import ui.model.api.*;
 import ui.model.base.BasePage;
 
 public class ApiUtils extends BasePage {
@@ -18,6 +16,7 @@ public class ApiUtils extends BasePage {
     private static final String USERS_LIST = "/users?context=view&page=1&per_page=10&order=desc&orderby=id";
     private static final String USER_POST = "/users";
     private static final String USER_DELETE = "/users/";
+    private static final String POST_POST = "/posts";
     public int new_user_id = 0;
 
     public ApiUtils(WebDriver driver) {
@@ -78,15 +77,40 @@ public class ApiUtils extends BasePage {
     public static Response deleteNewUser(String request, String baseUrl) {
         Response resp = RestAssured
                 .given()
-                .log().all()
-                .header("Authorization", TOKEN)
+                    .log().all()
+                    .header("Authorization", TOKEN)
                 .when()
-                .delete(baseUrl + apiUrl + USER_DELETE + request)
+                    .delete(baseUrl + apiUrl + USER_DELETE + request)
                 .then()
-                .log().all()
-                .assertThat().statusCode(200)
-                .extract().response();
+                    .log().all()
+                    .assertThat().statusCode(200)
+                    .extract().response();
 
         return resp;
+    }
+
+    public static PostResponse postNewPost(PostRequest postRequest, String baseUrl) {
+        PostResponse postResponse = new PostResponse();
+
+        Response resp = RestAssured
+                .given()
+                    .header("Authorization", TOKEN)
+                    .contentType(ContentType.JSON)
+                    .body(postRequest)
+                .when()
+                    .post(baseUrl + apiUrl + POST_POST)
+                .then()
+                    .log().body()
+                    .assertThat().statusCode(201)
+                    .extract().response();
+
+        postResponse.setTitle(resp.path("title.raw"));
+        postResponse.setStatus(resp.path("status"));
+        postResponse.setPostId(resp.path("id"));
+        postResponse.setAuthorId(resp.path("author"));
+        postResponse.setFormat(resp.path("format"));
+        postResponse.setCommentStatus(resp.path("comment_status"));
+
+        return postResponse;
     }
 }
