@@ -104,7 +104,7 @@ public class ApiUtils extends BasePage {
                     .assertThat().statusCode(201)
                     .extract().response();
 
-        postResponse.setTitle(resp.path("title"));
+        postResponse.setTitle(resp.path("title.raw"));
         postResponse.setStatus(resp.path("status"));
         postResponse.setPostId(resp.path("id"));
         postResponse.setAuthorId(resp.path("author"));

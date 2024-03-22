@@ -91,8 +91,6 @@ public class ApiTest extends BaseTest {
 
     @Test(priority = 3)
     public void testPostNewPost() {
-//        status=publish&title=New%20Post&author=2&comment_status=open
-
         String url = getDriver().getCurrentUrl().substring(0,23);
         PostRequest postRequest = new PostRequest(POST_STATUS, POST_TITLE, userResp.getId(), POST_COMMENT_STATUS);
 
