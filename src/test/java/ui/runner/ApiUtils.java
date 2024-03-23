@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import ui.model.api.*;
 import ui.model.base.BasePage;
 
-public class ApiUtils extends BasePage {
+public class ApiUtils {
 
     private static final String apiLogin = ProjectUtils.getAdminName();
     private static final String apiPassword = ProjectUtils.getAdminPassword();
@@ -19,13 +19,13 @@ public class ApiUtils extends BasePage {
     private static final String POST_POST = "/posts";
     public int new_user_id = 0;
 
-    public ApiUtils(WebDriver driver) {
-        super(driver);
-    }
+//    public ApiUtils(WebDriver driver) {
+//        super(driver);
+//    }
 
     public static void setTOKEN(Auth auth, String baseURL) {
         auth.setUsername(apiLogin);
-        auth.setPassword(apiPassword);
+        auth.setPassword("admin");
         Response resp = RestAssured
                 .given()
                 .log().all()
