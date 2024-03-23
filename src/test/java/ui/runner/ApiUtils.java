@@ -18,7 +18,7 @@ public class ApiUtils {
     private static final String USER_POST = "/users";
     private static final String USER_DELETE = "/users/";
     private static final String POST_POST = "/posts";
-    public int new_user_id = 0;
+    private static final String COMMENT_POST = "/comments";
 
     static void setBaseUrl(String url) {
     baseURL = url;
@@ -113,5 +113,28 @@ public class ApiUtils {
         postResponse.setCommentStatus(resp.path("comment_status"));
 
         return postResponse;
+    }
+
+    public static CommentResp postNewComment(CommentReq commentReq) {
+        CommentResp commentResp = new CommentResp();
+
+        Response resp = RestAssured
+                .given()
+                .log().all()
+                .header("Authorization", TOKEN)
+                .contentType(ContentType.JSON)
+                .body(commentReq)
+                .when()
+                .post(baseURL + apiUrl + COMMENT_POST)
+                .then()
+                .log().body()
+                .assertThat().statusCode(201)
+                .extract().response();
+
+        commentResp.setCommentId(resp.path("id"));
+        commentResp.setPostId(resp.path("post"));
+        commentResp.setAuthorId(resp.path("author"));
+
+        return commentResp;
     }
 }

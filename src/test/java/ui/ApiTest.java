@@ -17,6 +17,7 @@ public class ApiTest extends BaseTest {
     private final String CONFIGURED = "JWT Authentication Method is configured successfully.";
     private UserResp userResp = new UserResp();
     private PostResponse postResponse = new PostResponse();
+    private CommentResp commentResp = new CommentResp();
     private final String REASSIGN_PARAMETER = "reassign=1";
     private final String FORCE_PARAMETER = "force=true";
     private final String POST_TITLE = "New Post";
@@ -94,7 +95,7 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(postResponse.getTitle(), POST_TITLE);
     }
 
-    @Test(priority = 4)
+    @Test(priority = 15)
     public void testApiDeleteNewUser() {
         String request = String.format("%s?%s&%s", userResp.getId(), FORCE_PARAMETER, REASSIGN_PARAMETER);
 
@@ -102,5 +103,15 @@ public class ApiTest extends BaseTest {
 
         Assert.assertTrue(resp.statusCode() == 200);
         Assert.assertTrue(resp.path("deleted"));
+    }
+
+    @Test(priority = 4)
+    public void testApiPostComment() {
+        CommentReq commentReq = new CommentReq(userResp.getId(), "new comment", postResponse.getPostId());
+
+        commentResp = ApiUtils.postNewComment(commentReq);
+
+        Assert.assertEquals(commentResp.getAuthorId(), userResp.getId());
+        Assert.assertEquals(commentResp.getPostId(), postResponse.getPostId());
     }
 }
