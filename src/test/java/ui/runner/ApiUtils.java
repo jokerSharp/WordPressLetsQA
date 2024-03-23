@@ -7,10 +7,11 @@ import org.openqa.selenium.WebDriver;
 import ui.model.api.*;
 import ui.model.base.BasePage;
 
-public class ApiUtils extends BasePage {
+public class ApiUtils {
 
     private static final String apiLogin = ProjectUtils.getAdminName();
     private static final String apiPassword = ProjectUtils.getAdminPassword();
+    private static String baseURL;
     private static String TOKEN = "";
     private static final String apiUrl = "wp-json/wp/v2";
     private static final String USERS_LIST = "/users?context=view&page=1&per_page=10&order=desc&orderby=id";
@@ -19,11 +20,11 @@ public class ApiUtils extends BasePage {
     private static final String POST_POST = "/posts";
     public int new_user_id = 0;
 
-    public ApiUtils(WebDriver driver) {
-        super(driver);
+    static void setBaseUrl(String url) {
+    baseURL = url;
     }
 
-    public static void setTOKEN(Auth auth, String baseURL) {
+    public static void setTOKEN(Auth auth) {
         auth.setUsername(apiLogin);
         auth.setPassword(apiPassword);
         Response resp = RestAssured
@@ -41,7 +42,7 @@ public class ApiUtils extends BasePage {
         TOKEN = resp.path("token_type") + " " + resp.path("jwt_token");
     }
 
-    public static Response getListUsers(String baseURL) {
+    public static Response getListUsers() {
         Response resp = RestAssured
                 .given()
                     .header("Authorization", TOKEN)
@@ -55,7 +56,7 @@ public class ApiUtils extends BasePage {
         return resp;
     }
 
-    public static UserResp postNewUser(UserReq userReq, String baseUrl) {
+    public static UserResp postNewUser(UserReq userReq) {
         UserResp userResp = new UserResp();
         Response resp = RestAssured
                 .given()
@@ -63,7 +64,7 @@ public class ApiUtils extends BasePage {
                     .contentType(ContentType.JSON)
                     .body(userReq)
                 .when()
-                    .post(baseUrl + apiUrl + USER_POST)
+                    .post(baseURL + apiUrl + USER_POST)
                 .then()
                     .log().body()
                     .assertThat().statusCode(201)
@@ -74,13 +75,13 @@ public class ApiUtils extends BasePage {
         return userResp;
     }
 
-    public static Response deleteNewUser(String request, String baseUrl) {
+    public static Response deleteNewUser(String request) {
         Response resp = RestAssured
                 .given()
                     .log().all()
                     .header("Authorization", TOKEN)
                 .when()
-                    .delete(baseUrl + apiUrl + USER_DELETE + request)
+                    .delete(baseURL + apiUrl + USER_DELETE + request)
                 .then()
                     .log().all()
                     .assertThat().statusCode(200)
@@ -89,7 +90,7 @@ public class ApiUtils extends BasePage {
         return resp;
     }
 
-    public static PostResponse postNewPost(PostRequest postRequest, String baseUrl) {
+    public static PostResponse postNewPost(PostRequest postRequest) {
         PostResponse postResponse = new PostResponse();
 
         Response resp = RestAssured
@@ -98,7 +99,7 @@ public class ApiUtils extends BasePage {
                     .contentType(ContentType.JSON)
                     .body(postRequest)
                 .when()
-                    .post(baseUrl + apiUrl + POST_POST)
+                    .post(baseURL + apiUrl + POST_POST)
                 .then()
                     .log().body()
                     .assertThat().statusCode(201)

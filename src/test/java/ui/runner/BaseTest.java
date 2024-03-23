@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.testng.annotations.*;
+import ui.ApiTest;
 import ui.model.LoginPage;
 import ui.model.installation.SelectLanguagePage;
 
@@ -52,6 +53,12 @@ public abstract class BaseTest {
             LoggerUtils.logInfo("Browser closed");
         }
     }
+
+    private String getBaseUrl() {
+        return baseUrl;
+    }
+
+
 
     @BeforeSuite
     protected void beforeSuite() {
@@ -108,44 +115,48 @@ public abstract class BaseTest {
                 .submit()
                 .proceedToLogin();
         driver.quit();
+        if(getClass().equals(ApiTest.class)) {
+            LoggerUtils.logInfo("API TEST START");
+        }
     }
 
     @BeforeMethod
     protected void beforeMethod(Method method) {
         LoggerUtils.logSuccess(String.format("Run %s.%s", this.getClass().getName(), method.getName()));
-        try {
-            if (!methodsOrder.isGroupStarted(method) || methodsOrder.isGroupFinished(method)) {
-                startDriver();
-                getWeb();
-                LoginPage
-                        .open(getDriver(), baseUrl)
-                        .login(login, password);
-            } else {
-                getWeb();
+        if(!method.getName().substring(0,7).equals("testApi")) {
+            try {
+                if (!methodsOrder.isGroupStarted(method) || methodsOrder.isGroupFinished(method)) {
+                    startDriver();
+                    getWeb();
+                    LoginPage
+                            .open(getDriver(), baseUrl)
+                            .login(login, password);
+                } else {
+                    getWeb();
+                }
+            } catch (Exception e) {
+                stopDriver();
+                throw new RuntimeException(e);
+            } finally {
+                methodsOrder.markAsInvoked(method);
             }
-        } catch (Exception e) {
-            stopDriver();
-            throw new RuntimeException(e);
-        } finally {
-            methodsOrder.markAsInvoked(method);
+        }else {
+            ApiUtils.setBaseUrl(baseUrl);
         }
     }
 
     @AfterMethod
     protected void afterMethod(Method method, ITestResult testResult) {
-        if (!testResult.isSuccess()) {
-            LoggerUtils.logError(String.format("ERROR: %s.%s", this.getClass().getName(), method.getName()));
-            ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
+        if(!method.getName().substring(0,7).equals("testApi")) {
+            if (!testResult.isSuccess()) {
+                LoggerUtils.logError(String.format("ERROR: %s.%s", this.getClass().getName(), method.getName()));
+                ProjectUtils.takeScreenshot(driver, method.getName(), this.getClass().getName());
+            }
+
+            if (methodsOrder.isGroupFinished(method) && testResult.isSuccess()) {
+                stopDriver();
+            }
         }
-
-        if (methodsOrder.isGroupFinished(method) && testResult.isSuccess()) {
-            stopDriver();
-        }
-
-//        if (!methodsOrder.isGroupStarted(method) && testResult.isSuccess()) {
-//            stopDriver();
-//        }
-
         LoggerUtils.logInfo(String.format("Execution time is %o sec\n\n", (testResult.getEndMillis() - testResult.getStartMillis()) / 1000));
     }
 
