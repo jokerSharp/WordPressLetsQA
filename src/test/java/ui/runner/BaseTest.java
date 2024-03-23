@@ -140,6 +140,8 @@ public abstract class BaseTest {
             } finally {
                 methodsOrder.markAsInvoked(method);
             }
+        }else {
+            ApiUtils.setBaseUrl(baseUrl);
         }
     }
 

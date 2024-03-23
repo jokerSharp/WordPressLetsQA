@@ -13,7 +13,6 @@ public class ApiTest extends BaseTest {
 
     private final String SETTINGS_UPDATED = "Permalink structure updated.";
     private final String JWT = "WordPress REST API Authentication";
-    private final String url = "http://localhost:8000/";
     private final String ACTIVATED = "Plugin activated.";
     private final String CONFIGURED = "JWT Authentication Method is configured successfully.";
     private UserResp userResp = new UserResp();
@@ -63,14 +62,14 @@ public class ApiTest extends BaseTest {
     @Test(priority = 1)
     public void testApiGetToken() {
         Auth auth = new Auth();
-        ApiUtils.setTOKEN(auth, url);
+        ApiUtils.setTOKEN(auth);
 
         Assert.assertTrue(true);
     }
 
     @Test(priority = 2)
     public void testApiGetUsersList() {
-        Response users = ApiUtils.getListUsers(url);
+        Response users = ApiUtils.getListUsers();
 
         Assert.assertEquals(users.getStatusCode(), 200);
     }
@@ -79,7 +78,7 @@ public class ApiTest extends BaseTest {
     public void testApiPostNewUser() {
         UserReq userReq = new UserReq("user25", "Ivan", "Petrov",
                 "12345gdh", "user25@gmail.com");
-        userResp = ApiUtils.postNewUser(userReq, url);
+        userResp = ApiUtils.postNewUser(userReq);
 
         Assert.assertEquals(userResp.getEmail(), userReq.getEmail());
         Assert.assertEquals(userResp.getUsername(), userReq.getUsername());
@@ -89,7 +88,7 @@ public class ApiTest extends BaseTest {
     public void testApiPostNewPost() {
         PostRequest postRequest = new PostRequest(POST_STATUS, POST_TITLE, userResp.getId(), POST_COMMENT_STATUS);
 
-        postResponse = ApiUtils.postNewPost(postRequest, url);
+        postResponse = ApiUtils.postNewPost(postRequest);
 
         Assert.assertEquals(postResponse.getAuthorId(), userResp.getId());
         Assert.assertEquals(postResponse.getTitle(), POST_TITLE);
@@ -99,7 +98,7 @@ public class ApiTest extends BaseTest {
     public void testApiDeleteNewUser() {
         String request = String.format("%s?%s&%s", userResp.getId(), FORCE_PARAMETER, REASSIGN_PARAMETER);
 
-        Response resp = ApiUtils.deleteNewUser(request, url);
+        Response resp = ApiUtils.deleteNewUser(request);
 
         Assert.assertTrue(resp.statusCode() == 200);
         Assert.assertTrue(resp.path("deleted"));
