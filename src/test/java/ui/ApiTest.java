@@ -10,6 +10,8 @@ import ui.model.plugins.PluginsPage;
 import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
 
+import static ui.model.api.builders.CommentBuilder.getRandomComment;
+
 public class ApiTest extends BaseTest {
 
     private final String SETTINGS_UPDATED = "Permalink structure updated.";
@@ -108,15 +110,12 @@ public class ApiTest extends BaseTest {
 
     @Test(priority = 4)
     public void testApiPostComment() {
-        CommentPOJO request = new CommentPOJO();
-        request.setContent(POST_COMMENT_CONTENT);
-        request.setAuthor(userResp.getId());
-        request.setPost(postResponse.getPostId());
+        CommentPOJO request = getRandomComment(postResponse.getPostId(), userResp.getId());
 
         CommentPOJO response = ApiUtils.postNewComment(request);
 
         Assert.assertEquals(response.getAuthor(), userResp.getId());
         Assert.assertEquals(response.getPost(), postResponse.getPostId());
-        Assert.assertEquals(response.getContent(), POST_COMMENT_CONTENT);
+        Assert.assertEquals(response.getContent(), request.getContent());
     }
 }
