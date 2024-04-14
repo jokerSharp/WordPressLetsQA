@@ -5,9 +5,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.model.api.*;
+import ui.model.api.pojo.CommentPOJO;
 import ui.model.plugins.PluginsPage;
 import ui.runner.ApiUtils;
 import ui.runner.BaseTest;
+
+import static ui.model.api.builders.CommentBuilder.getRandomComment;
 
 public class ApiTest extends BaseTest {
 
@@ -17,12 +20,12 @@ public class ApiTest extends BaseTest {
     private final String CONFIGURED = "JWT Authentication Method is configured successfully.";
     private UserResp userResp = new UserResp();
     private PostResponse postResponse = new PostResponse();
-    private CommentResp commentResp = new CommentResp();
     private final String REASSIGN_PARAMETER = "reassign=1";
     private final String FORCE_PARAMETER = "force=true";
     private final String POST_TITLE = "New Post";
     private final String POST_STATUS = "publish";
     private final String POST_COMMENT_STATUS = "open";
+    private final String POST_COMMENT_CONTENT = "test comment";
 
     @Test
     public void testPermalinksChange() {
@@ -107,11 +110,12 @@ public class ApiTest extends BaseTest {
 
     @Test(priority = 4)
     public void testApiPostComment() {
-        CommentReq commentReq = new CommentReq(userResp.getId(), "new comment", postResponse.getPostId());
+        CommentPOJO request = getRandomComment(postResponse.getPostId(), userResp.getId());
 
-        commentResp = ApiUtils.postNewComment(commentReq);
+        CommentPOJO response = ApiUtils.postNewComment(request);
 
-        Assert.assertEquals(commentResp.getAuthorId(), userResp.getId());
-        Assert.assertEquals(commentResp.getPostId(), postResponse.getPostId());
+        Assert.assertEquals(response.getAuthor(), userResp.getId());
+        Assert.assertEquals(response.getPost(), postResponse.getPostId());
+        Assert.assertEquals(response.getContent(), request.getContent());
     }
 }

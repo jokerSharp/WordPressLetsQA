@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
 import ui.model.api.*;
+import ui.model.api.pojo.CommentPOJO;
 import ui.model.base.BasePage;
 
 public class ApiUtils {
@@ -115,15 +116,15 @@ public class ApiUtils {
         return postResponse;
     }
 
-    public static CommentResp postNewComment(CommentReq commentReq) {
-        CommentResp commentResp = new CommentResp();
+    public static CommentPOJO postNewComment(CommentPOJO request) {
+        CommentPOJO response = new CommentPOJO();
 
         Response resp = RestAssured
                 .given()
                 .log().all()
                 .header("Authorization", TOKEN)
                 .contentType(ContentType.JSON)
-                .body(commentReq)
+                .body(request)
                 .when()
                 .post(baseURL + apiUrl + COMMENT_POST)
                 .then()
@@ -131,10 +132,11 @@ public class ApiUtils {
                 .assertThat().statusCode(201)
                 .extract().response();
 
-        commentResp.setCommentId(resp.path("id"));
-        commentResp.setPostId(resp.path("post"));
-        commentResp.setAuthorId(resp.path("author"));
+        response.setId(resp.path("id"));
+        response.setPost(resp.path("post"));
+        response.setAuthor(resp.path("author"));
+        response.setContent(resp.path("content.raw"));
 
-        return commentResp;
+        return response;
     }
 }
