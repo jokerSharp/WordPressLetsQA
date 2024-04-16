@@ -118,4 +118,15 @@ public class ApiTest extends BaseTest {
         Assert.assertEquals(response.getPost(), postResponse.getPostId());
         Assert.assertEquals(response.getContent(), request.getContent());
     }
+
+    @Test(priority = 10)
+    public void testApiDeletePost() {
+        String request = String.format("/%s?%s", postResponse.getPostId(), FORCE_PARAMETER);
+
+        Response resp = ApiUtils.deletePost(request);
+
+        Assert.assertTrue(resp.statusCode() == 200);
+        Assert.assertTrue(resp.path("deleted"));
+        Assert.assertTrue(resp.path("previous.id").equals(postResponse.getPostId()));
+    }
 }
