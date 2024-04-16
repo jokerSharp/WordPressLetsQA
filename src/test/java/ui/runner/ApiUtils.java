@@ -139,4 +139,19 @@ public class ApiUtils {
 
         return response;
     }
+
+    public static Response deletePost(String request) {
+        Response resp = RestAssured
+                .given()
+                .log().all()
+                .header("Authorization", TOKEN)
+                .when()
+                .delete(baseURL + apiUrl + POST_POST + request)
+                .then()
+                .log().all()
+                .assertThat().statusCode(200)
+                .extract().response();
+
+        return resp;
+    }
 }
