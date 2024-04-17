@@ -20,6 +20,12 @@ public class ApiUtils {
     private static final String USER_DELETE = "/users/";
     private static final String POST_POST = "/posts";
     private static final String COMMENT_POST = "/comments";
+    private static final String CONTEXT_VIEW = "context=view";
+    private static final String QUESTION_MARK = "?";
+    private static final String EQUAL_SIGN = "=";
+    private static final String AND_SIGN = "&";
+    private static final String PER_PAGE_10 = "per_page=10";
+    private static final String ORDER_BY_DATE = "orderby=date";
 
     static void setBaseUrl(String url) {
     baseURL = url;
@@ -150,6 +156,21 @@ public class ApiUtils {
                 .then()
                 .log().all()
                 .assertThat().statusCode(200)
+                .extract().response();
+
+        return resp;
+    }
+
+    public static Response getPostsList() {
+        Response resp = RestAssured
+                .given()
+                .header("Authorization", TOKEN)
+                .when()
+                .get(baseURL + apiUrl + POST_POST + QUESTION_MARK + CONTEXT_VIEW + AND_SIGN + PER_PAGE_10
+                        + AND_SIGN + ORDER_BY_DATE)
+                .then()
+                .log().all()
+                .statusCode(200)
                 .extract().response();
 
         return resp;
