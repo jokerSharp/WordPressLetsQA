@@ -21,7 +21,7 @@ public class ApiTest extends BaseTest {
     private UserResp userResp = new UserResp();
     private PostResponse postResponse = new PostResponse();
     private final String REASSIGN_PARAMETER = "reassign=1";
-    private final String FORCE_PARAMETER = "force=true";
+    private final String FORCE_TRUE = "force=true";
     private final String POST_TITLE = "New Post";
     private final String POST_STATUS = "publish";
     private final String POST_COMMENT_STATUS = "open";
@@ -100,7 +100,7 @@ public class ApiTest extends BaseTest {
 
     @Test(priority = 15)
     public void testApiDeleteNewUser() {
-        String request = String.format("%s?%s&%s", userResp.getId(), FORCE_PARAMETER, REASSIGN_PARAMETER);
+        String request = String.format("%s?%s&%s", userResp.getId(), FORCE_TRUE, REASSIGN_PARAMETER);
 
         Response resp = ApiUtils.deleteNewUser(request);
 
@@ -121,12 +121,19 @@ public class ApiTest extends BaseTest {
 
     @Test(priority = 10)
     public void testApiDeletePost() {
-        String request = String.format("/%s?%s", postResponse.getPostId(), FORCE_PARAMETER);
+        String request = String.format("/%s?%s", postResponse.getPostId(), FORCE_TRUE);
 
         Response resp = ApiUtils.deletePost(request);
 
         Assert.assertTrue(resp.statusCode() == 200);
         Assert.assertTrue(resp.path("deleted"));
         Assert.assertTrue(resp.path("previous.id").equals(postResponse.getPostId()));
+    }
+
+    @Test(priority = 5)
+    public void testApiGetPosts() {
+        Response resp = ApiUtils.getPostsList();
+
+        Assert.assertTrue(resp.statusCode() == 200);
     }
 }
