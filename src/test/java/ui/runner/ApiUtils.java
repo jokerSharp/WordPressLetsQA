@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
 import ui.model.api.*;
+import ui.model.api.pojo.CommentPOJO;
 import ui.model.base.BasePage;
 
 public class ApiUtils {
@@ -19,6 +20,12 @@ public class ApiUtils {
     private static final String USER_DELETE = "/users/";
     private static final String POST_POST = "/posts";
     private static final String COMMENT_POST = "/comments";
+    private static final String CONTEXT_VIEW = "context=view";
+    private static final String QUESTION_MARK = "?";
+    private static final String EQUAL_SIGN = "=";
+    private static final String AND_SIGN = "&";
+    private static final String PER_PAGE_10 = "per_page=10";
+    private static final String ORDER_BY_DATE = "orderby=date";
 
     static void setBaseUrl(String url) {
     baseURL = url;
@@ -115,15 +122,15 @@ public class ApiUtils {
         return postResponse;
     }
 
-    public static CommentResp postNewComment(CommentReq commentReq) {
-        CommentResp commentResp = new CommentResp();
+    public static CommentPOJO postNewComment(CommentPOJO request) {
+        CommentPOJO response = new CommentPOJO();
 
         Response resp = RestAssured
                 .given()
                 .log().all()
                 .header("Authorization", TOKEN)
                 .contentType(ContentType.JSON)
-                .body(commentReq)
+                .body(request)
                 .when()
                 .post(baseURL + apiUrl + COMMENT_POST)
                 .then()
@@ -131,10 +138,41 @@ public class ApiUtils {
                 .assertThat().statusCode(201)
                 .extract().response();
 
-        commentResp.setCommentId(resp.path("id"));
-        commentResp.setPostId(resp.path("post"));
-        commentResp.setAuthorId(resp.path("author"));
+        response.setId(resp.path("id"));
+        response.setPost(resp.path("post"));
+        response.setAuthor(resp.path("author"));
+        response.setContent(resp.path("content.raw"));
 
-        return commentResp;
+        return response;
+    }
+
+    public static Response deletePost(String request) {
+        Response resp = RestAssured
+                .given()
+                .log().all()
+                .header("Authorization", TOKEN)
+                .when()
+                .delete(baseURL + apiUrl + POST_POST + request)
+                .then()
+                .log().all()
+                .assertThat().statusCode(200)
+                .extract().response();
+
+        return resp;
+    }
+
+    public static Response getPostsList() {
+        Response resp = RestAssured
+                .given()
+                .header("Authorization", TOKEN)
+                .when()
+                .get(baseURL + apiUrl + POST_POST + QUESTION_MARK + CONTEXT_VIEW + AND_SIGN + PER_PAGE_10
+                        + AND_SIGN + ORDER_BY_DATE)
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract().response();
+
+        return resp;
     }
 }
