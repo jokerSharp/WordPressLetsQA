@@ -64,6 +64,11 @@ public class NewPagePage extends BasePage {
             throw new RuntimeException(e);
         }
         finalPublishButton.click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         return this;
     }
