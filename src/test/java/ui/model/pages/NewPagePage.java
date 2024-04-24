@@ -25,8 +25,8 @@ public class NewPagePage extends BasePage {
     @FindBy(css = ".editor-post-publish-button")
     private WebElement finalPublishButton;
 
-   // @FindBy(className = "components-modal__header-heading")
-    //private WebElement choosePatternTitle;
+    @FindBy(className = "edit-post-fullscreen-mode-close")
+    private WebElement viewPagesButton;
 
     public NewPagePage(WebDriver driver, boolean skipWelcomeDialog) {
         super(driver);
@@ -35,10 +35,6 @@ public class NewPagePage extends BasePage {
             editPostWelcomeGuideDialog.clickCloseButton();
         }
     }
-
-   // private void waitChoosePatternTitle() {
-   //     getWait2().until(driver -> choosePatternTitle.isDisplayed());
-    //}
 
     public NewPagePage clickPattern() {
         patternsList.get(0).click();
@@ -68,7 +64,17 @@ public class NewPagePage extends BasePage {
             throw new RuntimeException(e);
         }
         finalPublishButton.click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         return this;
+    }
+
+    public AllPagesPage clickViewPagesButton() {
+        viewPagesButton.click();
+        return new AllPagesPage(getDriver());
     }
 }

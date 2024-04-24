@@ -1,6 +1,7 @@
 package ui.model.base;
 
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,7 +30,7 @@ public class EditPostWelcomeGuideDialog {
     public static EditPostWelcomeGuideDialog wait(WebDriver driver) {
         try {
             return new EditPostWelcomeGuideDialog(driver);
-        } catch(NoSuchElementException e) {
+        } catch(NoSuchElementException | TimeoutException e) {
             return null;
         }
     }
