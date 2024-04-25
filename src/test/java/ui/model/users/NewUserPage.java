@@ -25,6 +25,9 @@ public class NewUserPage extends BasePage {
     @FindBy(id = "createusersub")
     private WebElement addNewUserButton;
 
+    @FindBy(css = ".error > p:first-child")
+    private WebElement errorMessage;
+
     public NewUserPage(WebDriver driver) {
         super(driver);
     }
@@ -68,5 +71,15 @@ public class NewUserPage extends BasePage {
         addNewUserButton.click();
 
         return new UserPage(getDriver());
+    }
+
+    public NewUserPage clickAddNewUserButtonIfInvalidUsername() {
+        addNewUserButton.click();
+
+        return new NewUserPage(getDriver());
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 }

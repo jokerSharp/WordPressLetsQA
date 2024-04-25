@@ -20,6 +20,9 @@ public class UserPage extends BasePage {
     @FindBy(xpath = "//a[@href='profile.php']")
     private WebElement profileButton;
 
+    @FindBy(xpath = "//a[@href='user-new.php']")
+    private WebElement addNewUserButton;
+
     public UserPage(WebDriver driver) {
         super(driver);
     }
@@ -51,5 +54,11 @@ public class UserPage extends BasePage {
         profileButton.click();
 
         return new UserProfilePage(getDriver());
+    }
+
+    public NewUserPage clickAddNewUserButton() {
+        addNewUserButton.click();
+
+        return new NewUserPage(getDriver());
     }
 }
