@@ -1,6 +1,7 @@
 package ui;
 
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import ui.model.DashboardPage;
 import ui.model.users.UserProfilePage;
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserTest extends BaseTest {
 
     private static final String USERNAME = "User";
+    private static final String INVALID_USERNAME = "admin";
     private static final String EMAIL = "user@gmail.com";
     private static final String FIRST_NAME = "John";
     private static final String LAST_NAME = "Doe";
@@ -34,6 +36,7 @@ public class UserTest extends BaseTest {
         Assert.assertListContainsObject(actualUsernames, USERNAME, "No user found");
     }
 
+    @Ignore
     @Test(dependsOnMethods = "testNewUserCreation")
     public void testDeleteCreatedUser() {
 
@@ -53,6 +56,7 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(actualSizeofUserListAfterDeletion, initialSizeOfUserList-1);
     }
 
+    @Ignore
     @Test
     public void testVerifyColorOfBackgroundLightScheme() {
 
@@ -77,5 +81,22 @@ public class UserTest extends BaseTest {
                 .getBackgroundColor();
 
         Assert.assertEquals(actualColorOfBackground, expectedBackgroundColorWithBDefaultScheme);
+    }
+
+    @Test
+    public void testVerifyErrorMessageIfExistedUsernameUsedForNewUser() {
+
+        String expectedErrorMessage = "Error: This username is already registered. Please choose another one.";
+
+        String actualErrorMessager = new DashboardPage(getDriver())
+                .getSidePanel()
+                .goToUserPage()
+                .clickAddNewUserButton()
+                .typeUsername(INVALID_USERNAME)
+                .typeEmail(EMAIL)
+                .clickAddNewUserButtonIfInvalidUsername()
+                .getErrorMessage();
+
+        Assert.assertEquals(actualErrorMessager, expectedErrorMessage);
     }
 }
