@@ -36,7 +36,6 @@ public class UserTest extends BaseTest {
         Assert.assertListContainsObject(actualUsernames, USERNAME, "No user found");
     }
 
-    @Ignore
     @Test(dependsOnMethods = "testNewUserCreation")
     public void testDeleteCreatedUser() {
 
@@ -56,7 +55,6 @@ public class UserTest extends BaseTest {
         Assert.assertEquals(actualSizeofUserListAfterDeletion, initialSizeOfUserList-1);
     }
 
-    @Ignore
     @Test
     public void testVerifyColorOfBackgroundLightScheme() {
 
