@@ -47,7 +47,7 @@ public class AddPluginsPage extends BasePage {
 
     public PluginsPage clickActivateWpApiSwaggerUiPlugin() {
         new Actions(getDriver())
-                .pause(2000)
+                .pause(3000)
                 .moveToElement(activateWpApiSwaggerUiPlugin)
                 .click()
                 .perform();
